@@ -7,39 +7,75 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C9D5EF431961961800AEDF1C /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF421961961800AEDF1C /* QuickLook.framework */; };
-		C9D5EF451961961800AEDF1C /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF441961961800AEDF1C /* ApplicationServices.framework */; };
-		C9D5EF471961961800AEDF1C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF461961961800AEDF1C /* CoreServices.framework */; };
-		C9D5EF491961961800AEDF1C /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF481961961800AEDF1C /* CoreFoundation.framework */; };
-		C9D5EF4F1961961800AEDF1C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9D5EF4D1961961800AEDF1C /* InfoPlist.strings */; };
-		C9D5EF511961961800AEDF1C /* GenerateThumbnailForURL.c in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF501961961800AEDF1C /* GenerateThumbnailForURL.c */; };
-		C9D5EF531961961800AEDF1C /* GeneratePreviewForURL.c in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF521961961800AEDF1C /* GeneratePreviewForURL.c */; };
-		C9D5EF551961961800AEDF1C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF541961961800AEDF1C /* main.c */; };
+		C9D5EF631961973A00AEDF1C /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF421961961800AEDF1C /* QuickLook.framework */; };
+		C9D5EF641961973A00AEDF1C /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF441961961800AEDF1C /* ApplicationServices.framework */; };
+		C9D5EF651961973A00AEDF1C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF461961961800AEDF1C /* CoreServices.framework */; };
+		C9D5EF661961973A00AEDF1C /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF481961961800AEDF1C /* CoreFoundation.framework */; };
+		C9D5EF721961973A00AEDF1C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF711961973A00AEDF1C /* main.c */; };
+		C9D5EF7B196197FD00AEDF1C /* ElektrikTrickQuickLook-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9D5EF77196197FD00AEDF1C /* ElektrikTrickQuickLook-Info.plist */; };
+		C9D5EF7C196197FD00AEDF1C /* ElektrikTrickQuickLook-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = C9D5EF78196197FD00AEDF1C /* ElektrikTrickQuickLook-Prefix.pch */; };
+		C9D5EF7D196197FD00AEDF1C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9D5EF79196197FD00AEDF1C /* InfoPlist.strings */; };
+		C9D5EF8C1961981900AEDF1C /* ETModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF7E1961981900AEDF1C /* ETModel.cpp */; };
+		C9D5EF8D1961981900AEDF1C /* ETModel.h in Headers */ = {isa = PBXBuildFile; fileRef = C9D5EF7F1961981900AEDF1C /* ETModel.h */; };
+		C9D5EF8E1961981900AEDF1C /* ETModelCG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF801961981900AEDF1C /* ETModelCG.cpp */; };
+		C9D5EF8F1961981900AEDF1C /* ETModelCG.h in Headers */ = {isa = PBXBuildFile; fileRef = C9D5EF811961981900AEDF1C /* ETModelCG.h */; };
+		C9D5EF921961981900AEDF1C /* ETQuickLookHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF841961981900AEDF1C /* ETQuickLookHelper.cpp */; };
+		C9D5EF931961981900AEDF1C /* ETQuickLookHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = C9D5EF851961981900AEDF1C /* ETQuickLookHelper.h */; };
+		C9D5EF941961981900AEDF1C /* ETTriangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF861961981900AEDF1C /* ETTriangle.cpp */; };
+		C9D5EF951961981900AEDF1C /* ETTriangle.h in Headers */ = {isa = PBXBuildFile; fileRef = C9D5EF871961981900AEDF1C /* ETTriangle.h */; };
+		C9D5EF961961981900AEDF1C /* ETVector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF881961981900AEDF1C /* ETVector.cpp */; };
+		C9D5EF971961981900AEDF1C /* ETVector.h in Headers */ = {isa = PBXBuildFile; fileRef = C9D5EF891961981900AEDF1C /* ETVector.h */; };
+		C9D5EF981961981900AEDF1C /* GeneratePreviewForURL.mm in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF8A1961981900AEDF1C /* GeneratePreviewForURL.mm */; };
+		C9D5EF991961981900AEDF1C /* GenerateThumbnailForURL.mm in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF8B1961981900AEDF1C /* GenerateThumbnailForURL.mm */; };
+		C9D5EF9B196198E200AEDF1C /* ElektrikTrickQuickLook.qlgenerator in CopyFiles */ = {isa = PBXBuildFile; fileRef = C9D5EF621961973A00AEDF1C /* ElektrikTrickQuickLook.qlgenerator */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		C9D5EF9A196198AC00AEDF1C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /Users/matt/Library/QuickLook;
+			dstSubfolderSpec = 0;
+			files = (
+				C9D5EF9B196198E200AEDF1C /* ElektrikTrickQuickLook.qlgenerator in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		C9D5EF3F1961961800AEDF1C /* Elektriktrick.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Elektriktrick.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9D5EF421961961800AEDF1C /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		C9D5EF441961961800AEDF1C /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		C9D5EF461961961800AEDF1C /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		C9D5EF481961961800AEDF1C /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		C9D5EF4C1961961800AEDF1C /* Elektriktrick-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Elektriktrick-Info.plist"; sourceTree = "<group>"; };
-		C9D5EF4E1961961800AEDF1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C9D5EF501961961800AEDF1C /* GenerateThumbnailForURL.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = GenerateThumbnailForURL.c; sourceTree = "<group>"; };
-		C9D5EF521961961800AEDF1C /* GeneratePreviewForURL.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = GeneratePreviewForURL.c; sourceTree = "<group>"; };
-		C9D5EF541961961800AEDF1C /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		C9D5EF561961961800AEDF1C /* Elektriktrick-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Elektriktrick-Prefix.pch"; sourceTree = "<group>"; };
+		C9D5EF621961973A00AEDF1C /* ElektrikTrickQuickLook.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ElektrikTrickQuickLook.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9D5EF711961973A00AEDF1C /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		C9D5EF77196197FD00AEDF1C /* ElektrikTrickQuickLook-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ElektrikTrickQuickLook-Info.plist"; sourceTree = "<group>"; };
+		C9D5EF78196197FD00AEDF1C /* ElektrikTrickQuickLook-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ElektrikTrickQuickLook-Prefix.pch"; sourceTree = "<group>"; };
+		C9D5EF7A196197FD00AEDF1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C9D5EF7E1961981900AEDF1C /* ETModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETModel.cpp; sourceTree = "<group>"; };
+		C9D5EF7F1961981900AEDF1C /* ETModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETModel.h; sourceTree = "<group>"; };
+		C9D5EF801961981900AEDF1C /* ETModelCG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETModelCG.cpp; sourceTree = "<group>"; };
+		C9D5EF811961981900AEDF1C /* ETModelCG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETModelCG.h; sourceTree = "<group>"; };
+		C9D5EF841961981900AEDF1C /* ETQuickLookHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETQuickLookHelper.cpp; sourceTree = "<group>"; };
+		C9D5EF851961981900AEDF1C /* ETQuickLookHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETQuickLookHelper.h; sourceTree = "<group>"; };
+		C9D5EF861961981900AEDF1C /* ETTriangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETTriangle.cpp; sourceTree = "<group>"; };
+		C9D5EF871961981900AEDF1C /* ETTriangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETTriangle.h; sourceTree = "<group>"; };
+		C9D5EF881961981900AEDF1C /* ETVector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETVector.cpp; sourceTree = "<group>"; };
+		C9D5EF891961981900AEDF1C /* ETVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETVector.h; sourceTree = "<group>"; };
+		C9D5EF8A1961981900AEDF1C /* GeneratePreviewForURL.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GeneratePreviewForURL.mm; sourceTree = "<group>"; };
+		C9D5EF8B1961981900AEDF1C /* GenerateThumbnailForURL.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GenerateThumbnailForURL.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C9D5EF3A1961961800AEDF1C /* Frameworks */ = {
+		C9D5EF5D1961973A00AEDF1C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9D5EF491961961800AEDF1C /* CoreFoundation.framework in Frameworks */,
-				C9D5EF431961961800AEDF1C /* QuickLook.framework in Frameworks */,
-				C9D5EF471961961800AEDF1C /* CoreServices.framework in Frameworks */,
-				C9D5EF451961961800AEDF1C /* ApplicationServices.framework in Frameworks */,
+				C9D5EF661961973A00AEDF1C /* CoreFoundation.framework in Frameworks */,
+				C9D5EF631961973A00AEDF1C /* QuickLook.framework in Frameworks */,
+				C9D5EF651961973A00AEDF1C /* CoreServices.framework in Frameworks */,
+				C9D5EF641961973A00AEDF1C /* ApplicationServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,7 +85,7 @@
 		C9D5EF341961961800AEDF1C = {
 			isa = PBXGroup;
 			children = (
-				C9D5EF4A1961961800AEDF1C /* Elektriktrick */,
+				C9D5EF671961973A00AEDF1C /* ElektrikTrickQuickLook */,
 				C9D5EF411961961800AEDF1C /* Frameworks */,
 				C9D5EF401961961800AEDF1C /* Products */,
 			);
@@ -58,7 +94,7 @@
 		C9D5EF401961961800AEDF1C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C9D5EF3F1961961800AEDF1C /* Elektriktrick.qlgenerator */,
+				C9D5EF621961973A00AEDF1C /* ElektrikTrickQuickLook.qlgenerator */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -74,23 +110,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C9D5EF4A1961961800AEDF1C /* Elektriktrick */ = {
+		C9D5EF671961973A00AEDF1C /* ElektrikTrickQuickLook */ = {
 			isa = PBXGroup;
 			children = (
-				C9D5EF501961961800AEDF1C /* GenerateThumbnailForURL.c */,
-				C9D5EF521961961800AEDF1C /* GeneratePreviewForURL.c */,
-				C9D5EF541961961800AEDF1C /* main.c */,
-				C9D5EF4B1961961800AEDF1C /* Supporting Files */,
+				C9D5EF7E1961981900AEDF1C /* ETModel.cpp */,
+				C9D5EF7F1961981900AEDF1C /* ETModel.h */,
+				C9D5EF801961981900AEDF1C /* ETModelCG.cpp */,
+				C9D5EF811961981900AEDF1C /* ETModelCG.h */,
+				C9D5EF841961981900AEDF1C /* ETQuickLookHelper.cpp */,
+				C9D5EF851961981900AEDF1C /* ETQuickLookHelper.h */,
+				C9D5EF861961981900AEDF1C /* ETTriangle.cpp */,
+				C9D5EF871961981900AEDF1C /* ETTriangle.h */,
+				C9D5EF881961981900AEDF1C /* ETVector.cpp */,
+				C9D5EF891961981900AEDF1C /* ETVector.h */,
+				C9D5EF8A1961981900AEDF1C /* GeneratePreviewForURL.mm */,
+				C9D5EF8B1961981900AEDF1C /* GenerateThumbnailForURL.mm */,
+				C9D5EF711961973A00AEDF1C /* main.c */,
+				C9D5EF681961973A00AEDF1C /* Supporting Files */,
 			);
-			path = Elektriktrick;
+			path = ElektrikTrickQuickLook;
 			sourceTree = "<group>";
 		};
-		C9D5EF4B1961961800AEDF1C /* Supporting Files */ = {
+		C9D5EF681961973A00AEDF1C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C9D5EF4C1961961800AEDF1C /* Elektriktrick-Info.plist */,
-				C9D5EF4D1961961800AEDF1C /* InfoPlist.strings */,
-				C9D5EF561961961800AEDF1C /* Elektriktrick-Prefix.pch */,
+				C9D5EF77196197FD00AEDF1C /* ElektrikTrickQuickLook-Info.plist */,
+				C9D5EF78196197FD00AEDF1C /* ElektrikTrickQuickLook-Prefix.pch */,
+				C9D5EF79196197FD00AEDF1C /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -98,33 +144,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		C9D5EF3B1961961800AEDF1C /* Headers */ = {
+		C9D5EF5E1961973A00AEDF1C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9D5EF971961981900AEDF1C /* ETVector.h in Headers */,
+				C9D5EF8F1961981900AEDF1C /* ETModelCG.h in Headers */,
+				C9D5EF951961981900AEDF1C /* ETTriangle.h in Headers */,
+				C9D5EF7C196197FD00AEDF1C /* ElektrikTrickQuickLook-Prefix.pch in Headers */,
+				C9D5EF931961981900AEDF1C /* ETQuickLookHelper.h in Headers */,
+				C9D5EF8D1961981900AEDF1C /* ETModel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		C9D5EF3E1961961800AEDF1C /* Elektriktrick */ = {
+		C9D5EF611961973A00AEDF1C /* ElektrikTrickQuickLook */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C9D5EF591961961800AEDF1C /* Build configuration list for PBXNativeTarget "Elektriktrick" */;
+			buildConfigurationList = C9D5EF761961973A00AEDF1C /* Build configuration list for PBXNativeTarget "ElektrikTrickQuickLook" */;
 			buildPhases = (
-				C9D5EF391961961800AEDF1C /* Sources */,
-				C9D5EF3A1961961800AEDF1C /* Frameworks */,
-				C9D5EF3B1961961800AEDF1C /* Headers */,
-				C9D5EF3C1961961800AEDF1C /* Resources */,
-				C9D5EF3D1961961800AEDF1C /* Rez */,
+				C9D5EF5C1961973A00AEDF1C /* Sources */,
+				C9D5EF5D1961973A00AEDF1C /* Frameworks */,
+				C9D5EF5E1961973A00AEDF1C /* Headers */,
+				C9D5EF5F1961973A00AEDF1C /* Resources */,
+				C9D5EF601961973A00AEDF1C /* Rez */,
+				C9D5EF9A196198AC00AEDF1C /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = Elektriktrick;
-			productName = Elektriktrick;
-			productReference = C9D5EF3F1961961800AEDF1C /* Elektriktrick.qlgenerator */;
+			name = ElektrikTrickQuickLook;
+			productName = ElektrikTrickQuickLook;
+			productReference = C9D5EF621961973A00AEDF1C /* ElektrikTrickQuickLook.qlgenerator */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -148,24 +201,25 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C9D5EF3E1961961800AEDF1C /* Elektriktrick */,
+				C9D5EF611961973A00AEDF1C /* ElektrikTrickQuickLook */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		C9D5EF3C1961961800AEDF1C /* Resources */ = {
+		C9D5EF5F1961973A00AEDF1C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9D5EF4F1961961800AEDF1C /* InfoPlist.strings in Resources */,
+				C9D5EF7B196197FD00AEDF1C /* ElektrikTrickQuickLook-Info.plist in Resources */,
+				C9D5EF7D196197FD00AEDF1C /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXRezBuildPhase section */
-		C9D5EF3D1961961800AEDF1C /* Rez */ = {
+		C9D5EF601961973A00AEDF1C /* Rez */ = {
 			isa = PBXRezBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -175,23 +229,28 @@
 /* End PBXRezBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		C9D5EF391961961800AEDF1C /* Sources */ = {
+		C9D5EF5C1961973A00AEDF1C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9D5EF511961961800AEDF1C /* GenerateThumbnailForURL.c in Sources */,
-				C9D5EF531961961800AEDF1C /* GeneratePreviewForURL.c in Sources */,
-				C9D5EF551961961800AEDF1C /* main.c in Sources */,
+				C9D5EF941961981900AEDF1C /* ETTriangle.cpp in Sources */,
+				C9D5EF921961981900AEDF1C /* ETQuickLookHelper.cpp in Sources */,
+				C9D5EF8C1961981900AEDF1C /* ETModel.cpp in Sources */,
+				C9D5EF721961973A00AEDF1C /* main.c in Sources */,
+				C9D5EF991961981900AEDF1C /* GenerateThumbnailForURL.mm in Sources */,
+				C9D5EF8E1961981900AEDF1C /* ETModelCG.cpp in Sources */,
+				C9D5EF961961981900AEDF1C /* ETVector.cpp in Sources */,
+				C9D5EF981961981900AEDF1C /* GeneratePreviewForURL.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		C9D5EF4D1961961800AEDF1C /* InfoPlist.strings */ = {
+		C9D5EF79196197FD00AEDF1C /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C9D5EF4E1961961800AEDF1C /* en */,
+				C9D5EF7A196197FD00AEDF1C /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -269,26 +328,30 @@
 			};
 			name = Release;
 		};
-		C9D5EF5A1961961800AEDF1C /* Debug */ = {
+		C9D5EF741961973A00AEDF1C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Elektriktrick/Elektriktrick-Prefix.pch";
-				INFOPLIST_FILE = "Elektriktrick/Elektriktrick-Info.plist";
+				GCC_PREFIX_HEADER = "ElektrikTrickQuickLook/ElektrikTrickQuickLook-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "ElektrikTrickQuickLook/ElektrikTrickQuickLook-Info.plist";
 				INSTALL_PATH = /Library/QuickLook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = qlgenerator;
 			};
 			name = Debug;
 		};
-		C9D5EF5B1961961800AEDF1C /* Release */ = {
+		C9D5EF751961973A00AEDF1C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Elektriktrick/Elektriktrick-Prefix.pch";
-				INFOPLIST_FILE = "Elektriktrick/Elektriktrick-Info.plist";
+				GCC_PREFIX_HEADER = "ElektrikTrickQuickLook/ElektrikTrickQuickLook-Prefix.pch";
+				INFOPLIST_FILE = "ElektrikTrickQuickLook/ElektrikTrickQuickLook-Info.plist";
 				INSTALL_PATH = /Library/QuickLook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = qlgenerator;
@@ -307,13 +370,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C9D5EF591961961800AEDF1C /* Build configuration list for PBXNativeTarget "Elektriktrick" */ = {
+		C9D5EF761961973A00AEDF1C /* Build configuration list for PBXNativeTarget "ElektrikTrickQuickLook" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C9D5EF5A1961961800AEDF1C /* Debug */,
-				C9D5EF5B1961961800AEDF1C /* Release */,
+				C9D5EF741961973A00AEDF1C /* Debug */,
+				C9D5EF751961973A00AEDF1C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
