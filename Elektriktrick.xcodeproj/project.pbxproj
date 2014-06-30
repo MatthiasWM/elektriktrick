@@ -1,0 +1,321 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C9D5EF431961961800AEDF1C /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF421961961800AEDF1C /* QuickLook.framework */; };
+		C9D5EF451961961800AEDF1C /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF441961961800AEDF1C /* ApplicationServices.framework */; };
+		C9D5EF471961961800AEDF1C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF461961961800AEDF1C /* CoreServices.framework */; };
+		C9D5EF491961961800AEDF1C /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF481961961800AEDF1C /* CoreFoundation.framework */; };
+		C9D5EF4F1961961800AEDF1C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9D5EF4D1961961800AEDF1C /* InfoPlist.strings */; };
+		C9D5EF511961961800AEDF1C /* GenerateThumbnailForURL.c in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF501961961800AEDF1C /* GenerateThumbnailForURL.c */; };
+		C9D5EF531961961800AEDF1C /* GeneratePreviewForURL.c in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF521961961800AEDF1C /* GeneratePreviewForURL.c */; };
+		C9D5EF551961961800AEDF1C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF541961961800AEDF1C /* main.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C9D5EF3F1961961800AEDF1C /* Elektriktrick.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Elektriktrick.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9D5EF421961961800AEDF1C /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
+		C9D5EF441961961800AEDF1C /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		C9D5EF461961961800AEDF1C /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		C9D5EF481961961800AEDF1C /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		C9D5EF4C1961961800AEDF1C /* Elektriktrick-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Elektriktrick-Info.plist"; sourceTree = "<group>"; };
+		C9D5EF4E1961961800AEDF1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C9D5EF501961961800AEDF1C /* GenerateThumbnailForURL.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = GenerateThumbnailForURL.c; sourceTree = "<group>"; };
+		C9D5EF521961961800AEDF1C /* GeneratePreviewForURL.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = GeneratePreviewForURL.c; sourceTree = "<group>"; };
+		C9D5EF541961961800AEDF1C /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		C9D5EF561961961800AEDF1C /* Elektriktrick-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Elektriktrick-Prefix.pch"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C9D5EF3A1961961800AEDF1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9D5EF491961961800AEDF1C /* CoreFoundation.framework in Frameworks */,
+				C9D5EF431961961800AEDF1C /* QuickLook.framework in Frameworks */,
+				C9D5EF471961961800AEDF1C /* CoreServices.framework in Frameworks */,
+				C9D5EF451961961800AEDF1C /* ApplicationServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C9D5EF341961961800AEDF1C = {
+			isa = PBXGroup;
+			children = (
+				C9D5EF4A1961961800AEDF1C /* Elektriktrick */,
+				C9D5EF411961961800AEDF1C /* Frameworks */,
+				C9D5EF401961961800AEDF1C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C9D5EF401961961800AEDF1C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C9D5EF3F1961961800AEDF1C /* Elektriktrick.qlgenerator */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C9D5EF411961961800AEDF1C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C9D5EF421961961800AEDF1C /* QuickLook.framework */,
+				C9D5EF441961961800AEDF1C /* ApplicationServices.framework */,
+				C9D5EF461961961800AEDF1C /* CoreServices.framework */,
+				C9D5EF481961961800AEDF1C /* CoreFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C9D5EF4A1961961800AEDF1C /* Elektriktrick */ = {
+			isa = PBXGroup;
+			children = (
+				C9D5EF501961961800AEDF1C /* GenerateThumbnailForURL.c */,
+				C9D5EF521961961800AEDF1C /* GeneratePreviewForURL.c */,
+				C9D5EF541961961800AEDF1C /* main.c */,
+				C9D5EF4B1961961800AEDF1C /* Supporting Files */,
+			);
+			path = Elektriktrick;
+			sourceTree = "<group>";
+		};
+		C9D5EF4B1961961800AEDF1C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C9D5EF4C1961961800AEDF1C /* Elektriktrick-Info.plist */,
+				C9D5EF4D1961961800AEDF1C /* InfoPlist.strings */,
+				C9D5EF561961961800AEDF1C /* Elektriktrick-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		C9D5EF3B1961961800AEDF1C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		C9D5EF3E1961961800AEDF1C /* Elektriktrick */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9D5EF591961961800AEDF1C /* Build configuration list for PBXNativeTarget "Elektriktrick" */;
+			buildPhases = (
+				C9D5EF391961961800AEDF1C /* Sources */,
+				C9D5EF3A1961961800AEDF1C /* Frameworks */,
+				C9D5EF3B1961961800AEDF1C /* Headers */,
+				C9D5EF3C1961961800AEDF1C /* Resources */,
+				C9D5EF3D1961961800AEDF1C /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Elektriktrick;
+			productName = Elektriktrick;
+			productReference = C9D5EF3F1961961800AEDF1C /* Elektriktrick.qlgenerator */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C9D5EF351961961800AEDF1C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "M.Melcher GmbH";
+			};
+			buildConfigurationList = C9D5EF381961961800AEDF1C /* Build configuration list for PBXProject "Elektriktrick" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C9D5EF341961961800AEDF1C;
+			productRefGroup = C9D5EF401961961800AEDF1C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C9D5EF3E1961961800AEDF1C /* Elektriktrick */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C9D5EF3C1961961800AEDF1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9D5EF4F1961961800AEDF1C /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		C9D5EF3D1961961800AEDF1C /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C9D5EF391961961800AEDF1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9D5EF511961961800AEDF1C /* GenerateThumbnailForURL.c in Sources */,
+				C9D5EF531961961800AEDF1C /* GeneratePreviewForURL.c in Sources */,
+				C9D5EF551961961800AEDF1C /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C9D5EF4D1961961800AEDF1C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9D5EF4E1961961800AEDF1C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C9D5EF571961961800AEDF1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C9D5EF581961961800AEDF1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C9D5EF5A1961961800AEDF1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Elektriktrick/Elektriktrick-Prefix.pch";
+				INFOPLIST_FILE = "Elektriktrick/Elektriktrick-Info.plist";
+				INSTALL_PATH = /Library/QuickLook;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = qlgenerator;
+			};
+			name = Debug;
+		};
+		C9D5EF5B1961961800AEDF1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Elektriktrick/Elektriktrick-Prefix.pch";
+				INFOPLIST_FILE = "Elektriktrick/Elektriktrick-Info.plist";
+				INSTALL_PATH = /Library/QuickLook;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = qlgenerator;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C9D5EF381961961800AEDF1C /* Build configuration list for PBXProject "Elektriktrick" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9D5EF571961961800AEDF1C /* Debug */,
+				C9D5EF581961961800AEDF1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C9D5EF591961961800AEDF1C /* Build configuration list for PBXNativeTarget "Elektriktrick" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9D5EF5A1961961800AEDF1C /* Debug */,
+				C9D5EF5B1961961800AEDF1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C9D5EF351961961800AEDF1C /* Project object */;
+}
