@@ -45,6 +45,7 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
           model.Draw(cgContext, canvasSize.width, canvasSize.height);
         }
       }
+      //ET::DrawText(cgContext, 18, 10.0f, 10.0f, "Don't draw on icons, except errors");
       
       CGContextRestoreGState(cgContext);
       QLThumbnailRequestFlushContext(thumbnail, cgContext);
