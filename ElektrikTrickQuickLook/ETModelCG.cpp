@@ -60,20 +60,28 @@ void ETModelCG::PrepareDrawing()
  */
 void ETModelCG::SimpleProjection(ETVector &v)
 {
+  const float ry = 180.0+30.0; // deg
+  float rys = sinf(ry/180.0*M_PI);
+  float ryc = cosf(ry/180.0*M_PI);
+  
+  const float rx = 30.0; // deg
+  float rxs = sinf(rx/180.0*M_PI);
+  float rxc = cosf(rx/180.0*M_PI);
+  
   float x = -v.x;
   float y = v.z;
   float z = -v.y;
   
   // rotate around the vertical a little to the left
-  v.x = x*.809f + z*.587f;
+  v.x = x*ryc + z*rys;
   v.y = y;
-  v.z = z*.809f - x*.587f;
+  v.z = z*ryc - x*rys;
   x = v.x; y = v.y; z = v.z;
   
   // now rotate around the x axis a bit so we see a depth
   v.x = x;
-  v.y = y*.951f + z*.309f;
-  v.z = z*.951f - y*.309f;
+  v.y = y*rxc + z*rxs;
+  v.z = z*rxc - y*rxs;
   
   // let's keep it at that, so that we have an orthagonal projection
 }

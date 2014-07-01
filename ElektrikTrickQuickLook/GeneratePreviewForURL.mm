@@ -52,7 +52,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
         }
       }
       // TODO: do we want to draw an error string onto the preview?
-      ET::DrawText(cgContext, 18, 10.0f, 10.0f, "www.elektriktrick.com  QL:v1.0");
+      ET::DrawText(cgContext, 18, 10.0f, 10.0f, "www.elektriktrick.com  QL:v1.0.1");
       
       CGContextRestoreGState(cgContext);
       QLPreviewRequestFlushContext(preview, cgContext);
