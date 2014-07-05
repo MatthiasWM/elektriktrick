@@ -10,7 +10,8 @@ public:
 //private:
     ETVertex *pNext;
     ETVector p;
-    ETVector n;
+    ETVector n, nMin, nMax;
+    int nMinN, nMaxN;
 };
 
 #endif // ETVERTEX_H

@@ -1,0 +1,165 @@
+#if 0
+//  DaVinci:
+// 1: x=10.15, 20.2, 30.2,  y=10.0, 20.0, 30.0, z=10.2, 20.3, 30.1, rx=10.0/9.3, ry=10.0/9.6
+
+//  DONE:
+// Offset math: use the maximum of each component to calculate the normal (if they have opposite sign, subtract them)
+
+//  TODO:
+// test object: get a better test object, or more objects, one for measuring, more for testing
+// test without caliper: arrow heads in all directions with scale
+// better math to find a hull (edges-around-point iterator, tris-around-oint iterator)
+// find duplicate use of points with same coordinates
+// faster vertex search (by distance?)
+// remove triangles that use one vertex twice
+// avoid edges with more than two triangles
+// fix face normals
+// fill holes (edges with single triangle)
+// render errors very visible
+// render corrected faces very visible
+// allow invisble edges (for oher file formats)
+// tape measure between points of interest
+// do not save objects that are not watertight!
+// embed the settings in the calibration object (7-seg object, pull two vertices inward)
+// open in XYZprinting software (and other apps)
+// list of known machines and build chambers (push to web!)
+// DnD with shift key down to add multiple stl files
+// importer for other 3d formats, exporter?
+// handle to rotate and position objects, multiply objects, mirror objects, delete objects
+// show shadow on build platform
+// automatic repositioning without overlap
+// help pages with photos and step-by-step explanation
+// dual and triple color setup?
+// multiple optimizer settings
+// drop-stl-on-me icons
+// rotating QuickLook?
+// Slicer?
+// text on model
+// QuickLook reads the app preferences and the xml.
+// run on MSWindows
+// run on Linux
+// more Da Vinci control (Reset cartridge? Send file (after slicing...), send EMail/SMS/WhatsApp after build is finished, encrypt, decrypt, replace scene if already running)
+// render GCode
+#endif
+
+/**
+  3D flatbed printer:
+
+  develop 4 corners:
+  - all corners connect with 15x1mm squar pipe
+  - all corners have feet that can be heigt-adjusted (thread with clicks?)
+  - 1st corner takes a steper horizontally, drivin an axle (or two) with belt gears
+  - 2nd corner offers counter bearing for motor in first corner
+  - 3rd and 4th corner tension the belt
+  - clip-on controller
+  - x axis modules are agin modular and hold the x rail and one or two motors
+  - all pipes and rails should have the same length - corners make up for the differences (one set of rails, even if the user changes the corners)
+  - power chains and holders for them
+  - belt tensioner
+  - sled adapter modular for different print heads
+  - complete part list and assembly instructions, electronics for sale, software for sale, hardware kits, complete kits, corners vie shapeways
+  - sample videos
+  - crowd funding?
+  - remember the spreader and the powder boxes ;-)
+  - camera on head for alignment?
+
+  */
+
+/**
+  Laser
+  - check if we can cut a line lens for a point laser
+  - create a simple holder for two lasers including lens, or three lasers (line, line point)
+  - camera and camera holder
+  - put USB hub into machine? Will the dongle work in a USB hub (keep inside the machine!)
+  - hub with external Stick connector, internal dongle, camera, machine controller
+  - usb control to switch laser lines, chiller, air blower, exhaust?
+  - recognize material by QR
+  - recognize cut file by QR
+  - align cut file by QR and calibration points
+  - adjust height using the camera
+  */
+
+#if 0
+// The following code decrypts XYZPrint Da Vinci gCode files
+
+private static void decode() throws Exception {
+        String key = "@xyzprinting.com";
+        byte[] kbb = key.getBytes("UTF-8");
+
+        InputStream is = new FileInputStream("/tmp/davinci.3w");
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        int c;
+        while ((c = is.read()) != -1)
+            bos.write(c);
+        byte[] bytes = bos.toByteArray();
+        Cipher aes = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        SecretKeySpec spec = new SecretKeySpec(kbb, "AES");
+        byte[] iv = new byte[16];   // Zero IV
+        aes.init(Cipher.DECRYPT_MODE, spec, new IvParameterSpec(iv));
+        FileOutputStream os = new FileOutputStream("/tmp/davinci.zip");
+        for (int i = 0x2000; i < bytes.length; i += 0x2010) {
+            os.write(aes.doFinal(bytes, i, Math.min(bytes.length - i, 0x2010)));
+        }
+        os.close();
+    }
+
+USB Device:
+    Communication Device:
+
+      Product ID:	0x2525
+      Vendor ID:	0x11f1
+      Version:	 1.00
+      Speed:	Up to 12 Mb/sec
+      Location ID:	0x14100000 / 14
+      Current Available (mA):	500
+      Current Required (mA):	100
+
+    registers as tty.usbmodem1411
+
+communication 115200 8N1:
+
+  > XYZ_@3D:0<0a> :6
+  < XYZ_@3D:start<0a>
+  < ...
+
+
+  "prefix"              = "XYZ_@3D:";
+  //"disconnect"           = "XYZ_@3D_S10_X";
+  //"connect"              = "XYZ_@3D_S10_0";
+  //"start print"          = "XYZ_@3D_S10_1";
+  //"test case"            = "XYZ_@3D_S10_2";
+  //"uploadFirmwareBinary" = "XYZ_@3D_S10_3";
+  //"uploadGCodeText"      = "XYZ_@3D_S10_4";
+  //"extruder Temperature" = "XYZ_@3D_S10_101";
+  //"get standard info"    = "XYZ_@3D_S10_102";
+  //"get advanced info"    = "XYZ_@3D_S10_103";
+
+  "disconnect"             = "XYZ_@3D:-1";
+  "connect"                = "XYZ_@3D:0";
+  "startOnlinePrint"       = "XYZ_@3D:1";
+  "test print"             = "XYZ_@3D:2";
+  "injectManualCommand"    = "XYZ_@3D:2";
+  "uploadFirmwareBinary"   = "XYZ_@3D:3";
+  "uploadGCodeText"        = "XYZ_@3D:4";
+  "latestBlockSent"        = "XYZ_@3D:90";
+  "uploadBinaryDidFinish"  = "XYZ_@3D:91";
+  "uploadGCodeDidFinish"   = "XYZ_@3D:92";
+  "machineLife"            = "XYZ_@3D:5";
+  "read eeprom A"          = "XYZ_@3D:6";
+  "read eeprom B"          = "XYZ_@3D:7";
+  "machine status"         = "XYZ_@3D:8";
+  "printer status"         = "XYZ_@3D:8"; // same as machine status
+  "get standard info"      = "XYZ_@3D:201";
+  "get advanced info"      = "XYZ_@3D:202";
+  //example "XYZ_@3D:101,1"
+  //example "XYZ_@3D:101,2"
+  //example "XYZ_@3D:103,2"
+  "extruder on"           = "XYZ_@3D:101";
+  "extruder off"          = "XYZ_@3D:102";
+  "extruder Temperature"  = "XYZ_@3D:103";
+    DAVLED_1 and DAVLED_0, DAVBUZ_1
+    http://voltivo.com/forum/davinci-firmware/39-davxxx-commands#230
+
+    https://github.com/jasongao/DaVinci1.0/blob/master/print-to-davinci.py
+
+#endif
