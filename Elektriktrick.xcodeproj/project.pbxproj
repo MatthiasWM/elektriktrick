@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C97E928D1993FB180078000B /* ETModelGCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97E928B1993FB180078000B /* ETModelGCode.cpp */; };
+		C97E928E1993FB180078000B /* ETModelGCode.h in Headers */ = {isa = PBXBuildFile; fileRef = C97E928C1993FB180078000B /* ETModelGCode.h */; };
+		C97E929119940F340078000B /* ETEdge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97E928F19940F340078000B /* ETEdge.cpp */; };
+		C97E929219940F340078000B /* ETEdge.h in Headers */ = {isa = PBXBuildFile; fileRef = C97E929019940F340078000B /* ETEdge.h */; };
 		C9D5EF631961973A00AEDF1C /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF421961961800AEDF1C /* QuickLook.framework */; };
 		C9D5EF641961973A00AEDF1C /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF441961961800AEDF1C /* ApplicationServices.framework */; };
 		C9D5EF651961973A00AEDF1C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF461961961800AEDF1C /* CoreServices.framework */; };
@@ -17,8 +21,8 @@
 		C9D5EF7D196197FD00AEDF1C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9D5EF79196197FD00AEDF1C /* InfoPlist.strings */; };
 		C9D5EF8C1961981900AEDF1C /* ETModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF7E1961981900AEDF1C /* ETModel.cpp */; };
 		C9D5EF8D1961981900AEDF1C /* ETModel.h in Headers */ = {isa = PBXBuildFile; fileRef = C9D5EF7F1961981900AEDF1C /* ETModel.h */; };
-		C9D5EF8E1961981900AEDF1C /* ETModelCG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF801961981900AEDF1C /* ETModelCG.cpp */; };
-		C9D5EF8F1961981900AEDF1C /* ETModelCG.h in Headers */ = {isa = PBXBuildFile; fileRef = C9D5EF811961981900AEDF1C /* ETModelCG.h */; };
+		C9D5EF8E1961981900AEDF1C /* ETModelSTL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF801961981900AEDF1C /* ETModelSTL.cpp */; };
+		C9D5EF8F1961981900AEDF1C /* ETModelSTL.h in Headers */ = {isa = PBXBuildFile; fileRef = C9D5EF811961981900AEDF1C /* ETModelSTL.h */; };
 		C9D5EF921961981900AEDF1C /* ETQuickLookHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF841961981900AEDF1C /* ETQuickLookHelper.cpp */; };
 		C9D5EF931961981900AEDF1C /* ETQuickLookHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = C9D5EF851961981900AEDF1C /* ETQuickLookHelper.h */; };
 		C9D5EF941961981900AEDF1C /* ETTriangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF861961981900AEDF1C /* ETTriangle.cpp */; };
@@ -44,6 +48,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C97E928B1993FB180078000B /* ETModelGCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETModelGCode.cpp; sourceTree = "<group>"; };
+		C97E928C1993FB180078000B /* ETModelGCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETModelGCode.h; sourceTree = "<group>"; };
+		C97E928F19940F340078000B /* ETEdge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETEdge.cpp; sourceTree = "<group>"; };
+		C97E929019940F340078000B /* ETEdge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETEdge.h; sourceTree = "<group>"; };
 		C9D5EF421961961800AEDF1C /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		C9D5EF441961961800AEDF1C /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		C9D5EF461961961800AEDF1C /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
@@ -55,8 +63,8 @@
 		C9D5EF7A196197FD00AEDF1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C9D5EF7E1961981900AEDF1C /* ETModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETModel.cpp; sourceTree = "<group>"; };
 		C9D5EF7F1961981900AEDF1C /* ETModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETModel.h; sourceTree = "<group>"; };
-		C9D5EF801961981900AEDF1C /* ETModelCG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETModelCG.cpp; sourceTree = "<group>"; };
-		C9D5EF811961981900AEDF1C /* ETModelCG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETModelCG.h; sourceTree = "<group>"; };
+		C9D5EF801961981900AEDF1C /* ETModelSTL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETModelSTL.cpp; sourceTree = "<group>"; };
+		C9D5EF811961981900AEDF1C /* ETModelSTL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETModelSTL.h; sourceTree = "<group>"; };
 		C9D5EF841961981900AEDF1C /* ETQuickLookHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETQuickLookHelper.cpp; sourceTree = "<group>"; };
 		C9D5EF851961981900AEDF1C /* ETQuickLookHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETQuickLookHelper.h; sourceTree = "<group>"; };
 		C9D5EF861961981900AEDF1C /* ETTriangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETTriangle.cpp; sourceTree = "<group>"; };
@@ -115,12 +123,16 @@
 			children = (
 				C9D5EF7E1961981900AEDF1C /* ETModel.cpp */,
 				C9D5EF7F1961981900AEDF1C /* ETModel.h */,
-				C9D5EF801961981900AEDF1C /* ETModelCG.cpp */,
-				C9D5EF811961981900AEDF1C /* ETModelCG.h */,
+				C9D5EF801961981900AEDF1C /* ETModelSTL.cpp */,
+				C9D5EF811961981900AEDF1C /* ETModelSTL.h */,
+				C97E928B1993FB180078000B /* ETModelGCode.cpp */,
+				C97E928C1993FB180078000B /* ETModelGCode.h */,
 				C9D5EF841961981900AEDF1C /* ETQuickLookHelper.cpp */,
 				C9D5EF851961981900AEDF1C /* ETQuickLookHelper.h */,
 				C9D5EF861961981900AEDF1C /* ETTriangle.cpp */,
 				C9D5EF871961981900AEDF1C /* ETTriangle.h */,
+				C97E928F19940F340078000B /* ETEdge.cpp */,
+				C97E929019940F340078000B /* ETEdge.h */,
 				C9D5EF881961981900AEDF1C /* ETVector.cpp */,
 				C9D5EF891961981900AEDF1C /* ETVector.h */,
 				C9D5EF8A1961981900AEDF1C /* GeneratePreviewForURL.mm */,
@@ -149,11 +161,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9D5EF971961981900AEDF1C /* ETVector.h in Headers */,
-				C9D5EF8F1961981900AEDF1C /* ETModelCG.h in Headers */,
+				C9D5EF8F1961981900AEDF1C /* ETModelSTL.h in Headers */,
 				C9D5EF951961981900AEDF1C /* ETTriangle.h in Headers */,
 				C9D5EF7C196197FD00AEDF1C /* ElektrikTrickQuickLook-Prefix.pch in Headers */,
+				C97E929219940F340078000B /* ETEdge.h in Headers */,
 				C9D5EF931961981900AEDF1C /* ETQuickLookHelper.h in Headers */,
 				C9D5EF8D1961981900AEDF1C /* ETModel.h in Headers */,
+				C97E928E1993FB180078000B /* ETModelGCode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,9 +252,11 @@
 				C9D5EF8C1961981900AEDF1C /* ETModel.cpp in Sources */,
 				C9D5EF721961973A00AEDF1C /* main.c in Sources */,
 				C9D5EF991961981900AEDF1C /* GenerateThumbnailForURL.mm in Sources */,
-				C9D5EF8E1961981900AEDF1C /* ETModelCG.cpp in Sources */,
+				C9D5EF8E1961981900AEDF1C /* ETModelSTL.cpp in Sources */,
 				C9D5EF961961981900AEDF1C /* ETVector.cpp in Sources */,
+				C97E929119940F340078000B /* ETEdge.cpp in Sources */,
 				C9D5EF981961981900AEDF1C /* GeneratePreviewForURL.mm in Sources */,
+				C97E928D1993FB180078000B /* ETModelGCode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,6 @@ class ETVertex
 public:
     ETVertex();
 //private:
-    ETVertex *pNext;
     ETVector p;
     ETVector n, nMin, nMax;
     int nMinN, nMaxN;

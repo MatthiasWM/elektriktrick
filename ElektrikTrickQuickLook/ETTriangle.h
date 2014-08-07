@@ -15,10 +15,10 @@
 class ETTriangle
 {
 public:
-  ETVector n;
-  ETVector p0, p1, p2;
-  uint16_t attr;
-  float z;
+    ETVector n;
+    ETVector p0, p1, p2;
+    uint16_t attr;
+    float z;
 };
 
 

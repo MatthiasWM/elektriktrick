@@ -15,16 +15,16 @@
 class ETVector
 {
 public:
-  void set(const ETVector &v);
-  void set(float, float, float);
-  void sub(const ETVector &v);
-  float dot(const ETVector &v) const;
-  void swapWith(ETVector &v);
-  void normalize();
-  float length() const;
-  int isFinite() const;
-  void fixFinite();
-  float x, y, z;
+    void set(const ETVector &v);
+    void set(float, float, float);
+    void sub(const ETVector &v);
+    float dot(const ETVector &v) const;
+    void swapWith(ETVector &v);
+    void normalize();
+    float length() const;
+    int isFinite() const;
+    void fixFinite();
+    float x, y, z;
 };
 
 

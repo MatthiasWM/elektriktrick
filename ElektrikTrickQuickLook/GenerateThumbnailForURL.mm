@@ -4,7 +4,7 @@
 
 #include <stdlib.h>
 
-#include "ETModelCG.h"
+#include "ETModelSTL.h"
 #include "ETTriangle.h"
 
 #include "ETQuickLookHelper.h"
@@ -26,7 +26,7 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
   @autoreleasepool{
     
     // FIXME: read the document here and abort if we get an error
-    ETModelCG model;
+    ETModelSTL model;
     
     // FIXME: read this data from the XML file somehow
     CGSize canvasSize; canvasSize.width = 512; canvasSize.height = 512;

@@ -12,6 +12,7 @@
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.elektriktrick.stl</string>
+				<string>com.elektriktrick.gcode</string>
 			</array>
 		</dict>
 	</array>
@@ -45,6 +46,23 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>stl</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeDescription</key>
+			<string>CNC Toolpath</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>com.elektriktrick.gcode</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>gcode</string>
 				</array>
 			</dict>
 		</dict>

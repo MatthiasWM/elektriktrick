@@ -12,6 +12,7 @@
 #include <QuickLook/QuickLook.h>
 
 #include <vector>
+#include <map>
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -25,6 +26,10 @@ class ETEdge;
 typedef char *ETString;
 
 typedef std::vector<ETTriangle*> ETTriangleList;
+typedef std::multimap<float, ETVertex*> ETVertexList;
+typedef std::multimap<float, ETVertex*>::iterator ETVertextIterator;
+typedef std::multimap<float, ETEdge*> ETEdgeList;
+typedef std::multimap<float, ETEdge*>::iterator ETEdgeIterator;
 
 class ETModel
 {
@@ -47,15 +52,11 @@ public:
 
 //private:
     ETTriangleList pTriList;
-    ETTriangle **sortedTri;
-    uint32_t nSortedTri;
-    ETVertex *pFirstVertex;
-    ETEdge *pFirstEdge;
+    ETVertexList pVertexList;
+    ETEdgeList pEdgeList;
+
     float cx, cy, cz, dx, dy, dz;
     // Posix File Interface
-    char *pFilename;
-    FILE *pFile;
-    off_t pFilesize;
     ETVector pBBoxMin;
     ETVector pBBoxMax;
 };

@@ -31,15 +31,8 @@
 /** 
  * Create an empty 3D model.
  */
-ETModel::ETModel() :
-    pFirstVertex(0L),
-    pFirstEdge(0L),
-    pFilename(0L),
-    pFile(0),
-    pFilesize(0)
+ETModel::ETModel()
 {
-    sortedTri = 0L;
-    nSortedTri = 0;
 }
 
 
@@ -48,21 +41,24 @@ ETModel::ETModel() :
  */
 ETModel::~ETModel()
 {
+    // delete all triangles
     uint32_t i, n = pTriList.size();
     for (i=0; i<n; i++) {
         ETTriangle *t = pTriList[i];
         delete t;
     }
-    //if (tri)
-    //    free(tri);
-    if (sortedTri)
-        free(sortedTri);
-    if (pFilename)
-        free(pFilename);
-    if (pFile)
-        fclose(pFile);
-    // TODO: delete vertices
-    // TODO: delete edges
+
+    // delete all vertices
+    ETVertextIterator vit;
+    for (vit=pVertexList.begin(); vit!=pVertexList.end(); vit++) {
+        delete vit->second;
+    }
+
+    // delete all edges
+    ETEdgeIterator eit;
+    for (eit=pEdgeList.begin(); eit!=pEdgeList.end(); eit++) {
+        delete eit->second;
+    }
 }
 
 
@@ -72,9 +68,10 @@ ETModel::~ETModel()
 void ETModel::FindBoundingBox()
 {
     float minX=0, minY=0, minZ=0, maxX=0, maxY=0, maxZ=0;
-    ETVertex *v = pFirstVertex;
-    while (v) {
-        if (v==pFirstVertex) {
+    ETVertextIterator vit;
+    for (vit=pVertexList.begin(); vit!=pVertexList.end(); vit++) {
+        ETVertex *v = vit->second;
+        if (vit==pVertexList.begin()) {
             minX = maxX = v->p.x;
             minY = maxY = v->p.y;
             minZ = maxZ = v->p.z;
@@ -83,7 +80,6 @@ void ETModel::FindBoundingBox()
         if (v->p.x<minX) minX = v->p.x; if (v->p.x>maxX) maxX = v->p.x;
         if (v->p.y<minY) minY = v->p.y; if (v->p.y>maxY) maxY = v->p.y;
         if (v->p.z<minZ) minZ = v->p.z; if (v->p.z>maxZ) maxZ = v->p.z;
-        v = v->pNext;
     }
     pBBoxMin.set(minX, minY, minZ);
     pBBoxMax.set(maxX, maxY, maxZ);
@@ -93,12 +89,12 @@ void ETModel::FindBoundingBox()
 
 int ETModel::FixupCoordinates()
 {
-    ETVertex *v = pFirstVertex;
-    while (v) {
+    ETVertextIterator vit;
+    for (vit=pVertexList.begin(); vit!=pVertexList.end(); vit++) {
+        ETVertex *v = vit->second;
         float tmp;
         v->p.x = -v->p.x;
         tmp = v->p.y; v->p.y = v->p.z; v->p.z = tmp;
-        v = v->pNext;
     }
     return 0;
 }
@@ -133,12 +129,12 @@ int ETModel::GenerateVertexNormals()
 {
     uint32_t i;
 
-    ETVertex *v = pFirstVertex;
-    while (v) {
+    ETVertextIterator vit;
+    for (vit=pVertexList.begin(); vit!=pVertexList.end(); vit++) {
+        ETVertex *v = vit->second;
         v->n.zero();
         v->nMin.zero(); v->nMinN = 0;
         v->nMax.zero(); v->nMaxN = 0;
-        v = v->pNext;
     }
 
     uint32_t n = pTriList.size();
@@ -189,8 +185,9 @@ int ETModel::GenerateVertexNormals()
 #endif
     }
 
-    v = pFirstVertex;
-    while (v) {
+    //ETVertextIterator vit;
+    for (vit=pVertexList.begin(); vit!=pVertexList.end(); vit++) {
+        ETVertex *v = vit->second;
 #if 0
         v->n.normalize();
 #endif
@@ -198,7 +195,6 @@ int ETModel::GenerateVertexNormals()
         v->n.set(v->nMax);
         v->n.add(v->nMin);
 #endif
-        v = v->pNext;
     }
 
     return 0;
@@ -231,20 +227,22 @@ void ETModel::Draw(void*, int, int)
     glEnd();
 
     // draw edges
-    glDisable(GL_LIGHTING);
-    ETEdge *e = pFirstEdge;
+    //glDisable(GL_LIGHTING);
     glBegin(GL_LINES);
 #if 1
-    while(e) {
+    ETEdgeIterator eit;
+    for (eit=pEdgeList.begin(); eit!=pEdgeList.end(); eit++) {
+        ETEdge *e = eit->second;
         switch(e->pNTriangle) {
         case 0: glColor3f(1.0f,1.0f,0.0f); break;
         case 1: glColor3f(0.0f,1.0f,0.0f); break;
-        case 2: glColor3f(0.0f,0.0f,0.0f); break;
+        case 2: glColor3f(0.6f,0.6f,0.6f); break;
         default: glColor3f(1.0f,0.0f,0.0f); break;
         }
+        ETTriangle *t = e->t0;
+        glNormal3fv((const GLfloat*)&t->n.x);
         glVertex3fv((const GLfloat*)&e->v0->p.x);
         glVertex3fv((const GLfloat*)&e->v1->p.x);
-        e = e->pNext;
     }
 #endif
     glEnd();
@@ -282,22 +280,22 @@ int ETModel::verifyIntegrity()
     }
 
     // check all edges for valid number of connected triangles
-    ETEdge *e = pFirstEdge;
-    while (e) {
+    ETEdgeIterator eit;
+    for (eit=pEdgeList.begin(); eit!=pEdgeList.end(); eit++) {
+        ETEdge *e = eit->second;
         if (e->pNTriangle==0) noTriPerEdgeError++;
         if (e->pNTriangle==1) singleTriPerEdgeError++;
         if (e->pNTriangle>=3) tooManyTrisPerEdgeError++;
         if (e->t0==e->t1) doubleTriPerEdgeError++;
         if (e->v0==e->v1) doubleVertexPerEdgeError++;
         nEdge++;
-        e = e->pNext;
     }
 
     // check vertices
-    ETVertex *v = pFirstVertex;
-    while (v) {
+    ETVertextIterator vit;
+    for (vit=pVertexList.begin(); vit!=pVertexList.end(); vit++) {
+        ETVertex *v = vit->second;
         nVertice++;
-        v = v->pNext;
     }
 
     if (verticesPerTriError)
@@ -322,14 +320,12 @@ int ETModel::verifyIntegrity()
 
     int nErr = verticesPerTriError + doubleVertexError + edgesPerTriError + doubleEdgeError
             + noTriPerEdgeError + singleTriPerEdgeError + tooManyTrisPerEdgeError + doubleTriPerEdgeError + doubleVertexPerEdgeError;
-    printf("%d errors in model (%d vertices, %d edges, %d triangles)\n", nErr, nVertice, nEdge, pTriList.size());
+    printf("%d errors in model (%d vertices, %d edges, %lu triangles)\n", nErr, nVertice, nEdge, pTriList.size());
 
     fflush(stdout);
 
     return nErr;
 }
-
-
 
 
 void ETModel::PrepareDrawing()
@@ -344,16 +340,18 @@ void ETModel::PrepareDrawing()
 
 ETVertex *ETModel::findOrAddVertex(const ETVector &pIn)
 {
-    ETVertex *v = pFirstVertex;
-    while (v) {
-        if (v->p.x==pIn.x && v->p.y==pIn.y && v->p.z==pIn.z)
+    float ix = pIn.x*pIn.x + pIn.y*pIn.y + pIn.z*pIn.z;
+    ETVertextIterator vit;
+    for (vit=pVertexList.find(ix); vit!=pVertexList.end(); vit++) {
+        if (vit->first!=ix) break;
+        ETVertex *v = vit->second;
+        if (v->p.x==pIn.x && v->p.y==pIn.y && v->p.z==pIn.z) {
             return v;
-        v = v->pNext;
+        }
     }
-    v = new ETVertex;
+    ETVertex *v = new ETVertex;
     v->p.set(pIn);
-    v->pNext = pFirstVertex;
-    pFirstVertex = v;
+    pVertexList.insert(std::make_pair(ix, v));
     return v;
 }
 
@@ -372,16 +370,22 @@ void ETModel::createEdgeList()
 
 ETEdge *ETModel::findOrAddEdge(ETVertex *v0, ETVertex *v1, ETTriangle *t)
 {
-    ETEdge *e = pFirstEdge;
-    while (e) {
+    const float maxDelta = 1e-2;
+    float ix = v0->p.x*v0->p.x + v0->p.y*v0->p.y + v0->p.z*v0->p.z +
+               v1->p.x*v1->p.x + v1->p.y*v1->p.y + v1->p.z*v1->p.z;
+    ETEdgeIterator eit;
+    for (eit=pEdgeList.lower_bound(ix-maxDelta); eit!=pEdgeList.end(); eit++) {
+        if (eit->first>ix+maxDelta) break;
+        ETEdge *e = eit->second;
         if (  ((e->v0==v0)&&(e->v1==v1))
-           || ((e->v0==v1)&&(e->v1==v0)) ) {
+           || ((e->v0==v1)&&(e->v1==v0)) )
+        {
             e->pNTriangle++;
+            printf("%g    %g %g\n", eit->first-ix, ix, eit->first);
             return e;
         }
-        e = e->pNext;
     }
-    e = new ETEdge;
+    ETEdge *e = new ETEdge;
     e->v0 = v0;
     e->v1 = v1;
     e->pNTriangle++;
@@ -389,16 +393,16 @@ ETEdge *ETModel::findOrAddEdge(ETVertex *v0, ETVertex *v1, ETTriangle *t)
     case 1: e->t0 = t; break;
     case 2: e->t1 = t; break;
     }
-    e->pNext = pFirstEdge;
-    pFirstEdge = e;
+    pEdgeList.insert(std::make_pair(ix, e));
     return e;
 }
 
 
 void ETModel::calibrate(float xGrow, float yGrow, float zGrow, float xScale, float yScale, float zScale)
 {
-    ETVertex *v = pFirstVertex;
-    while (v) {
+    ETVertextIterator vit;
+    for (vit=pVertexList.begin(); vit!=pVertexList.end(); vit++) {
+        ETVertex *v = vit->second;
         // shrink in x and z
         // this is needed if the string layed down is thicker than anticipated
         ETVector xzNormal = v->n;   // get the point normal
@@ -407,8 +411,6 @@ void ETModel::calibrate(float xGrow, float yGrow, float zGrow, float xScale, flo
         xzNormal.z *= zGrow;      // fix the z shrink in z direction
         v->p.add(xzNormal);
         // shrinking in z makes not much sense
-
-        v = v->pNext;
     }
 }
 
