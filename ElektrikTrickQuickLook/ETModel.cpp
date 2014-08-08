@@ -7,8 +7,10 @@
 //
 
 #include "ETModel.h"
-#include "ETModelSTL.h"
+#include "ETModelTextSTL.h"
+#include "ETModelBinarySTL.h"
 #include "ETModelGCode.h"
+#include "ETModelDXF.h"
 
 #include "ETTriangle.h"
 #include "ETVector.h"
@@ -57,22 +59,29 @@ ETModel *ETModel::ModelForFileType(const char *filename)
     fseek(file, 0, SEEK_SET);
     
     ETModel *mdl = 0L;
-    if (FileIsBinarySTL(buf, size)) {
-//        fprintf(stderr, "ElektriktrickQL: binary STL file\n");
-        mdl = new ETModelSTL();
-    } else if (FileIsTextSTL(buf, size)) {
-//        fprintf(stderr, "ElektriktrickQL: text STL file\n");
-        mdl = new ETModelSTL();
-    } else if (FileIsGCode(buf, size)) {
-//        fprintf(stderr, "ElektriktrickQL: GCode file\n");
-        mdl = new ETModelGCode();
-    } else {
-        fprintf(stderr, "ElektriktrickQL: unrecognized file type\n");
+    
+    if (!mdl) {
+        mdl = ETModelBinarySTL::Create(buf, size);
+        if (mdl) fprintf(stderr, "ElektriktrickQL: binary STL file\n");
+    }
+    if (!mdl) {
+        mdl = ETModelTextSTL::Create(buf, size);
+        if (mdl) fprintf(stderr, "ElektriktrickQL: text STL file\n");
+    }
+    if (!mdl) {
+        mdl = ETModelGCode::Create(buf, size);
+        if (mdl) fprintf(stderr, "ElektriktrickQL: GCode file\n");
+    }
+    if (!mdl) {
+        mdl = ETModelDXF::Create(buf, size);
+        if (mdl) fprintf(stderr, "ElektriktrickQL: DXF file\n");
     }
     if (mdl) {
         mdl->pFile = file;
         mdl->pFilename = strdup(filename);
         mdl->pFilesize = st.st_size;
+    } else {
+        fprintf(stderr, "ElektriktrickQL: unrecognized file type\n");
     }
     return mdl;
 }
@@ -101,30 +110,13 @@ bool ETModel::FileIsTextSTL(uint8_t *buf, size_t size)
 }
 
 
-bool ETModel::FileIsGCode(uint8_t *buf, size_t size)
-{
-    // gcode lines start with "M#" or "G#" or "(", where # is some decimal integer
-    signed int i;
-    for (i=0; i<size-4; i++) {
-        if (i==0 || buf[i-1]=='\r' || buf[i-1]=='\n') {
-            if (buf[i]=='(') return true; // is that indicator enough?
-            if (buf[i]=='G' || buf[i]=='M') {
-                if (isdigit(buf[i+1])) return true;
-            }
-        }
-    }
-    return false;
-}
-
-
-
 /**
  * Create an empty 3D model.
  */
 ETModel::ETModel() :
-pFilename(0L),
-pFile(0),
-pFilesize(0)
+    pFilename(0L),
+    pFile(0),
+    pFilesize(0)
 {
 }
 

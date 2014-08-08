@@ -1,21 +1,23 @@
 //
-//  ETModelSTL.h
+//  ETWireframeModel.h
 //  Electrictrick
 //
 //  Created by Matthias Melcher on 6/26/14.
 //  Copyright (c) 2014 M.Melcher GmbH. All rights reserved.
 //
 
-#ifndef __Electrictrick__ETModelSTL__
-#define __Electrictrick__ETModelSTL__
+#ifndef __Electrictrick__ETWireframeModel__
+#define __Electrictrick__ETWireframeModel__
 
 #include "ETModel.h"
 
-class ETModelSTL : public ETModel
+class ETEdge;
+
+class ETWireframeModel : public ETModel
 {
 public:
-    ETModelSTL();
-    virtual ~ETModelSTL();
+    ETWireframeModel();
+    virtual ~ETWireframeModel();
     virtual void Draw(void*, int, int);
     virtual void PrepareDrawing();
     virtual void FindBoundingBox();
@@ -23,17 +25,13 @@ public:
     virtual int SimpleProjection();
     
     void SimpleProjection(ETVector &v) { ETModel::SimpleProjection(v); }
-    
     int DepthSort();
-    static int CompareTriZ(const void *a, const void *b);
-    int GenerateFaceNormals();
+    static int CompareEdgeZ(const void *a, const void *b);
     
-    ETTriangle *tri;
-    uint32_t nTri;
-    uint32_t NTri;
-    ETTriangle **sortedTri;
-    uint32_t nSortedTri;
-
+    ETEdge *edge;
+    uint32_t nEdge;
+    uint32_t NEdge;
+    ETEdge **sortedEdge;
 };
 
-#endif /* defined(__Electrictrick__ETModelSTL__) */
+#endif /* defined(__Electrictrick__ETWireframeModel__) */

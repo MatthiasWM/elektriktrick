@@ -39,7 +39,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
             ETModel *model = ETModel::ModelForFileType(filename);
             if (model) {
 
-                if (model->Load(filename)) {
+                if (model->Load()) {
                     
                     // FIXME: read this data from the XML file somehow
                     CGSize canvasSize; canvasSize.width = 1000; canvasSize.height = 800;
@@ -53,7 +53,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
                         
                         model->PrepareDrawing();
                         model->Draw(cgContext, canvasSize.width, canvasSize.height);
-                        ET::DrawText(cgContext, 18, 10.0f, 10.0f, "www.elektriktrick.com  QL:v1.0.1");
+                        ET::DrawText(cgContext, 18, 10.0f, 10.0f, "www.elektriktrick.com  QL:v1.0.2");
                         
                         CGContextRestoreGState(cgContext);
                         QLPreviewRequestFlushContext(preview, cgContext);

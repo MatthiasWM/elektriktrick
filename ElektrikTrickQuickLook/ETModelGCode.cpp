@@ -7,11 +7,27 @@
 //
 
 #include "ETModelGCode.h"
-#include "ETTriangle.h"
+#include "ETEdge.h"
 #include "ETVector.h"
 
 
-ETModelGCode::ETModelGCode() : ETModel()
+ETModel *ETModelGCode::Create(uint8_t *buf, size_t size)
+{
+    // gcode lines evetually start with "M#" or "G#", where # is some decimal integer
+    signed int i;
+    for (i=0; i<size-4; i++) {
+        if (i==0 || buf[i-1]=='\r' || buf[i-1]=='\n') {
+            if (buf[i]=='G' || buf[i]=='M') {
+                if (isdigit(buf[i+1])) return new ETModelGCode();
+            }
+        }
+    }
+    return 0L;
+}
+
+
+ETModelGCode::ETModelGCode()
+:   ETWireframeModel()
 {
 }
 
@@ -21,130 +37,102 @@ ETModelGCode::~ETModelGCode()
 }
 
 
-int ETModelGCode::Load(const char *filename)
+/**
+ * GCodeloader.
+ *
+ * GCode is an ancient file format to control CNC machines. In the 3D printing
+ * world, it is used as the lowest common denominator to send motion data to 
+ * a three-axis printer. The format was extended with many control codes
+ * for multiple extruders, heated nozzles and beds, and whatever else comes 
+ * to the developers minds. 
+ *
+ * FOr QuickLook, we limit ourselves to G0 and G1 which move the extruder 
+ * around, for example:
+ *
+ *   G1 X-0.55 Y20.0 Z0.2 F840.0
+ *
+ * \return no error code, it fails silently, but creates an intact (possibly incomplete) dataset
+ */
+int ETModelGCode::Load()
 {
-//    G1 X-0.55 Y20.0 Z0.2 F840.0
-    fprintf(stderr, "int ETModelGCode::Load(const char *filename)\n");
+    bool absPos = true;
+    bool ignoreFirst = true;
+    double cx = 0.0, cy = 0.0, cz = 0.0;
+    NEdge = 8192;
+    edge = (ETEdge*)calloc(NEdge, sizeof(ETEdge));
+    
+    char buf[1024];
+    
+    for (;;) {
+        if (FEof()) break;
+        buf[0] = 0;
+        FGetS(buf, 1023);
+        if (buf[0]=='G') {
+            int gCode = atoi(buf+1);
+            if (gCode==0 || gCode==1) { // move
+                if (NEdge==nEdge) {
+                    NEdge += 8192;
+                    edge = (ETEdge*)realloc(edge, NEdge*sizeof(ETEdge));
+                }
+                ETEdge &e = edge[nEdge];
+                e.p0.set(cx, cy, cz);
+                char *arg = strchr(buf+2, 'X');
+                if (arg) cx = (absPos?0:cx) + atof(arg+1);
+                arg = strchr(buf+2, 'Y');
+                if (arg) cy = (absPos?0:cx) + atof(arg+1);
+                arg = strchr(buf+2, 'Z');
+                if (arg) cz = (absPos?0:cx) + atof(arg+1);
+                e.p1.set(cx, cy, cz);
+                e.attr = 0;
+                if (gCode==1) e.attr |= 1;
+                // ignore the first segments if they move from the origin
+                if (ignoreFirst) {
+                    if (e.p0.x!=0.0 || e.p0.y!=0.0 || e.p0.z!=0.0)
+                        ignoreFirst = false;
+                } else {
+                    nEdge++;
+                }
+            } else switch (gCode) {
+                case 90: // Set to Absolute Positioning
+                    absPos = true; break;
+                case 91: // Set to Relative Positioning
+                    absPos = false; break;
+                default:
+                    break;
+            }
+        }
+    }
+    // ignore the last segment. On some machines it moves away from the model.
+    if (nEdge>0)
+        nEdge--;
     return 1;
 }
 
 
-/**
- * Draw all triangles in the model starting at the furthest triangle all the way to the closest one.
- */
-void ETModelGCode::Draw(void* ctx, int width, int height)
-{
-//    CGContextRef cgContext = (CGContextRef)ctx;
-//    int xoff = width/2;
-//    int yoff = height/2;
-//    int xscl = height*0.42; // yes, that is "height", assuming that height is smaller than width
-//    int yscl = height*0.42;
-//    uint32_t i;
-//    for (i=0; i<nSortedTri; ++i) {
-//        ETTriangle *t = sortedTri[i];
-//        float lum = (sinf((t->n.x+1.2f)*0.5f*M_PI)*0.5f+0.5f) * (sinf((t->n.y+1.4f)*0.5f*M_PI)*0.5f+0.5f);
-//        float lumStroke = lum * 0.75f;
-//        CGContextSetRGBFillColor(cgContext, lum, lum, lum, 0.8);
-//        CGContextSetRGBStrokeColor(cgContext, lumStroke, lumStroke, lumStroke, 0.9);
-//        CGContextBeginPath(cgContext);
-//        CGContextMoveToPoint(cgContext, t->p0.x*xscl+xoff, t->p0.y*yscl+yoff);
-//        CGContextAddLineToPoint(cgContext, t->p1.x*xscl+xoff, t->p1.y*yscl+yoff);
-//        CGContextAddLineToPoint(cgContext, t->p2.x*xscl+xoff, t->p2.y*yscl+yoff);
-//        CGContextClosePath(cgContext);
-//        CGContextDrawPath(cgContext, kCGPathFillStroke);
-//        // TODO: if (QLPreviewRequestIsCancelled(preview)) break;
-//    }
-}
+#if 0
+// use this to decipher XYZPrinter GCode files (or the C++ equivalent):
 
-
-void ETModelGCode::PrepareDrawing()
-{
-    // prepare the polygon data for rendering
-//    FindBoundingBox();
-//    FixupCoordinates();
-//    SimpleProjection();
-//    GenerateFaceNormals();
-//    DepthSort();
-}
-
-
-/**
- * Rotate the model slightly around y and x to give an orthogonal view from the top right.
- */
-int ETModelGCode::SimpleProjection()
-{
-//    uint32_t i;
-//    for (i=0; i<nTri; ++i) {
-//        ETTriangle *t = tri+i;
-//        SimpleProjection(t->p0);
-//        SimpleProjection(t->p1);
-//        SimpleProjection(t->p2);
-//    }
-    return 0;
-}
-
-
-
-int ETModelGCode::FixupCoordinates()
-{
-//    uint32_t i;
-//    
-//    // find object center and size
-//    dx = 0.5f*(pBBoxMax.x-pBBoxMin.x);
-//    dy = 0.5f*(pBBoxMax.y-pBBoxMin.y);
-//    dz = 0.5f*(pBBoxMax.z-pBBoxMin.z);
-//    cx = pBBoxMin.x + dx;
-//    cy = pBBoxMin.y + dy;
-//    cz = pBBoxMin.z + dz;
-//    
-//    // normalize the object size and position to fit into a -1 to 1 cube
-//    float scl = dx; if (dy>scl) scl = dy; if (dz>scl) scl = dz;
-//    if (scl>0.0) scl = 1.0f/scl;
-//    for (i=0; i<nTri; ++i) {
-//        ETTriangle *t = tri+i;
-//        t->p0.x = (t->p0.x - cx) * scl;
-//        t->p0.y = (t->p0.y - cy) * scl;
-//        t->p0.z = (t->p0.z - cz) * scl;
-//        t->p1.x = (t->p1.x - cx) * scl;
-//        t->p1.y = (t->p1.y - cy) * scl;
-//        t->p1.z = (t->p1.z - cz) * scl;
-//        t->p2.x = (t->p2.x - cx) * scl;
-//        t->p2.y = (t->p2.y - cy) * scl;
-//        t->p2.z = (t->p2.z - cz) * scl;
-//    }
-//    
-    return 0;
-}
-
-
-/**
- * Find the bounding box and reposition coordinates to fit into a -1/1 box.
- */
-void ETModelGCode::FindBoundingBox()
-{
-//    uint32_t i;
-    float minX=0, minY=0, minZ=0, maxX=0, maxY=0, maxZ=0;
+private static void decode() throws Exception {
+    String key = "@xyzprinting.com";
+    byte[] kbb = key.getBytes("UTF-8");
     
-//    for (i=0; i<nTri; ++i) {
-//        ETTriangle *t = tri+i;
-//        if (i==0) {
-//            minX = maxX = t->p0.x;
-//            minY = maxY = t->p0.y;
-//            minZ = maxZ = t->p0.z;
-//        }
-//        // update the boundign box
-//        if (t->p0.x<minX) minX = t->p0.x; if (t->p0.x>maxX) maxX = t->p0.x;
-//        if (t->p0.y<minY) minY = t->p0.y; if (t->p0.y>maxY) maxY = t->p0.y;
-//        if (t->p0.z<minZ) minZ = t->p0.z; if (t->p0.z>maxZ) maxZ = t->p0.z;
-//        if (t->p1.x<minX) minX = t->p1.x; if (t->p1.x>maxX) maxX = t->p1.x;
-//        if (t->p1.y<minY) minY = t->p1.y; if (t->p1.y>maxY) maxY = t->p1.y;
-//        if (t->p1.z<minZ) minZ = t->p1.z; if (t->p1.z>maxZ) maxZ = t->p1.z;
-//        if (t->p2.x<minX) minX = t->p2.x; if (t->p2.x>maxX) maxX = t->p2.x;
-//        if (t->p2.y<minY) minY = t->p2.y; if (t->p2.y>maxY) maxY = t->p2.y;
-//        if (t->p2.z<minZ) minZ = t->p2.z; if (t->p2.z>maxZ) maxZ = t->p2.z;
-//    }
-    pBBoxMin.set(minX, minY, minZ);
-    pBBoxMax.set(maxX, maxY, maxZ);
+    InputStream is = new FileInputStream("/tmp/davinci.3w");
+    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    int c;
+    while ((c = is.read()) != -1)
+        bos.write(c);
+        byte[] bytes = bos.toByteArray();
+        Cipher aes = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        SecretKeySpec spec = new SecretKeySpec(kbb, "AES");
+        byte[] iv = new byte[16];   // Zero IV
+        aes.init(Cipher.DECRYPT_MODE, spec, new IvParameterSpec(iv));
+        FileOutputStream os = new FileOutputStream("/tmp/davinci.zip");
+        for (int i = 0x2000; i < bytes.length; i += 0x2010) {
+            os.write(aes.doFinal(bytes, i, Math.min(bytes.length - i, 0x2010)));
+        }
+    os.close();
 }
+
+#endif
 
 

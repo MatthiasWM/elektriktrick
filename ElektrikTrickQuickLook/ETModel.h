@@ -26,7 +26,7 @@ public:
 public:
     ETModel();
     virtual ~ETModel();
-    virtual int Load(const char *filename) = 0;
+    virtual int Load() = 0;
     virtual void Draw(void*, int, int) = 0;
     virtual void PrepareDrawing() = 0;
     virtual void FindBoundingBox() = 0;
@@ -41,7 +41,6 @@ public:
 private:
     static bool FileIsBinarySTL(uint8_t *buf, size_t size);
     static bool FileIsTextSTL(uint8_t *buf, size_t size);
-    static bool FileIsGCode(uint8_t *buf, size_t size);
     
 public: //private:
     float cx, cy, cz, dx, dy, dz;

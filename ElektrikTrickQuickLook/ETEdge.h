@@ -16,7 +16,7 @@ class ETEdge
 public:
     ETVector p0, p1;
     uint16_t attr;
-    float z;
+    float z, lum, hue;
 };
 
 #endif /* defined(__Elektriktrick__ETEdge__) */

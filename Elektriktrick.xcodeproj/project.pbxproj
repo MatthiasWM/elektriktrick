@@ -11,6 +11,14 @@
 		C97E928E1993FB180078000B /* ETModelGCode.h in Headers */ = {isa = PBXBuildFile; fileRef = C97E928C1993FB180078000B /* ETModelGCode.h */; };
 		C97E929119940F340078000B /* ETEdge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97E928F19940F340078000B /* ETEdge.cpp */; };
 		C97E929219940F340078000B /* ETEdge.h in Headers */ = {isa = PBXBuildFile; fileRef = C97E929019940F340078000B /* ETEdge.h */; };
+		C97E92951994E72C0078000B /* ETWireframeModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97E92931994E72C0078000B /* ETWireframeModel.cpp */; };
+		C97E92961994E72C0078000B /* ETWireframeModel.h in Headers */ = {isa = PBXBuildFile; fileRef = C97E92941994E72C0078000B /* ETWireframeModel.h */; };
+		C97E92991994EA5B0078000B /* ETModelDXF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97E92971994EA5B0078000B /* ETModelDXF.cpp */; };
+		C97E929A1994EA5B0078000B /* ETModelDXF.h in Headers */ = {isa = PBXBuildFile; fileRef = C97E92981994EA5B0078000B /* ETModelDXF.h */; };
+		C97E929D1994ECE30078000B /* ETModelBinarySTL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97E929B1994ECE30078000B /* ETModelBinarySTL.cpp */; };
+		C97E929E1994ECE30078000B /* ETModelBinarySTL.h in Headers */ = {isa = PBXBuildFile; fileRef = C97E929C1994ECE30078000B /* ETModelBinarySTL.h */; };
+		C97E92A11994EFE70078000B /* ETModelTextSTL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97E929F1994EFE70078000B /* ETModelTextSTL.cpp */; };
+		C97E92A21994EFE70078000B /* ETModelTextSTL.h in Headers */ = {isa = PBXBuildFile; fileRef = C97E92A01994EFE70078000B /* ETModelTextSTL.h */; };
 		C9D5EF631961973A00AEDF1C /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF421961961800AEDF1C /* QuickLook.framework */; };
 		C9D5EF641961973A00AEDF1C /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF441961961800AEDF1C /* ApplicationServices.framework */; };
 		C9D5EF651961973A00AEDF1C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF461961961800AEDF1C /* CoreServices.framework */; };
@@ -52,6 +60,14 @@
 		C97E928C1993FB180078000B /* ETModelGCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETModelGCode.h; sourceTree = "<group>"; };
 		C97E928F19940F340078000B /* ETEdge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETEdge.cpp; sourceTree = "<group>"; };
 		C97E929019940F340078000B /* ETEdge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETEdge.h; sourceTree = "<group>"; };
+		C97E92931994E72C0078000B /* ETWireframeModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETWireframeModel.cpp; sourceTree = "<group>"; };
+		C97E92941994E72C0078000B /* ETWireframeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETWireframeModel.h; sourceTree = "<group>"; };
+		C97E92971994EA5B0078000B /* ETModelDXF.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETModelDXF.cpp; sourceTree = "<group>"; };
+		C97E92981994EA5B0078000B /* ETModelDXF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETModelDXF.h; sourceTree = "<group>"; };
+		C97E929B1994ECE30078000B /* ETModelBinarySTL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETModelBinarySTL.cpp; sourceTree = "<group>"; };
+		C97E929C1994ECE30078000B /* ETModelBinarySTL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETModelBinarySTL.h; sourceTree = "<group>"; };
+		C97E929F1994EFE70078000B /* ETModelTextSTL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETModelTextSTL.cpp; sourceTree = "<group>"; };
+		C97E92A01994EFE70078000B /* ETModelTextSTL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETModelTextSTL.h; sourceTree = "<group>"; };
 		C9D5EF421961961800AEDF1C /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		C9D5EF441961961800AEDF1C /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		C9D5EF461961961800AEDF1C /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
@@ -125,8 +141,16 @@
 				C9D5EF7F1961981900AEDF1C /* ETModel.h */,
 				C9D5EF801961981900AEDF1C /* ETModelSTL.cpp */,
 				C9D5EF811961981900AEDF1C /* ETModelSTL.h */,
+				C97E929F1994EFE70078000B /* ETModelTextSTL.cpp */,
+				C97E92A01994EFE70078000B /* ETModelTextSTL.h */,
+				C97E929B1994ECE30078000B /* ETModelBinarySTL.cpp */,
+				C97E929C1994ECE30078000B /* ETModelBinarySTL.h */,
+				C97E92931994E72C0078000B /* ETWireframeModel.cpp */,
+				C97E92941994E72C0078000B /* ETWireframeModel.h */,
 				C97E928B1993FB180078000B /* ETModelGCode.cpp */,
 				C97E928C1993FB180078000B /* ETModelGCode.h */,
+				C97E92971994EA5B0078000B /* ETModelDXF.cpp */,
+				C97E92981994EA5B0078000B /* ETModelDXF.h */,
 				C9D5EF841961981900AEDF1C /* ETQuickLookHelper.cpp */,
 				C9D5EF851961981900AEDF1C /* ETQuickLookHelper.h */,
 				C9D5EF861961981900AEDF1C /* ETTriangle.cpp */,
@@ -161,12 +185,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9D5EF971961981900AEDF1C /* ETVector.h in Headers */,
+				C97E92961994E72C0078000B /* ETWireframeModel.h in Headers */,
 				C9D5EF8F1961981900AEDF1C /* ETModelSTL.h in Headers */,
+				C97E929E1994ECE30078000B /* ETModelBinarySTL.h in Headers */,
+				C97E92A21994EFE70078000B /* ETModelTextSTL.h in Headers */,
 				C9D5EF951961981900AEDF1C /* ETTriangle.h in Headers */,
 				C9D5EF7C196197FD00AEDF1C /* ElektrikTrickQuickLook-Prefix.pch in Headers */,
 				C97E929219940F340078000B /* ETEdge.h in Headers */,
 				C9D5EF931961981900AEDF1C /* ETQuickLookHelper.h in Headers */,
 				C9D5EF8D1961981900AEDF1C /* ETModel.h in Headers */,
+				C97E929A1994EA5B0078000B /* ETModelDXF.h in Headers */,
 				C97E928E1993FB180078000B /* ETModelGCode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,6 +278,10 @@
 				C9D5EF941961981900AEDF1C /* ETTriangle.cpp in Sources */,
 				C9D5EF921961981900AEDF1C /* ETQuickLookHelper.cpp in Sources */,
 				C9D5EF8C1961981900AEDF1C /* ETModel.cpp in Sources */,
+				C97E929D1994ECE30078000B /* ETModelBinarySTL.cpp in Sources */,
+				C97E92991994EA5B0078000B /* ETModelDXF.cpp in Sources */,
+				C97E92A11994EFE70078000B /* ETModelTextSTL.cpp in Sources */,
+				C97E92951994E72C0078000B /* ETWireframeModel.cpp in Sources */,
 				C9D5EF721961973A00AEDF1C /* main.c in Sources */,
 				C9D5EF991961981900AEDF1C /* GenerateThumbnailForURL.mm in Sources */,
 				C9D5EF8E1961981900AEDF1C /* ETModelSTL.cpp in Sources */,

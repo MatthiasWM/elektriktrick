@@ -10,49 +10,59 @@
 #include "ETQuickLookHelper.h"
 
 extern "C" {
-  OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thumbnail, CFURLRef url, CFStringRef contentTypeUTI, CFDictionaryRef options, CGSize maxSize);
-  void CancelThumbnailGeneration(void *thisInterface, QLThumbnailRequestRef thumbnail);
+    OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thumbnail, CFURLRef url, CFStringRef contentTypeUTI, CFDictionaryRef options, CGSize maxSize);
+    void CancelThumbnailGeneration(void *thisInterface, QLThumbnailRequestRef thumbnail);
 }
 
 /* -----------------------------------------------------------------------------
-    Generate a thumbnail for file
-
-   This function's job is to create thumbnail for designated file as fast as possible
-   ----------------------------------------------------------------------------- */
+ Generate a thumbnail for file
+ 
+ This function's job is to create thumbnail for designated file as fast as possible
+ ----------------------------------------------------------------------------- */
 
 OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thumbnail, CFURLRef url, CFStringRef contentTypeUTI, CFDictionaryRef options, CGSize maxSize)
 {
-//  return noErr;
-  @autoreleasepool{
+    OSStatus ret = noErr;
     
-    // FIXME: read the document here and abort if we get an error
-    ETModelSTL model;
-    
-    // FIXME: read this data from the XML file somehow
-    CGSize canvasSize; canvasSize.width = 512; canvasSize.height = 512;
-    
-    // Thumbnail will be drawn in context
-    CGContextRef cgContext = QLThumbnailRequestCreateContext(thumbnail, canvasSize, true, NULL);
-    if (cgContext) {
-      CGContextSaveGState(cgContext);
-      
-      ET::DrawBackgroupdGradient(cgContext, canvasSize.width, canvasSize.height);
-      
-      char filename[2048];
-      if (CFURLGetFileSystemRepresentation(url, true, (UInt8*)filename, 2047)) {
-        if (model.Load(filename)) {
-          model.PrepareDrawing();
-          model.Draw(cgContext, canvasSize.width, canvasSize.height);
+    @autoreleasepool {
+        
+        char filename[2048];
+        if (CFURLGetFileSystemRepresentation(url, true, (UInt8*)filename, 2047)) {
+            
+            ETModel *model = ETModel::ModelForFileType(filename);
+            if (model) {
+                
+                if (model->Load()) {
+                    
+                    // FIXME: read this data from the XML file somehow
+                    CGSize canvasSize; canvasSize.width = 1000; canvasSize.height = 800;
+                    
+                    // Preview will be drawn in a vectorized context
+                    CGContextRef cgContext = QLThumbnailRequestCreateContext(thumbnail, canvasSize, true, NULL);
+                    if (cgContext) {
+                        CGContextSaveGState(cgContext);
+                        
+                        ET::DrawBackgroupdGradient(cgContext, canvasSize.width, canvasSize.height);
+                        
+                        model->PrepareDrawing();
+                        model->Draw(cgContext, canvasSize.width, canvasSize.height);
+                        
+                        CGContextRestoreGState(cgContext);
+                        QLThumbnailRequestFlushContext(thumbnail, cgContext);
+                        CFRelease(cgContext);
+                    }
+                } else {
+                    ret = coreFoundationUnknownErr;
+                }
+            } else {
+                ret = coreFoundationUnknownErr;
+            }
+            delete model;
+        } else {
+            ret = coreFoundationUnknownErr;
         }
-      }
-      //ET::DrawText(cgContext, 18, 10.0f, 10.0f, "Don't draw on icons, except errors");
-      
-      CGContextRestoreGState(cgContext);
-      QLThumbnailRequestFlushContext(thumbnail, cgContext);
-      CFRelease(cgContext);
     }
-  }
-  return noErr;
+    return ret;
 }
 
 void CancelThumbnailGeneration(void *thisInterface, QLThumbnailRequestRef thumbnail)

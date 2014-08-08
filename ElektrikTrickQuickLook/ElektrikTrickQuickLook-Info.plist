@@ -13,6 +13,7 @@
 			<array>
 				<string>com.elektriktrick.stl</string>
 				<string>com.elektriktrick.gcode</string>
+				<string>com.elektriktrick.dxf</string>
 			</array>
 		</dict>
 	</array>
@@ -27,7 +28,7 @@
 	<key>CFBundleName</key>
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1</string>
+	<string>1.0.2</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UTExportedTypeDeclarations</key>
@@ -63,6 +64,24 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>gcode</string>
+					<string>bfb</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeDescription</key>
+			<string>CAD Drawing</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>com.elektriktrick.dxf</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>dxf</string>
 				</array>
 			</dict>
 		</dict>
@@ -98,6 +117,6 @@
 	<key>QLSupportsConcurrentRequests</key>
 	<true/>
 	<key>QLThumbnailMinimumSize</key>
-	<real>17</real>
+	<integer>10</integer>
 </dict>
 </plist>
