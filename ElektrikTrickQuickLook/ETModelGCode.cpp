@@ -36,6 +36,7 @@ ETModelGCode::~ETModelGCode()
 {
 }
 
+void test();
 
 /**
  * GCodeloader.
@@ -55,6 +56,9 @@ ETModelGCode::~ETModelGCode()
  */
 int ETModelGCode::Load()
 {
+//    test();
+    
+    
     bool absPos = true;
     bool ignoreFirst = true;
     double cx = 0.0, cy = 0.0, cz = 0.0;
@@ -108,6 +112,70 @@ int ETModelGCode::Load()
     return 1;
 }
 
+/*
+NSSearchPathForDirectoriesInDomains
+ NSUserDefaults or CFPreferences
+*/
+
+#include <CommonCrypto/CommonCryptor.h>
+//#include <ZipKit/ZipKit.h>
+
+#include <stdlib.h>
+#include <math.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+
+void test()
+{
+    const size_t offset = 0;
+    
+    const char *inName = "/Users/matt/Desktop/Machine Shop/Data 3D/Adam_Scheibe.3w";
+    const char *outName = "/Users/matt/Desktop/Machine Shop/Data 3D/Adam_Scheibe.zip";
+    
+    fprintf(stderr, "ElektriktrickQL: testing decryption of %s\n", inName);
+    
+    // get the status of the given file. We need the file size.
+    struct stat st;
+    int ret = stat(inName, &st);
+    if (ret==-1) {
+        // ERROR, can't get file status
+        fprintf(stderr, "ElektriktrickQL: no file status for %s\n", inName);
+        return;
+    }
+    
+    size_t dataInSize = st.st_size, dataOutSize = 0;
+    unsigned char *dataIn = (unsigned char*)calloc(dataInSize, 1);
+    unsigned char *dataOut = (unsigned char*)calloc(dataInSize, 1);
+
+    FILE *in = fopen(inName, "rb");
+    fread(dataIn, dataInSize, 1, in);
+    fclose(in);
+    
+    CCCryptorStatus status;
+    status = CCCrypt(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    status = CCCrypt(kCCDecrypt,
+                     kCCAlgorithmAES,
+                     kCCOptionPKCS7Padding,
+                     "@xyzprinting.com", 16,
+                     0L,
+                     dataIn+offset, dataInSize-offset,
+                     dataOut, dataInSize,
+                     &dataOutSize);
+    printf("Status: %d (%ld bytes in, %ld bytes out)\n", status, dataInSize, dataOutSize);
+
+    if (dataOutSize) {
+        FILE *out = fopen(outName, "wb");
+        if (!out) {
+            fprintf(stderr, "ElektriktrickQL: can't write %s\n", outName);
+        }
+        fwrite(dataIn, offset, 1, out);
+        fwrite(dataOut, dataOutSize, 1, out);
+        fclose(out);
+    }
+    fprintf(stderr, "\n----\n\n");
+}
 
 #if 0
 // use this to decipher XYZPrinter GCode files (or the C++ equivalent):

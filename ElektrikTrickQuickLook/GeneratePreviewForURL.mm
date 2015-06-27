@@ -42,6 +42,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
                 if (model->Load()) {
                     
                     // FIXME: read this data from the XML file somehow
+                    ET::ReadPrefs();
                     CGSize canvasSize; canvasSize.width = 1000; canvasSize.height = 800;
                     
                     // Preview will be drawn in a vectorized context

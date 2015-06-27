@@ -414,37 +414,45 @@ void ETModel::calibrate(float xGrow, float yGrow, float zGrow, float xScale, flo
     }
 }
 
-int ETModel::SaveAs()
+int ETModel::Save(QString filename)
 {
     uint32_t i, n;
+    FILE *out = fopen(filename.toUtf8().data(), "wb");
+    if (!out) {
+        QMessageBox::warning(0L, "ERROR creating file", "Can't cretae file for writing.");
+        return -1;
+    }
+    const char hdr[80] = "STL file created with Elektriktrick.";
+    fwrite(hdr, 80, 1, out);
+    n = pTriList.size();
+    fwrite(&n, 4, 1, out);
+    for (i=0; i<n; i++) {
+        ETTriangle *t = pTriList[i];
+        float tmp;
+        ETVector v;
+        v.set(t->n); v.x = -v.x; tmp = v.y; v.y = v.z; v.z = tmp;
+        fwrite(&v.x, 4, 3, out);
+        v.set(t->v0->p); v.x = -v.x; tmp = v.y; v.y = v.z; v.z = tmp;
+        fwrite(&v.x, 4, 3, out);
+        v.set(t->v1->p); v.x = -v.x; tmp = v.y; v.y = v.z; v.z = tmp;
+        fwrite(&v.x, 4, 3, out);
+        v.set(t->v2->p); v.x = -v.x; tmp = v.y; v.y = v.z; v.z = tmp;
+        fwrite(&v.x, 4, 3, out);
+        uint16_t attr = 0;
+        fwrite(&attr, 2, 1, out);
+    }
+    fclose(out);
+    return 0;
+}
+
+
+int ETModel::SaveAs()
+{
+    int ret = 0;
     QString f = QFileDialog::getSaveFileName(0L, "Save STL file:",
                                              "", "STL (*.stl)");
     if (!f.isEmpty()) {
-        FILE *out = fopen(f.toUtf8().data(), "wb");
-        if (!out) {
-            QMessageBox::warning(0L, "ERROR creating file", "Can't cretae file for writing.");
-            return -1;
-        }
-        const char hdr[80] = "STL file created with Elektriktrick.";
-        fwrite(hdr, 80, 1, out);
-        n = pTriList.size();
-        fwrite(&n, 4, 1, out);
-        for (i=0; i<n; i++) {
-            ETTriangle *t = pTriList[i];
-            float tmp;
-            ETVector v;
-            v.set(t->n); v.x = -v.x; tmp = v.y; v.y = v.z; v.z = tmp;
-            fwrite(&v.x, 4, 3, out);
-            v.set(t->v0->p); v.x = -v.x; tmp = v.y; v.y = v.z; v.z = tmp;
-            fwrite(&v.x, 4, 3, out);
-            v.set(t->v1->p); v.x = -v.x; tmp = v.y; v.y = v.z; v.z = tmp;
-            fwrite(&v.x, 4, 3, out);
-            v.set(t->v2->p); v.x = -v.x; tmp = v.y; v.y = v.z; v.z = tmp;
-            fwrite(&v.x, 4, 3, out);
-            uint16_t attr = 0;
-            fwrite(&attr, 2, 1, out);
-        }
-        fclose(out);
+        ret = Save(f);
     }
-    return 0;
+    return ret;
 }

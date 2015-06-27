@@ -21,6 +21,8 @@ public:
     ETModelDXF();
     virtual ~ETModelDXF();
     virtual int Load();
+    
+    int NextCode(int &code, char *data);
 };
 
 #endif /* defined(__Electrictrick__ETModelDXF__) */

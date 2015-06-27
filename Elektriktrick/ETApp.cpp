@@ -5,6 +5,16 @@
 #include "glwidget.h"
 
 
+
+/*
+ * Measurements of the standard calibration object on my machine:
+ * X: 10.1, 20.1, 30.2
+ * Y:  9.9, 19.9, 30.0
+ * Z: 10.1, 20.0, 30.0
+ */
+
+
+
 ETApp ET;
 
 
@@ -28,6 +38,7 @@ ETModel *ETApp::newModel()
 ETModel *ETApp::loadModel(const char *filename)
 {
     ETModel *mdl = newModel();
+    mdl->Filename(filename);
     ETImport::load(mdl, filename);
     redrawScene();
     return pModel;

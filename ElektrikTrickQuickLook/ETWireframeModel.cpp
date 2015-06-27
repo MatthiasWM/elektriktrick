@@ -146,6 +146,28 @@ void ETWireframeModel::FindBoundingBox()
     }
     pBBoxMin.set(minX, minY, minZ);
     pBBoxMax.set(maxX, maxY, maxZ);
+    
+    // make sure that our bounding box has a dimension (no zero size in x, y, or z)
+    ETVector size;
+    size.set(pBBoxMax);
+    size.sub(pBBoxMin);
+    float len = size.length();
+    float minLen = len/100.0;
+    if (size.x<minLen) {
+        float d = minLen-size.x;
+        pBBoxMin.x -= d;
+        pBBoxMax.x += d;
+    }
+    if (size.y<minLen) {
+        float d = minLen-size.y;
+        pBBoxMin.y -= d;
+        pBBoxMax.y += d;
+    }
+    if (size.z<minLen) {
+        float d = minLen-size.z;
+        pBBoxMin.z -= d;
+        pBBoxMax.z += d;
+    }
 }
 
 
@@ -184,6 +206,109 @@ int ETWireframeModel::CompareEdgeZ(const void *a, const void *b)
     return v;
 }
 
+
+ETEdge *ETWireframeModel::NewEdge()
+{
+    if (NEdge==nEdge) {
+        NEdge += 8192;
+        edge = (ETEdge*)realloc(edge, NEdge*sizeof(ETEdge));
+    }
+    nEdge++;
+    return edge + nEdge-1;
+}
+
+
+void ETWireframeModel::NewArc(ETVector &p, float r, float a0, float a1)
+{
+    if (a1<a0) {
+        a1 += 360.0;
+    }
+    if (a1>a0) {
+        const float segSize = 18.0/180.0*M_PI;
+        a0 = a0/180.0*M_PI;
+        a1 = a1/180.0*M_PI;
+        float da = a1-a0;
+        int i, n = (int)(da/segSize)+1;
+        float ds = da/n;
+        float px = 0.0, py = 0.0;
+        for (i=0; i<=n; i++) {
+            float cx = p.x + cosf(i*ds+a0)*r;
+            float cy = p.y + sinf(i*ds+a0)*r;
+            if (i>0) {
+                ETEdge *e = NewEdge();
+                e->p0.set(px, py, p.z);
+                e->p1.set(cx, cy, p.z);
+            }
+            px = cx;
+            py = cy;
+        }
+    }
+}
+
+
+void ETWireframeModel::NewSegment(ETVector &p0, ETVector &p1, float bulge)
+{
+    if (fabsf(bulge)<0.001) {
+        // line segment
+        ETEdge *e = NewEdge();
+        e->p0.set(p0);
+        e->p1.set(p1);
+    } else {
+        // arc segment
+        float alpha = atanf(bulge) * 4.0;
+        
+        ETVector middle; middle.set(p1); middle.add(p0); middle.mul(0.5);
+        ETVector d; d.set(p1); d.sub(p0);
+        float dist = 0.5 * d.length();
+        
+        float radius = fabsf(dist / sinf(alpha/2.0));
+        
+        float wu = fabsf(powf(radius, 2.0) - powf(dist, 2.0));
+        float h = sqrtf(wu);
+        float angle = p0.angleTo2d(p1);
+        
+        if (bulge>0.0) {
+            angle+=M_PI/2.0;
+        } else {
+            angle-=M_PI/2.0;
+        }
+
+        if (fabsf(alpha)>M_PI) {
+            h*=-1.0;
+        }
+        
+        ETVector center;
+        center.setPolar2d(h, angle);
+        center.add(middle);
+        
+        float a0 = center.angleTo2d(p0);
+        float a1 = center.angleTo2d(p1);
+        
+        if (bulge<0.0) {
+            float t = a0; a0 = a1; a1 = t;
+        }
+        
+        NewArc(center, radius, a0/M_PI*180.0, a1/M_PI*180.0);
+    }
+}
+
+
+void ETWireframeModel::NewSplineSegment(ETVector &p0, ETVector &p1)
+{
+    // TODO: implement splines?
+    ETEdge *e = NewEdge();
+    e->p0.set(p0);
+    e->p1.set(p1);
+}
+
+
+void ETWireframeModel::NewLastSplineSegment(ETVector &p0, ETVector &p1)
+{
+    // TODO: implement splines?
+    ETEdge *e = NewEdge();
+    e->p0.set(p0);
+    e->p1.set(p1);
+}
 
 
 

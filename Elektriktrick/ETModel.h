@@ -9,7 +9,8 @@
 #ifndef __Electrictrick__ETModel__
 #define __Electrictrick__ETModel__
 
-#include <QuickLook/QuickLook.h>
+//#include <QuickLook/QuickLook.h>
+#include <QString>
 
 #include <vector>
 #include <map>
@@ -47,6 +48,9 @@ public:
     ETEdge *findOrAddEdge(ETVertex *v0, ETVertex *v1, ETTriangle *t);
     int verifyIntegrity();
     int SaveAs();
+    int Save(QString filename);
+    QString &Filename() { return pFilename; }
+    void Filename(QString filename) { pFilename = filename; }
 
     void calibrate(float xGrow, float yGrow, float zGrow, float xScale=1.0, float yScale=1.0, float zScale=1.0);
 
@@ -59,6 +63,8 @@ public:
     // Posix File Interface
     ETVector pBBoxMin;
     ETVector pBBoxMax;
+
+    QString pFilename;
 };
 
 

@@ -31,7 +31,7 @@
 		C9D5EF8D1961981900AEDF1C /* ETModel.h in Headers */ = {isa = PBXBuildFile; fileRef = C9D5EF7F1961981900AEDF1C /* ETModel.h */; };
 		C9D5EF8E1961981900AEDF1C /* ETModelSTL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF801961981900AEDF1C /* ETModelSTL.cpp */; };
 		C9D5EF8F1961981900AEDF1C /* ETModelSTL.h in Headers */ = {isa = PBXBuildFile; fileRef = C9D5EF811961981900AEDF1C /* ETModelSTL.h */; };
-		C9D5EF921961981900AEDF1C /* ETQuickLookHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF841961981900AEDF1C /* ETQuickLookHelper.cpp */; };
+		C9D5EF921961981900AEDF1C /* ETQuickLookHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF841961981900AEDF1C /* ETQuickLookHelper.mm */; };
 		C9D5EF931961981900AEDF1C /* ETQuickLookHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = C9D5EF851961981900AEDF1C /* ETQuickLookHelper.h */; };
 		C9D5EF941961981900AEDF1C /* ETTriangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF861961981900AEDF1C /* ETTriangle.cpp */; };
 		C9D5EF951961981900AEDF1C /* ETTriangle.h in Headers */ = {isa = PBXBuildFile; fileRef = C9D5EF871961981900AEDF1C /* ETTriangle.h */; };
@@ -81,7 +81,7 @@
 		C9D5EF7F1961981900AEDF1C /* ETModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETModel.h; sourceTree = "<group>"; };
 		C9D5EF801961981900AEDF1C /* ETModelSTL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETModelSTL.cpp; sourceTree = "<group>"; };
 		C9D5EF811961981900AEDF1C /* ETModelSTL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETModelSTL.h; sourceTree = "<group>"; };
-		C9D5EF841961981900AEDF1C /* ETQuickLookHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETQuickLookHelper.cpp; sourceTree = "<group>"; };
+		C9D5EF841961981900AEDF1C /* ETQuickLookHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ETQuickLookHelper.mm; sourceTree = "<group>"; };
 		C9D5EF851961981900AEDF1C /* ETQuickLookHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETQuickLookHelper.h; sourceTree = "<group>"; };
 		C9D5EF861961981900AEDF1C /* ETTriangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETTriangle.cpp; sourceTree = "<group>"; };
 		C9D5EF871961981900AEDF1C /* ETTriangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETTriangle.h; sourceTree = "<group>"; };
@@ -151,14 +151,14 @@
 				C97E928C1993FB180078000B /* ETModelGCode.h */,
 				C97E92971994EA5B0078000B /* ETModelDXF.cpp */,
 				C97E92981994EA5B0078000B /* ETModelDXF.h */,
-				C9D5EF841961981900AEDF1C /* ETQuickLookHelper.cpp */,
-				C9D5EF851961981900AEDF1C /* ETQuickLookHelper.h */,
 				C9D5EF861961981900AEDF1C /* ETTriangle.cpp */,
 				C9D5EF871961981900AEDF1C /* ETTriangle.h */,
 				C97E928F19940F340078000B /* ETEdge.cpp */,
 				C97E929019940F340078000B /* ETEdge.h */,
 				C9D5EF881961981900AEDF1C /* ETVector.cpp */,
 				C9D5EF891961981900AEDF1C /* ETVector.h */,
+				C9D5EF841961981900AEDF1C /* ETQuickLookHelper.mm */,
+				C9D5EF851961981900AEDF1C /* ETQuickLookHelper.h */,
 				C9D5EF8A1961981900AEDF1C /* GeneratePreviewForURL.mm */,
 				C9D5EF8B1961981900AEDF1C /* GenerateThumbnailForURL.mm */,
 				C9D5EF711961973A00AEDF1C /* main.c */,
@@ -276,7 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9D5EF941961981900AEDF1C /* ETTriangle.cpp in Sources */,
-				C9D5EF921961981900AEDF1C /* ETQuickLookHelper.cpp in Sources */,
+				C9D5EF921961981900AEDF1C /* ETQuickLookHelper.mm in Sources */,
 				C9D5EF8C1961981900AEDF1C /* ETModel.cpp in Sources */,
 				C97E929D1994ECE30078000B /* ETModelBinarySTL.cpp in Sources */,
 				C97E92991994EA5B0078000B /* ETModelDXF.cpp in Sources */,
@@ -380,6 +380,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ElektrikTrickQuickLook",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ElektrikTrickQuickLook/ElektrikTrickQuickLook-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -397,6 +401,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ElektrikTrickQuickLook",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ElektrikTrickQuickLook/ElektrikTrickQuickLook-Prefix.pch";
 				INFOPLIST_FILE = "ElektrikTrickQuickLook/ElektrikTrickQuickLook-Info.plist";

@@ -18,12 +18,18 @@ public:
     void set(const ETVector &v);
     void set(float, float, float);
     void sub(const ETVector &v);
+    void add(const ETVector &v);
+    void mul(float v);
+    void cross(const ETVector &v);
     float dot(const ETVector &v) const;
     void swapWith(ETVector &v);
     void normalize();
     float length() const;
     int isFinite() const;
     void fixFinite();
+    float angle2d() const;
+    float angleTo2d(const ETVector& v) const;
+    void setPolar2d(float radius, float angle);
     float x, y, z;
 };
 

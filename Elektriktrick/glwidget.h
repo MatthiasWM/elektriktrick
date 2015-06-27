@@ -95,6 +95,8 @@ public:
     int yRot;
     int zRot;
     int gear1Rot;
+    double xPos;
+    double yPos;
     double zPos;
 
     QPoint lastPos;

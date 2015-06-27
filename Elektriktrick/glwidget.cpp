@@ -60,6 +60,8 @@ GLWidget::GLWidget(QWidget *parent)
     yRot = 5032;
     zRot = 0;
     gear1Rot = 0;
+    xPos = 0.0;
+    yPos = 0.0;
     zPos = 0.1;
 
     //QTimer *timer = new QTimer(this);
@@ -129,6 +131,8 @@ void GLWidget::paintGL()
     glPushMatrix();
     glScaled(zPos, zPos, zPos);
 
+    glTranslated(xPos, yPos, 0.0);
+
     glRotated(xRot / 16.0, 1.0, 0.0, 0.0);
     glRotated(yRot / 16.0, 0.0, 1.0, 0.0);
     glRotated(zRot / 16.0, 0.0, 0.0, 1.0);
@@ -177,15 +181,24 @@ bool GLWidget::event(QEvent * e) {
     //static int i = 0;
     //fprintf(stderr, "MainWindow: NativeEvent %d = %d\n", i++, e->type());
     switch (e->type()) {
-    case QEvent::Wheel:
-        break;
-    case Qt::ZoomNativeGesture:
+    case QEvent::Wheel: {
+        QPoint pd = ((QWheelEvent*)e)->pixelDelta();
+        xPos += pd.x() * 0.1;
+        yPos -= pd.y() * 0.1;
+        e->accept();
+        updateGL();
+        return true; }
+    //case Qt::SwipeGesture: // 5
+    //case 32: {
+    //        return true; }
+    //case Qt::ZoomNativeGesture:
+    //case Qt::PanGesture:
     case 197: { // zoom
         float dz = ((QNativeGestureEvent*)e)->value();
         if (dz<-0.05) dz = 0.0;  // There seem to be glitches on the touch pad that create much larger values
         if (dz> 0.05) dz = 0.0;
         zPos = zPos  * (1.0+(2.0*dz));
-        fprintf(stderr, "Gesture: %g (%d, %d, %d, %g)\n", dz, xRot, yRot, zRot, zPos);
+        //fprintf(stderr, "Gesture: %g (%d, %d, %d, %g)\n", dz, xRot, yRot, zRot, zPos);
         e->accept();
         updateGL();
         return true; }

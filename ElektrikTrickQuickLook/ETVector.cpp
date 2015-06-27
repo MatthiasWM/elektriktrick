@@ -25,6 +25,13 @@ void ETVector::set(float ax, float ay, float az)
     z = az;
 }
 
+void ETVector::mul(float v)
+{
+    x *= v;
+    y *= v;
+    z *= v;
+}
+
 void ETVector::sub(const ETVector &v)
 {
     x -= v.x;
@@ -32,10 +39,27 @@ void ETVector::sub(const ETVector &v)
     z -= v.z;
 }
 
+void ETVector::add(const ETVector &v)
+{
+    x += v.x;
+    y += v.y;
+    z += v.z;
+}
+
 float ETVector::dot(const ETVector &v) const
 {
     return x*v.x + y*v.y + z*v.z;
 }
+
+
+void ETVector::cross(const ETVector &v)
+{
+    ETVector u; u.set(*this);
+    x = (u.y*v.z) - (u.z*v.y);
+    y = (u.z*v.x) - (u.x*v.z);
+    z = (u.x*v.y) - (u.y*v.x);
+}
+
 
 void ETVector::swapWith(ETVector &v)
 {
@@ -71,3 +95,48 @@ void ETVector::fixFinite()
     if (!isfinite(x)) y = 0.0f;
     if (!isfinite(x)) z = 0.0f;
 }
+
+
+float ETVector::angle2d() const
+{
+    float ret = 0.0;
+    float m = sqrtf(x*x + y*y);
+    
+    if (m>1.0e-6) {
+        ETVector x; x.set(1, 0, 0);
+        float dp = dot(x);
+        if (dp/m>=1.0) {
+            ret = 0.0;
+        }
+        else if (dp/m<-1.0) {
+            ret = M_PI;
+        }
+        else {
+            ret = acosf(dp/m);
+        }
+        if (y<0.0) {
+            ret = 2*M_PI - ret;
+        }
+    }
+    return ret;
+}
+
+
+float ETVector::angleTo2d(const ETVector& v) const
+{
+    ETVector w;
+    w.set(v);
+    w.sub(*this);
+    return w.angle2d();
+}
+
+
+void ETVector::setPolar2d(float radius, float angle)
+{
+    x = radius * cosf(angle);
+    y = radius * sinf(angle);
+    z = 0.0;
+}
+
+
+

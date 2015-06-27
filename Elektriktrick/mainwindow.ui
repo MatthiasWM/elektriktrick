@@ -20,7 +20,6 @@
       <property name="acceptDrops">
        <bool>true</bool>
       </property>
-      <zorder>quickTools</zorder>
      </widget>
     </item>
     <item>
@@ -110,7 +109,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="toolButton_3">
+        <widget class="QToolButton" name="fitAndSaveButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -129,8 +128,14 @@
            <height>24</height>
           </size>
          </property>
+         <property name="toolTip">
+          <string extracomment="Fit and Save"/>
+         </property>
          <property name="text">
-          <string>...</string>
+          <string>F&amp;&amp;S</string>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+F</string>
          </property>
         </widget>
        </item>

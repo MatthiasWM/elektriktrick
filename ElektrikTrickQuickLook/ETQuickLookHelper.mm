@@ -7,7 +7,7 @@
 //
 
 #include "ETQuickLookHelper.h"
-
+#import <Cocoa/Cocoa.h>
 
 void ET::DrawBackgroupdGradient(CGContextRef cgContext, int width, int height)
 {
@@ -30,7 +30,7 @@ void ET::DrawText(CGContextRef cgContext, int height, float x, float y, const ch
 {
     CGContextSetRGBFillColor(cgContext, 1.0, 0, 0, 0.8);
     CFStringRef string = CFStringCreateWithCString(kCFAllocatorDefault, text, kCFStringEncodingUTF8);
-    CTFontRef font = CTFontCreateWithName( CFSTR("Arial"), height, NULL);
+    CTFontRef font = CTFontCreateWithName( CFSTR("ArialMT"), height, NULL);
     CGContextRef context = cgContext;
     // Initialize the string, font, and context
     
@@ -59,6 +59,49 @@ void ET::DrawText(CGContextRef cgContext, int height, float x, float y, const ch
     CGContextSetTextPosition(context, x, y);
     CTLineDraw(line, context);
     CFRelease(line);
+}
+
+
+void ET::ReadPrefs()
+{
+    // Create an instance of NSUserDefaults
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *author2 = [prefs stringForKey:@"Author"];
+    
+    // Store and retrieve a string
+    [prefs setObject:@"Mike Beam 3rd" forKey:@"Author"];
+    NSString *author = [prefs stringForKey:@"Author"];
+    
+    // Store and retrieve a number
+    [prefs setFloat:1373.50 forKey:@"NASDAQ"];
+    [prefs setInteger:2002 forKey:@"Year"];
+    float level = [prefs floatForKey:@"NASDAQ"];
+    int year = [prefs integerForKey:@"Year"];
+    [prefs synchronize];
+
+/*
+ The following general guiding principles apply to the CFPreferences API:
+ 
+ You should typically use CFPreferencesCopyAppValue to read preference keys.
+ You should use CFPreferencesSetAppValue to write preference keys for “current user/any host.”
+ If you need to write a by-host preference for the current user, use CFPreferencesSetValue. Make sure this is absolutely necessary.
+*/
+    
+    CFStringRef appID = CFSTR("com.apple.anotherapp");
+    CFStringRef defaultTextColorKey = CFSTR("defaultTextColor");
+    CFStringRef colorBLUE = CFSTR("BLUE");
+    
+    // Set up the preference.
+    CFPreferencesSetValue(defaultTextColorKey,
+                          colorBLUE,
+                          appID,
+                          kCFPreferencesCurrentUser,
+                          kCFPreferencesAnyHost);
+    
+    // Write out the preference data.
+    CFPreferencesSynchronize(appID,
+                             kCFPreferencesCurrentUser,
+                             kCFPreferencesAnyHost);
 }
 
 

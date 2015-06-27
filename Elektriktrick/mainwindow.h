@@ -22,6 +22,8 @@ private slots:
 
     void on_actionSave_As_triggered();
 
+    void on_fitAndSaveButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

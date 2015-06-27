@@ -16,6 +16,7 @@ namespace ET
 {
     void DrawBackgroupdGradient(CGContextRef, int, int);
     void DrawText(CGContextRef, int height, float x, float y, const char* text);
+    void ReadPrefs();
 };
 
 

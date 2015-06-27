@@ -52,3 +52,16 @@ void MainWindow::on_actionSave_As_triggered()
 {
     ET.model()->SaveAs();
 }
+
+void MainWindow::on_fitAndSaveButton_clicked()
+{
+    ET.model()->calibrate(-0.14, 0.0, -0.14); // shrink the model by n mm's
+    ui->glWidget->updateGL();
+    QString modelName = ET.model()->Filename();
+    int ix = modelName.lastIndexOf(".");
+    if (ix==-1) {
+        return; // empty filename?
+    }
+    modelName.replace(ix, 1, "_fit.");
+    ET.model()->Save(modelName);
+}

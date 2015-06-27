@@ -28,6 +28,12 @@ public:
     int DepthSort();
     static int CompareEdgeZ(const void *a, const void *b);
     
+    ETEdge *NewEdge();
+    void NewArc(ETVector &p, float r, float a0, float a1);
+    void NewSegment(ETVector &p0, ETVector &p1, float bulge);
+    void NewSplineSegment(ETVector &p0, ETVector &p1);
+    void NewLastSplineSegment(ETVector &p0, ETVector &p1);
+    
     ETEdge *edge;
     uint32_t nEdge;
     uint32_t NEdge;

@@ -295,13 +295,11 @@ int ETModelSTL::GenerateFaceNormals()
     uint32_t i;
     for (i=0; i<nTri; ++i) {
         ETTriangle *t = tri+i;
-        
-        ETVector u; u.x = t->p1.x-t->p0.x; u.y = t->p1.y-t->p0.y; u.z = t->p1.z-t->p0.z;
-        ETVector v; v.x = t->p2.x-t->p0.x; v.y = t->p2.y-t->p0.y; v.z = t->p2.z-t->p0.z;
-        t->n.x = (u.y*v.z) - (u.z*v.y);
-        t->n.y = (u.z*v.x) - (u.x*v.z);
-        t->n.z = (u.x*v.y) - (u.y*v.x);
-        t->n.normalize();
+        ETVector u; u.set(t->p1); u.sub(t->p0);
+        ETVector v; v.set(t->p2); v.sub(t->p0);
+        u.cross(v);
+        u.normalize();
+        t->n.set(u);
     }
     return 0;
 }
