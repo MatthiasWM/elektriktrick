@@ -24,7 +24,6 @@
 		C9D5EF651961973A00AEDF1C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF461961961800AEDF1C /* CoreServices.framework */; };
 		C9D5EF661961973A00AEDF1C /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF481961961800AEDF1C /* CoreFoundation.framework */; };
 		C9D5EF721961973A00AEDF1C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF711961973A00AEDF1C /* main.c */; };
-		C9D5EF7B196197FD00AEDF1C /* ElektrikTrickQuickLook-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9D5EF77196197FD00AEDF1C /* ElektrikTrickQuickLook-Info.plist */; };
 		C9D5EF7C196197FD00AEDF1C /* ElektrikTrickQuickLook-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = C9D5EF78196197FD00AEDF1C /* ElektrikTrickQuickLook-Prefix.pch */; };
 		C9D5EF7D196197FD00AEDF1C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9D5EF79196197FD00AEDF1C /* InfoPlist.strings */; };
 		C9D5EF8C1961981900AEDF1C /* ETModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF7E1961981900AEDF1C /* ETModel.cpp */; };
@@ -228,7 +227,7 @@
 		C9D5EF351961961800AEDF1C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "M.Melcher GmbH";
 			};
 			buildConfigurationList = C9D5EF381961961800AEDF1C /* Build configuration list for PBXProject "Elektriktrick" */;
@@ -253,7 +252,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9D5EF7B196197FD00AEDF1C /* ElektrikTrickQuickLook-Info.plist in Resources */,
 				C9D5EF7D196197FD00AEDF1C /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,6 +321,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -392,6 +391,7 @@
 				);
 				INFOPLIST_FILE = "ElektrikTrickQuickLook/ElektrikTrickQuickLook-Info.plist";
 				INSTALL_PATH = /Library/QuickLook;
+				PRODUCT_BUNDLE_IDENTIFIER = com.elektriktrick.quicklook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = qlgenerator;
 			};
@@ -409,6 +409,7 @@
 				GCC_PREFIX_HEADER = "ElektrikTrickQuickLook/ElektrikTrickQuickLook-Prefix.pch";
 				INFOPLIST_FILE = "ElektrikTrickQuickLook/ElektrikTrickQuickLook-Info.plist";
 				INSTALL_PATH = /Library/QuickLook;
+				PRODUCT_BUNDLE_IDENTIFIER = com.elektriktrick.quicklook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = qlgenerator;
 			};
