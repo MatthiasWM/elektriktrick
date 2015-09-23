@@ -64,6 +64,7 @@ void ET::DrawText(CGContextRef cgContext, int height, float x, float y, const ch
 
 void ET::ReadPrefs()
 {
+#if 0
     // Create an instance of NSUserDefaults
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *author2 = [prefs stringForKey:@"Author"];
@@ -102,6 +103,7 @@ void ET::ReadPrefs()
     CFPreferencesSynchronize(appID,
                              kCFPreferencesCurrentUser,
                              kCFPreferencesAnyHost);
+#endif
 }
 
 

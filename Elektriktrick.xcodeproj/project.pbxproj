@@ -108,6 +108,7 @@
 		C9D5EF341961961800AEDF1C = {
 			isa = PBXGroup;
 			children = (
+				C9F530641BB1DBCD00D198AF /* ElektrikTrick */,
 				C9D5EF671961973A00AEDF1C /* ElektrikTrickQuickLook */,
 				C9D5EF411961961800AEDF1C /* Frameworks */,
 				C9D5EF401961961800AEDF1C /* Products */,
@@ -174,6 +175,13 @@
 				C9D5EF79196197FD00AEDF1C /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C9F530641BB1DBCD00D198AF /* ElektrikTrick */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ElektrikTrick;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
