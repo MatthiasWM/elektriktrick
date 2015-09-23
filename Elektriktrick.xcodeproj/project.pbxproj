@@ -39,7 +39,24 @@
 		C9D5EF981961981900AEDF1C /* GeneratePreviewForURL.mm in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF8A1961981900AEDF1C /* GeneratePreviewForURL.mm */; };
 		C9D5EF991961981900AEDF1C /* GenerateThumbnailForURL.mm in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF8B1961981900AEDF1C /* GenerateThumbnailForURL.mm */; };
 		C9D5EF9B196198E200AEDF1C /* ElektrikTrickQuickLook.qlgenerator in CopyFiles */ = {isa = PBXBuildFile; fileRef = C9D5EF621961973A00AEDF1C /* ElektrikTrickQuickLook.qlgenerator */; };
+		C9F5306D1BB33D4C00D198AF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F5306C1BB33D4C00D198AF /* AppDelegate.m */; };
+		C9F530701BB33D4C00D198AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F5306F1BB33D4C00D198AF /* main.m */; };
+		C9F530731BB33D4C00D198AF /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F530721BB33D4C00D198AF /* Document.m */; };
+		C9F530761BB33D4C00D198AF /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9F530741BB33D4C00D198AF /* Document.xib */; };
+		C9F530781BB33D4D00D198AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9F530771BB33D4D00D198AF /* Assets.xcassets */; };
+		C9F5307B1BB33D4D00D198AF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9F530791BB33D4D00D198AF /* MainMenu.xib */; };
+		C9F530851BB340DD00D198AF /* ElektrikTrickQuickLook.qlgenerator in CopyFiles */ = {isa = PBXBuildFile; fileRef = C9D5EF621961973A00AEDF1C /* ElektrikTrickQuickLook.qlgenerator */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C9F530801BB33D6500D198AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9D5EF351961961800AEDF1C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C9D5EF611961973A00AEDF1C;
+			remoteInfo = ElektrikTrickQuickLook;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		C9D5EF9A196198AC00AEDF1C /* CopyFiles */ = {
@@ -49,6 +66,16 @@
 			dstSubfolderSpec = 0;
 			files = (
 				C9D5EF9B196198E200AEDF1C /* ElektrikTrickQuickLook.qlgenerator in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9F530841BB340AB00D198AF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ../Library/QuickLook;
+			dstSubfolderSpec = 7;
+			files = (
+				C9F530851BB340DD00D198AF /* ElektrikTrickQuickLook.qlgenerator in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +115,16 @@
 		C9D5EF891961981900AEDF1C /* ETVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETVector.h; sourceTree = "<group>"; };
 		C9D5EF8A1961981900AEDF1C /* GeneratePreviewForURL.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GeneratePreviewForURL.mm; sourceTree = "<group>"; };
 		C9D5EF8B1961981900AEDF1C /* GenerateThumbnailForURL.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GenerateThumbnailForURL.mm; sourceTree = "<group>"; };
+		C9F530691BB33D4C00D198AF /* Elektriktrick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Elektriktrick.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9F5306B1BB33D4C00D198AF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C9F5306C1BB33D4C00D198AF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C9F5306F1BB33D4C00D198AF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C9F530711BB33D4C00D198AF /* Document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
+		C9F530721BB33D4C00D198AF /* Document.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
+		C9F530751BB33D4C00D198AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
+		C9F530771BB33D4D00D198AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C9F5307A1BB33D4D00D198AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		C9F5307C1BB33D4D00D198AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,13 +139,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C9F530661BB33D4C00D198AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		C9D5EF341961961800AEDF1C = {
 			isa = PBXGroup;
 			children = (
-				C9F530641BB1DBCD00D198AF /* ElektrikTrick */,
+				C9F5306A1BB33D4C00D198AF /* Elektriktrick */,
 				C9D5EF671961973A00AEDF1C /* ElektrikTrickQuickLook */,
 				C9D5EF411961961800AEDF1C /* Frameworks */,
 				C9D5EF401961961800AEDF1C /* Products */,
@@ -119,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				C9D5EF621961973A00AEDF1C /* ElektrikTrickQuickLook.qlgenerator */,
+				C9F530691BB33D4C00D198AF /* Elektriktrick.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -177,11 +222,28 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C9F530641BB1DBCD00D198AF /* ElektrikTrick */ = {
+		C9F5306A1BB33D4C00D198AF /* Elektriktrick */ = {
 			isa = PBXGroup;
 			children = (
+				C9F5306B1BB33D4C00D198AF /* AppDelegate.h */,
+				C9F5306C1BB33D4C00D198AF /* AppDelegate.m */,
+				C9F530711BB33D4C00D198AF /* Document.h */,
+				C9F530721BB33D4C00D198AF /* Document.m */,
+				C9F530741BB33D4C00D198AF /* Document.xib */,
+				C9F530771BB33D4D00D198AF /* Assets.xcassets */,
+				C9F530791BB33D4D00D198AF /* MainMenu.xib */,
+				C9F5307C1BB33D4D00D198AF /* Info.plist */,
+				C9F5306E1BB33D4C00D198AF /* Supporting Files */,
 			);
-			name = ElektrikTrick;
+			path = Elektriktrick;
+			sourceTree = "<group>";
+		};
+		C9F5306E1BB33D4C00D198AF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C9F5306F1BB33D4C00D198AF /* main.m */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,6 +291,25 @@
 			productReference = C9D5EF621961973A00AEDF1C /* ElektrikTrickQuickLook.qlgenerator */;
 			productType = "com.apple.product-type.bundle";
 		};
+		C9F530681BB33D4C00D198AF /* Elektriktrick */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9F5307D1BB33D4D00D198AF /* Build configuration list for PBXNativeTarget "Elektriktrick" */;
+			buildPhases = (
+				C9F530651BB33D4C00D198AF /* Sources */,
+				C9F530661BB33D4C00D198AF /* Frameworks */,
+				C9F530671BB33D4C00D198AF /* Resources */,
+				C9F530841BB340AB00D198AF /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C9F530811BB33D6500D198AF /* PBXTargetDependency */,
+			);
+			name = Elektriktrick;
+			productName = Elektriktrick;
+			productReference = C9F530691BB33D4C00D198AF /* Elektriktrick.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -237,6 +318,11 @@
 			attributes = {
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "M.Melcher GmbH";
+				TargetAttributes = {
+					C9F530681BB33D4C00D198AF = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
 			};
 			buildConfigurationList = C9D5EF381961961800AEDF1C /* Build configuration list for PBXProject "Elektriktrick" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -244,6 +330,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = C9D5EF341961961800AEDF1C;
 			productRefGroup = C9D5EF401961961800AEDF1C /* Products */;
@@ -251,6 +338,7 @@
 			projectRoot = "";
 			targets = (
 				C9D5EF611961973A00AEDF1C /* ElektrikTrickQuickLook */,
+				C9F530681BB33D4C00D198AF /* Elektriktrick */,
 			);
 		};
 /* End PBXProject section */
@@ -261,6 +349,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9D5EF7D196197FD00AEDF1C /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9F530671BB33D4C00D198AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9F530781BB33D4D00D198AF /* Assets.xcassets in Resources */,
+				C9F530761BB33D4C00D198AF /* Document.xib in Resources */,
+				C9F5307B1BB33D4D00D198AF /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,7 +396,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C9F530651BB33D4C00D198AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9F530731BB33D4C00D198AF /* Document.m in Sources */,
+				C9F530701BB33D4C00D198AF /* main.m in Sources */,
+				C9F5306D1BB33D4C00D198AF /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C9F530811BB33D6500D198AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C9D5EF611961973A00AEDF1C /* ElektrikTrickQuickLook */;
+			targetProxy = C9F530801BB33D6500D198AF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C9D5EF79196197FD00AEDF1C /* InfoPlist.strings */ = {
@@ -307,6 +423,22 @@
 				C9D5EF7A196197FD00AEDF1C /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C9F530741BB33D4C00D198AF /* Document.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9F530751BB33D4C00D198AF /* Base */,
+			);
+			name = Document.xib;
+			sourceTree = "<group>";
+		};
+		C9F530791BB33D4D00D198AF /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9F5307A1BB33D4D00D198AF /* Base */,
+			);
+			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -423,6 +555,44 @@
 			};
 			name = Release;
 		};
+		C9F5307E1BB33D4D00D198AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = Elektriktrick/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matthiasm.elektriktrick.app.Elektriktrick;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C9F5307F1BB33D4D00D198AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = Elektriktrick/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matthiasm.elektriktrick.app.Elektriktrick;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -443,6 +613,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		C9F5307D1BB33D4D00D198AF /* Build configuration list for PBXNativeTarget "Elektriktrick" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9F5307E1BB33D4D00D198AF /* Debug */,
+				C9F5307F1BB33D4D00D198AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

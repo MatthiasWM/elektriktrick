@@ -28,13 +28,13 @@
 	<key>CFBundleName</key>
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.2</string>
+	<string>1001.7.11</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1001.7.11</string>
 	<key>CFPlugInDynamicRegisterFunction</key>
 	<string></string>
 	<key>CFPlugInDynamicRegistration</key>
-	<string>NO</string>
+	<string>YES</string>
 	<key>CFPlugInFactories</key>
 	<dict>
 		<key>8D269336-626C-4F43-903F-D2F6AE5C4976</key>
@@ -52,7 +52,7 @@
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2014 M.Melcher GmbH. All rights reserved. www.elektriktrick.com</string>
+	<string>Copyright © 2014-2015 M.Melcher GmbH. All rights reserved. www.elektriktrick.com</string>
 	<key>QLNeedsToBeRunInMainThread</key>
 	<false/>
 	<key>QLPreviewHeight</key>
@@ -69,6 +69,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>public.standard-tesselated-geometry-format</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Stereolithography Object</string>
