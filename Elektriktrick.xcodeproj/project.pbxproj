@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C91355A71BBB33F40010D4CE /* libCGAL_Core.10.0.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C91355A51BBB33F40010D4CE /* libCGAL_Core.10.0.4.dylib */; settings = {ASSET_TAGS = (); }; };
+		C91355A81BBB33F40010D4CE /* libCGAL.10.0.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C91355A61BBB33F40010D4CE /* libCGAL.10.0.4.dylib */; settings = {ASSET_TAGS = (); }; };
+		C94843441BD836790051AE08 /* ETGMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94843421BD836790051AE08 /* ETGMesh.cpp */; settings = {ASSET_TAGS = (); }; };
+		C94843471BD837C10051AE08 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C94843461BD837C10051AE08 /* OpenGL.framework */; };
+		C948434F1BD8385A0051AE08 /* ETSerialPort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94843491BD8385A0051AE08 /* ETSerialPort.cpp */; settings = {ASSET_TAGS = (); }; };
+		C94843501BD8385A0051AE08 /* Flio_Serial_Port.cxx in Sources */ = {isa = PBXBuildFile; fileRef = C948434B1BD8385A0051AE08 /* Flio_Serial_Port.cxx */; settings = {ASSET_TAGS = (); }; };
+		C94843511BD8385A0051AE08 /* Flio_Stream.cxx in Sources */ = {isa = PBXBuildFile; fileRef = C948434D1BD8385A0051AE08 /* Flio_Stream.cxx */; settings = {ASSET_TAGS = (); }; };
+		C94843541BD838DC0051AE08 /* Sintratec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94843521BD838DC0051AE08 /* Sintratec.cpp */; settings = {ASSET_TAGS = (); }; };
+		C94843581BD839580051AE08 /* ETOpenGLWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94843561BD839580051AE08 /* ETOpenGLWidget.cpp */; settings = {ASSET_TAGS = (); }; };
 		C97E928D1993FB180078000B /* ETModelGCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97E928B1993FB180078000B /* ETModelGCode.cpp */; };
 		C97E928E1993FB180078000B /* ETModelGCode.h in Headers */ = {isa = PBXBuildFile; fileRef = C97E928C1993FB180078000B /* ETModelGCode.h */; };
 		C97E929119940F340078000B /* ETEdge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97E928F19940F340078000B /* ETEdge.cpp */; };
@@ -19,6 +28,19 @@
 		C97E929E1994ECE30078000B /* ETModelBinarySTL.h in Headers */ = {isa = PBXBuildFile; fileRef = C97E929C1994ECE30078000B /* ETModelBinarySTL.h */; };
 		C97E92A11994EFE70078000B /* ETModelTextSTL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97E929F1994EFE70078000B /* ETModelTextSTL.cpp */; };
 		C97E92A21994EFE70078000B /* ETModelTextSTL.h in Headers */ = {isa = PBXBuildFile; fileRef = C97E92A01994EFE70078000B /* ETModelTextSTL.h */; };
+		C9A469C31BBB268800784CBF /* fltk_gl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A469BC1BBB268800784CBF /* fltk_gl.framework */; settings = {ASSET_TAGS = (); }; };
+		C9A469C41BBB268800784CBF /* fltk_images.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A469BD1BBB268800784CBF /* fltk_images.framework */; settings = {ASSET_TAGS = (); }; };
+		C9A469C51BBB268800784CBF /* fltk_jpeg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A469BE1BBB268800784CBF /* fltk_jpeg.framework */; settings = {ASSET_TAGS = (); }; };
+		C9A469C61BBB268800784CBF /* fltk_png.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A469BF1BBB268800784CBF /* fltk_png.framework */; settings = {ASSET_TAGS = (); }; };
+		C9A469C71BBB268800784CBF /* fltk_zlib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A469C01BBB268800784CBF /* fltk_zlib.framework */; settings = {ASSET_TAGS = (); }; };
+		C9A469C81BBB268800784CBF /* fltk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A469C11BBB268800784CBF /* fltk.framework */; settings = {ASSET_TAGS = (); }; };
+		C9A469C91BBB269C00784CBF /* fltk_gl.framework in Resources */ = {isa = PBXBuildFile; fileRef = C9A469BC1BBB268800784CBF /* fltk_gl.framework */; };
+		C9A469CA1BBB269C00784CBF /* fltk_images.framework in Resources */ = {isa = PBXBuildFile; fileRef = C9A469BD1BBB268800784CBF /* fltk_images.framework */; };
+		C9A469CB1BBB269C00784CBF /* fltk_jpeg.framework in Resources */ = {isa = PBXBuildFile; fileRef = C9A469BE1BBB268800784CBF /* fltk_jpeg.framework */; };
+		C9A469CC1BBB269C00784CBF /* fltk_png.framework in Resources */ = {isa = PBXBuildFile; fileRef = C9A469BF1BBB268800784CBF /* fltk_png.framework */; };
+		C9A469CD1BBB269C00784CBF /* fltk_zlib.framework in Resources */ = {isa = PBXBuildFile; fileRef = C9A469C01BBB268800784CBF /* fltk_zlib.framework */; };
+		C9A469CE1BBB269D00784CBF /* fltk.framework in Resources */ = {isa = PBXBuildFile; fileRef = C9A469C11BBB268800784CBF /* fltk.framework */; };
+		C9A469D11BBB26C000784CBF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9A469CF1BBB26C000784CBF /* main.cpp */; settings = {ASSET_TAGS = (); }; };
 		C9D5EF631961973A00AEDF1C /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF421961961800AEDF1C /* QuickLook.framework */; };
 		C9D5EF641961973A00AEDF1C /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF441961961800AEDF1C /* ApplicationServices.framework */; };
 		C9D5EF651961973A00AEDF1C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D5EF461961961800AEDF1C /* CoreServices.framework */; };
@@ -39,10 +61,6 @@
 		C9D5EF981961981900AEDF1C /* GeneratePreviewForURL.mm in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF8A1961981900AEDF1C /* GeneratePreviewForURL.mm */; };
 		C9D5EF991961981900AEDF1C /* GenerateThumbnailForURL.mm in Sources */ = {isa = PBXBuildFile; fileRef = C9D5EF8B1961981900AEDF1C /* GenerateThumbnailForURL.mm */; };
 		C9D5EF9B196198E200AEDF1C /* ElektrikTrickQuickLook.qlgenerator in CopyFiles */ = {isa = PBXBuildFile; fileRef = C9D5EF621961973A00AEDF1C /* ElektrikTrickQuickLook.qlgenerator */; };
-		C9F5306D1BB33D4C00D198AF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F5306C1BB33D4C00D198AF /* AppDelegate.m */; };
-		C9F530701BB33D4C00D198AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F5306F1BB33D4C00D198AF /* main.m */; };
-		C9F530731BB33D4C00D198AF /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F530721BB33D4C00D198AF /* Document.m */; };
-		C9F530761BB33D4C00D198AF /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9F530741BB33D4C00D198AF /* Document.xib */; };
 		C9F530781BB33D4D00D198AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9F530771BB33D4D00D198AF /* Assets.xcassets */; };
 		C9F5307B1BB33D4D00D198AF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9F530791BB33D4D00D198AF /* MainMenu.xib */; };
 		C9F530851BB340DD00D198AF /* ElektrikTrickQuickLook.qlgenerator in CopyFiles */ = {isa = PBXBuildFile; fileRef = C9D5EF621961973A00AEDF1C /* ElektrikTrickQuickLook.qlgenerator */; };
@@ -82,6 +100,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C91355A51BBB33F40010D4CE /* libCGAL_Core.10.0.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libCGAL_Core.10.0.4.dylib; path = Elektriktrick/CGAL/lib/libCGAL_Core.10.0.4.dylib; sourceTree = "<group>"; };
+		C91355A61BBB33F40010D4CE /* libCGAL.10.0.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libCGAL.10.0.4.dylib; path = Elektriktrick/CGAL/lib/libCGAL.10.0.4.dylib; sourceTree = "<group>"; };
+		C94843421BD836790051AE08 /* ETGMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ETGMesh.cpp; path = Geometry/ETGMesh.cpp; sourceTree = "<group>"; };
+		C94843431BD836790051AE08 /* ETGMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ETGMesh.h; path = Geometry/ETGMesh.h; sourceTree = "<group>"; };
+		C94843461BD837C10051AE08 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		C94843491BD8385A0051AE08 /* ETSerialPort.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ETSerialPort.cpp; path = FLTK/ETSerialPort.cpp; sourceTree = "<group>"; };
+		C948434A1BD8385A0051AE08 /* ETSerialPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ETSerialPort.h; path = FLTK/ETSerialPort.h; sourceTree = "<group>"; };
+		C948434B1BD8385A0051AE08 /* Flio_Serial_Port.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Flio_Serial_Port.cxx; path = FLTK/Flio_Serial_Port.cxx; sourceTree = "<group>"; };
+		C948434C1BD8385A0051AE08 /* Flio_Serial_Port.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Flio_Serial_Port.h; path = FLTK/Flio_Serial_Port.h; sourceTree = "<group>"; };
+		C948434D1BD8385A0051AE08 /* Flio_Stream.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Flio_Stream.cxx; path = FLTK/Flio_Stream.cxx; sourceTree = "<group>"; };
+		C948434E1BD8385A0051AE08 /* Flio_Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Flio_Stream.h; path = FLTK/Flio_Stream.h; sourceTree = "<group>"; };
+		C94843521BD838DC0051AE08 /* Sintratec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Sintratec.cpp; path = Hardware/Sintratec.cpp; sourceTree = "<group>"; };
+		C94843531BD838DC0051AE08 /* Sintratec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sintratec.h; path = Hardware/Sintratec.h; sourceTree = "<group>"; };
+		C94843561BD839580051AE08 /* ETOpenGLWidget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ETOpenGLWidget.cpp; path = FLTK/ETOpenGLWidget.cpp; sourceTree = "<group>"; };
+		C94843571BD839580051AE08 /* ETOpenGLWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ETOpenGLWidget.h; path = FLTK/ETOpenGLWidget.h; sourceTree = "<group>"; };
 		C97E928B1993FB180078000B /* ETModelGCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETModelGCode.cpp; sourceTree = "<group>"; };
 		C97E928C1993FB180078000B /* ETModelGCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETModelGCode.h; sourceTree = "<group>"; };
 		C97E928F19940F340078000B /* ETEdge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETEdge.cpp; sourceTree = "<group>"; };
@@ -94,6 +127,14 @@
 		C97E929C1994ECE30078000B /* ETModelBinarySTL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETModelBinarySTL.h; sourceTree = "<group>"; };
 		C97E929F1994EFE70078000B /* ETModelTextSTL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ETModelTextSTL.cpp; sourceTree = "<group>"; };
 		C97E92A01994EFE70078000B /* ETModelTextSTL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETModelTextSTL.h; sourceTree = "<group>"; };
+		C9A469BC1BBB268800784CBF /* fltk_gl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = fltk_gl.framework; path = ../../Library/Frameworks/fltk_gl.framework; sourceTree = "<group>"; };
+		C9A469BD1BBB268800784CBF /* fltk_images.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = fltk_images.framework; path = ../../Library/Frameworks/fltk_images.framework; sourceTree = "<group>"; };
+		C9A469BE1BBB268800784CBF /* fltk_jpeg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = fltk_jpeg.framework; path = ../../Library/Frameworks/fltk_jpeg.framework; sourceTree = "<group>"; };
+		C9A469BF1BBB268800784CBF /* fltk_png.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = fltk_png.framework; path = ../../Library/Frameworks/fltk_png.framework; sourceTree = "<group>"; };
+		C9A469C01BBB268800784CBF /* fltk_zlib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = fltk_zlib.framework; path = ../../Library/Frameworks/fltk_zlib.framework; sourceTree = "<group>"; };
+		C9A469C11BBB268800784CBF /* fltk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = fltk.framework; path = ../../Library/Frameworks/fltk.framework; sourceTree = "<group>"; };
+		C9A469CF1BBB26C000784CBF /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		C9A469D01BBB26C000784CBF /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 		C9D5EF421961961800AEDF1C /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		C9D5EF441961961800AEDF1C /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		C9D5EF461961961800AEDF1C /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
@@ -116,12 +157,6 @@
 		C9D5EF8A1961981900AEDF1C /* GeneratePreviewForURL.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GeneratePreviewForURL.mm; sourceTree = "<group>"; };
 		C9D5EF8B1961981900AEDF1C /* GenerateThumbnailForURL.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GenerateThumbnailForURL.mm; sourceTree = "<group>"; };
 		C9F530691BB33D4C00D198AF /* Elektriktrick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Elektriktrick.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C9F5306B1BB33D4C00D198AF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		C9F5306C1BB33D4C00D198AF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C9F5306F1BB33D4C00D198AF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C9F530711BB33D4C00D198AF /* Document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
-		C9F530721BB33D4C00D198AF /* Document.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
-		C9F530751BB33D4C00D198AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
 		C9F530771BB33D4D00D198AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9F5307A1BB33D4D00D198AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C9F5307C1BB33D4D00D198AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -143,17 +178,59 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C94843471BD837C10051AE08 /* OpenGL.framework in Frameworks */,
+				C91355A71BBB33F40010D4CE /* libCGAL_Core.10.0.4.dylib in Frameworks */,
+				C9A469C31BBB268800784CBF /* fltk_gl.framework in Frameworks */,
+				C9A469C51BBB268800784CBF /* fltk_jpeg.framework in Frameworks */,
+				C91355A81BBB33F40010D4CE /* libCGAL.10.0.4.dylib in Frameworks */,
+				C9A469C81BBB268800784CBF /* fltk.framework in Frameworks */,
+				C9A469C71BBB268800784CBF /* fltk_zlib.framework in Frameworks */,
+				C9A469C41BBB268800784CBF /* fltk_images.framework in Frameworks */,
+				C9A469C61BBB268800784CBF /* fltk_png.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C94843451BD836810051AE08 /* Geometry */ = {
+			isa = PBXGroup;
+			children = (
+				C94843421BD836790051AE08 /* ETGMesh.cpp */,
+				C94843431BD836790051AE08 /* ETGMesh.h */,
+			);
+			name = Geometry;
+			sourceTree = "<group>";
+		};
+		C94843481BD8380A0051AE08 /* FLTK */ = {
+			isa = PBXGroup;
+			children = (
+				C94843491BD8385A0051AE08 /* ETSerialPort.cpp */,
+				C948434A1BD8385A0051AE08 /* ETSerialPort.h */,
+				C948434B1BD8385A0051AE08 /* Flio_Serial_Port.cxx */,
+				C948434C1BD8385A0051AE08 /* Flio_Serial_Port.h */,
+				C948434D1BD8385A0051AE08 /* Flio_Stream.cxx */,
+				C948434E1BD8385A0051AE08 /* Flio_Stream.h */,
+				C94843561BD839580051AE08 /* ETOpenGLWidget.cpp */,
+				C94843571BD839580051AE08 /* ETOpenGLWidget.h */,
+			);
+			name = FLTK;
+			sourceTree = "<group>";
+		};
+		C94843551BD838EC0051AE08 /* Hardware */ = {
+			isa = PBXGroup;
+			children = (
+				C94843521BD838DC0051AE08 /* Sintratec.cpp */,
+				C94843531BD838DC0051AE08 /* Sintratec.h */,
+			);
+			name = Hardware;
+			sourceTree = "<group>";
+		};
 		C9D5EF341961961800AEDF1C = {
 			isa = PBXGroup;
 			children = (
-				C9F5306A1BB33D4C00D198AF /* Elektriktrick */,
 				C9D5EF671961973A00AEDF1C /* ElektrikTrickQuickLook */,
+				C9F5306A1BB33D4C00D198AF /* Elektriktrick */,
 				C9D5EF411961961800AEDF1C /* Frameworks */,
 				C9D5EF401961961800AEDF1C /* Products */,
 			);
@@ -171,6 +248,15 @@
 		C9D5EF411961961800AEDF1C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C94843461BD837C10051AE08 /* OpenGL.framework */,
+				C91355A51BBB33F40010D4CE /* libCGAL_Core.10.0.4.dylib */,
+				C91355A61BBB33F40010D4CE /* libCGAL.10.0.4.dylib */,
+				C9A469BC1BBB268800784CBF /* fltk_gl.framework */,
+				C9A469BD1BBB268800784CBF /* fltk_images.framework */,
+				C9A469BE1BBB268800784CBF /* fltk_jpeg.framework */,
+				C9A469BF1BBB268800784CBF /* fltk_png.framework */,
+				C9A469C01BBB268800784CBF /* fltk_zlib.framework */,
+				C9A469C11BBB268800784CBF /* fltk.framework */,
 				C9D5EF421961961800AEDF1C /* QuickLook.framework */,
 				C9D5EF441961961800AEDF1C /* ApplicationServices.framework */,
 				C9D5EF461961961800AEDF1C /* CoreServices.framework */,
@@ -225,14 +311,11 @@
 		C9F5306A1BB33D4C00D198AF /* Elektriktrick */ = {
 			isa = PBXGroup;
 			children = (
-				C9F5306B1BB33D4C00D198AF /* AppDelegate.h */,
-				C9F5306C1BB33D4C00D198AF /* AppDelegate.m */,
-				C9F530711BB33D4C00D198AF /* Document.h */,
-				C9F530721BB33D4C00D198AF /* Document.m */,
-				C9F530741BB33D4C00D198AF /* Document.xib */,
-				C9F530771BB33D4D00D198AF /* Assets.xcassets */,
-				C9F530791BB33D4D00D198AF /* MainMenu.xib */,
-				C9F5307C1BB33D4D00D198AF /* Info.plist */,
+				C9A469CF1BBB26C000784CBF /* main.cpp */,
+				C9A469D01BBB26C000784CBF /* main.h */,
+				C94843451BD836810051AE08 /* Geometry */,
+				C94843481BD8380A0051AE08 /* FLTK */,
+				C94843551BD838EC0051AE08 /* Hardware */,
 				C9F5306E1BB33D4C00D198AF /* Supporting Files */,
 			);
 			path = Elektriktrick;
@@ -241,7 +324,9 @@
 		C9F5306E1BB33D4C00D198AF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C9F5306F1BB33D4C00D198AF /* main.m */,
+				C9F530771BB33D4D00D198AF /* Assets.xcassets */,
+				C9F530791BB33D4D00D198AF /* MainMenu.xib */,
+				C9F5307C1BB33D4D00D198AF /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -356,8 +441,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9A469C91BBB269C00784CBF /* fltk_gl.framework in Resources */,
+				C9A469CA1BBB269C00784CBF /* fltk_images.framework in Resources */,
+				C9A469CB1BBB269C00784CBF /* fltk_jpeg.framework in Resources */,
+				C9A469CC1BBB269C00784CBF /* fltk_png.framework in Resources */,
+				C9A469CD1BBB269C00784CBF /* fltk_zlib.framework in Resources */,
+				C9A469CE1BBB269D00784CBF /* fltk.framework in Resources */,
 				C9F530781BB33D4D00D198AF /* Assets.xcassets in Resources */,
-				C9F530761BB33D4C00D198AF /* Document.xib in Resources */,
 				C9F5307B1BB33D4D00D198AF /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -400,9 +490,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9F530731BB33D4C00D198AF /* Document.m in Sources */,
-				C9F530701BB33D4C00D198AF /* main.m in Sources */,
-				C9F5306D1BB33D4C00D198AF /* AppDelegate.m in Sources */,
+				C9A469D11BBB26C000784CBF /* main.cpp in Sources */,
+				C94843541BD838DC0051AE08 /* Sintratec.cpp in Sources */,
+				C94843511BD8385A0051AE08 /* Flio_Stream.cxx in Sources */,
+				C948434F1BD8385A0051AE08 /* ETSerialPort.cpp in Sources */,
+				C94843501BD8385A0051AE08 /* Flio_Serial_Port.cxx in Sources */,
+				C94843441BD836790051AE08 /* ETGMesh.cpp in Sources */,
+				C94843581BD839580051AE08 /* ETOpenGLWidget.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,14 +517,6 @@
 				C9D5EF7A196197FD00AEDF1C /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		C9F530741BB33D4C00D198AF /* Document.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C9F530751BB33D4C00D198AF /* Base */,
-			);
-			name = Document.xib;
 			sourceTree = "<group>";
 		};
 		C9F530791BB33D4D00D198AF /* MainMenu.xib */ = {
@@ -558,38 +644,64 @@
 		C9F5307E1BB33D4D00D198AF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Frameworks",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(USER_LIBRARY_DIR)/Frameworks/fltk.framework/Versions/Current/Headers/",
+					"$(PROJECT_DIR)/Elektriktrick/CGAL/include",
+					/usr/local/include,
+				);
 				INFOPLIST_FILE = Elektriktrick/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Elektriktrick/CGAL/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matthiasm.elektriktrick.app.Elektriktrick;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		C9F5307F1BB33D4D00D198AF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Frameworks",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(USER_LIBRARY_DIR)/Frameworks/fltk.framework/Versions/Current/Headers/",
+					"$(PROJECT_DIR)/Elektriktrick/CGAL/include",
+					/usr/local/include,
+				);
 				INFOPLIST_FILE = Elektriktrick/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Elektriktrick/CGAL/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matthiasm.elektriktrick.app.Elektriktrick;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};

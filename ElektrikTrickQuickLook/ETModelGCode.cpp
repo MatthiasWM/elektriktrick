@@ -17,8 +17,13 @@ ETModel *ETModelGCode::Create(uint8_t *buf, size_t size)
     signed int i;
     for (i=0; i<size-4; i++) {
         if (i==0 || buf[i-1]=='\r' || buf[i-1]=='\n') {
+            // find a GCode command
             if (buf[i]=='G' || buf[i]=='M') {
                 if (isdigit(buf[i+1])) return new ETModelGCode();
+            }
+            // alternatively, find a typical GCode comment (weak!)
+            if (buf[i]==';' && buf[i+1]==' ' && isalnum(buf[i+2])) {
+                return new ETModelGCode();
             }
         }
     }
@@ -53,6 +58,10 @@ void test();
  *   G1 X-0.55 Y20.0 Z0.2 F840.0
  *
  * \return no error code, it fails silently, but creates an intact (possibly incomplete) dataset
+ *
+ * \FIXME: Adam.gcode contains G-Commands separated by a semicolon. 
+ *         It also contains NUL characters and crashes the QL
+ *         It contains lines with the G command missing, followed by X, Y, and Z commands
  */
 int ETModelGCode::Load()
 {
