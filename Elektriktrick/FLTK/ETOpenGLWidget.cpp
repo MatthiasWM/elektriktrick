@@ -59,7 +59,7 @@ int ETOpenGLWidget::handle(int event)
                 pYRotation += Fl::event_dy();
                 redraw();
             }
-            break;
+            return 1;
         case FL_DND_ENTER:
             return 1;
         case FL_DND_DRAG:
@@ -68,7 +68,7 @@ int ETOpenGLWidget::handle(int event)
             return 1;
         case FL_PASTE:
             if (pDropCallback) pDropCallback(Fl::event_text());
-            break;
+            return 1;;
     }
     return Fl_Gl_Window::handle(event);
 }

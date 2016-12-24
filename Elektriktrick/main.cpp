@@ -9,10 +9,13 @@
 #include "main.h"
 
 #include "FL/Fl.H"
+#include "FL/Fl_Preferences.H"
 #include "FL/Fl_Window.H"
 #include "FL/Fl_Pack.H"
 #include "FL/Fl_Menu_Bar.H"
 #include "FL/Fl_Button.H"
+#include "FL/Fl_File_Browser.H"
+#include "FL/filename.h"
 
 #include "ETSerialPort.h"
 #include "ETOpenGLWidget.h"
@@ -21,25 +24,44 @@
 
 #include "ETGMesh.h"
 
-
 #include "ETModel.h"
 #include "ETModelSTL.h"
 
 
+const int gMainWindowDefaultX = 100;
+const int gMainWindowDefaultY = 120;
+const int gMainWindowDefaultW = 800;
+const int gMainWindowDefaultH = 600;
+const int gFileBrowserDefaultW = 200;
+
+int gMainWindowX;
+int gMainWindowY;
+int gMainWindowW;
+int gMainWindowH;
+int gFileBrowserW;
+
+Fl_Window *gMainWindow;
+Fl_File_Browser *gFileBrowser;
+
+char gBasePath[FL_PATH_MAX] = "";
+
+
+
 ETOpenGLWidget *ogl;
-Fl_Window *qMainWindow;
 
 ETModel *gPreviewModel = 0L;
 
 
 void quitCB(Fl_Widget*, void*)
 {
-    qMainWindow->hide();
+    gMainWindow->hide();
 }
 
 
 void shrinkAndSaveCB(Fl_Widget*, void*)
 {
+    if (gMeshList.size()==0)
+        return;
     ISMesh *isMesh = gMeshList.at(0);
     isMesh->shrink(0.15, 0.15, 0.0);
 //    isMesh->shrink(1.0, 1.0, 0.0);
@@ -108,26 +130,92 @@ void draw_cb()
 }
 
 
+void file_browser_cb(Fl_Widget *w, void*)
+{
+    const char *name = gFileBrowser->text(gFileBrowser->value());
+    if (!name) return;
+
+    char buf[FL_PATH_MAX];
+    strcpy(buf, gBasePath);
+    strcat(buf, "/");
+    strcat(buf, gFileBrowser->text(gFileBrowser->value()));
+
+    if (fl_filename_isdir(buf)) {
+        chdir(gBasePath);
+        fl_filename_absolute(gBasePath, FL_PATH_MAX, name);
+        gFileBrowser->load(gBasePath);
+    } else {
+        loadFile(buf);
+    }
+}
+
+
+void ReadPreferences()
+{
+    Fl_Preferences prefs(Fl_Preferences::USER, "com.matthiasm.elektriktrick", "elektriktrick");
+
+    Fl_Preferences screen(prefs, "screen");
+    screen.get("x", gMainWindowX, gMainWindowDefaultX);
+    screen.get("y", gMainWindowY, gMainWindowDefaultY);
+    screen.get("w", gMainWindowW, gMainWindowDefaultW);
+    screen.get("h", gMainWindowH, gMainWindowDefaultH);
+
+    Fl_Preferences fileBrowser(prefs, "fileBrowser");
+    fileBrowser.get("w", gFileBrowserW, gFileBrowserDefaultW);
+    fileBrowser.get("path", gBasePath, fl_getenv("HOME"), FL_PATH_MAX);
+}
+
+
+void WritePreferences()
+{
+    Fl_Preferences prefs(Fl_Preferences::USER, "com.matthiasm.elektriktrick", "elektriktrick");
+
+    Fl_Preferences screen(prefs, "screen");
+    screen.set("x", gMainWindow->x());
+    screen.set("y", gMainWindow->y());
+    screen.set("w", gMainWindow->w());
+    screen.set("h", gMainWindow->h());
+
+    Fl_Preferences fileBrowser(prefs, "fileBrowser");
+    fileBrowser.set("w", gFileBrowser->w());
+    fileBrowser.set("path", gBasePath);
+}
+
+
+/**
+ 
+ +-----------------------------------------------------+
+ | File  Edit  Help                                    |
+ +-----------------------------------------------------+
+ | Filebrowser |      3D Model Redering                |
+ :             :                                       :
+
+ :             :                                       :
+ +-----------------------------------------------------+
+
+
+ */
 int main (int argc, char **argv)
 {
-//    Polyhedron P;
-//    Halfedge_handle h = P.make_tetrahedron();
-
     Fl::args(argc, argv);
-    Fl_Window *win = qMainWindow = new Fl_Window(800, 500, "Elektriktrick");
+    ReadPreferences();
 
-    Fl_Menu_Bar *mainMenu = new Fl_Menu_Bar(0, 0, win->w(), 25);
+    gMainWindow = new Fl_Window(gMainWindowX, gMainWindowY,
+                                gMainWindowW, gMainWindowH,
+                                "Elektriktrick");
+
+    Fl_Menu_Bar *mainMenu = new Fl_Menu_Bar(0, 0, gMainWindow->w(), 25);
     mainMenu->menu(mainMenuTable);
 
-    Fl_Group *toolLine = new Fl_Group(0, win->h()-20, win->w(), 20);
+    Fl_Group *toolLine = new Fl_Group(0, gMainWindow->h()-20, gMainWindow->w(), 20);
     toolLine->box(FL_DOWN_BOX);
     {
-        ETSerialPort *ser = new ETSerialPort(win->w()-52, win->h()-18, 50, 16);
+        ETSerialPort *ser = new ETSerialPort(gMainWindow->w()-52, gMainWindow->h()-18, 50, 16);
         ser->open("/dev/tty.usb1411", 19200);
     }
     toolLine->end();
 
-    Fl_Pack *machineBar = new Fl_Pack(win->w()-32, mainMenu->h(), 32, win->h()-mainMenu->h()-toolLine->h());
+    Fl_Pack *machineBar = new Fl_Pack(gMainWindow->w()-32, mainMenu->h(), 32, gMainWindow->h()-mainMenu->h()-toolLine->h());
     {
         Fl_Button *b = new Fl_Button(0, 0, 32, 32, "fix\n&&\nsave");
         b->labelsize(8);
@@ -136,14 +224,16 @@ int main (int argc, char **argv)
     }
     machineBar->end();
 
-    ogl = new ETOpenGLWidget(0, mainMenu->h(), win->w()-machineBar->w(), win->h()-mainMenu->h()-toolLine->h());
+    gFileBrowser = new Fl_File_Browser(0, mainMenu->h(), gFileBrowserW, gMainWindow->h()-mainMenu->h()-toolLine->h());
+
+    ogl = new ETOpenGLWidget(gFileBrowserW, mainMenu->h(), gMainWindow->w()-machineBar->w()-gFileBrowserW, gMainWindow->h()-mainMenu->h()-toolLine->h());
     ogl->draw_callback(draw_cb);
     ogl->drop_callback(drop_cb);
     ogl->end();
 
-    win->resizable(ogl);
-    win->show();
-    ogl->show();
+    gMainWindow->resizable(ogl);
+    gMainWindow->show();
+    gMainWindow->show();
 
 #if 0
 
@@ -161,8 +251,18 @@ int main (int argc, char **argv)
 
 #endif
 
+    gFileBrowser->type(FL_HOLD_BROWSER);
+    gFileBrowser->filetype(Fl_File_Browser::FILES);
+    gFileBrowser->iconsize(20);
+    gFileBrowser->filter("[^.]*{.stl|.dxf|.gcode}");
+    gFileBrowser->load(gBasePath);
+    gFileBrowser->callback(file_browser_cb);
+
 
 //    Fl::add_timeout(3, test);
     Fl::run();
+
+    WritePreferences();
+
     return 0;
 }
