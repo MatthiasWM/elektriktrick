@@ -10,221 +10,102 @@
 
 #include "FL/Fl.H"
 #include "FL/Fl_Window.H"
+#include "FL/Fl_Pack.H"
+#include "FL/Fl_Menu_Bar.H"
+#include "FL/Fl_Button.H"
 
 #include "ETSerialPort.h"
 #include "ETOpenGLWidget.h"
 
+#include "ETOpenGLSurface.h"
+
 #include "ETGMesh.h"
 
-//#include <CGAL/Simple_cartesian.h>
-//#include <CGAL/Polyhedron_3.h>
-//
-//typedef CGAL::Simple_cartesian<double>     Kernel;
-//typedef CGAL::Polyhedron_3<Kernel>         Polyhedron;
-//typedef Polyhedron::Halfedge_handle        Halfedge_handle;
 
-/*
- 
- +-----------------                         --------------+
- | ooo  Title                                             |
- +-----------------                         --------------+
- | Toolbox (click to apply, drag into workflow to add)    |
- +-----------+-----                         --+-----------+
- | machine   | 3D View                        | info for  |
- |  v wFlow1 |                                | selected  |
- |    action1|                                | tool      |
- |    action2|                                |           |
- |  > wFlow2 |
- |  > wFlow3 |
- | machine2  |
- |  ...      |
- :           :
- :           :
- +-----------+-----
- | status bar, connections, progress, etc.
- +-----------------
- 
- */
-
-/*
- Unrelated Sintratec files: 0a 0d
-
- /config/system/sysConfig.xml
- /prints/print.xml (probably should have been /config/printing/print.xml)
- there is also a log file
-
- Unrelated Sintratec commands:
-
- MSG1: Every 1.2 seconds: 57.6494 - 58.8565
- <- laser speed: 0 mm/s \r\nvac freq: 60 \r\nir sens freq: 5 \r\n
-
- MSG2: Every 1.2 seconds: 57.6494 (no spaces, no newline)
- <- <signal>
- <temperatures>
- <tempController id="5" name="Powder Surface" target="0">15</tempController>
- <tempController id="6" name="Heating Coil" target="0">15</tempController>
- <tempSensor id="0" name="IR Internal">21</tempSensor>
- </temperatures>
- </signal>
- <tempSensor id="1" name="Test Thermistor(p1)">11</tempSensor>
- </temperatures> (sic.)
- </signal>
- <- <signal>
- <status>
- <statusPrinting isPrinting="false">
- </status>
- </signal>
+#include "ETModel.h"
+#include "ETModelSTL.h"
 
 
- First connection:
- -> <identify/>
- <- <printerID commVersion="1" model="KitCDC" id="512031204630374d3130313234303033"/>
+ETOpenGLWidget *ogl;
+Fl_Window *qMainWindow;
 
- Move left piston up 0.1mm
- -> <axis id="1" home="false" type="relative" safe="true">0.1</axis>
- send 5 times, then:
- <- calling axis (id=1)\n
+ETModel *gPreviewModel = 0L;
 
- Right piston ID is 2
 
- Apply powder:
- -> <applyPowder z="0.15"/>
- While applying powder, MSG1 continues, MSG2 is suspended
- When done, MSG2 resumes
+void quitCB(Fl_Widget*, void*)
+{
+    qMainWindow->hide();
+}
 
- Move Sled:
- -> <applyLayer/>
- Messages as above, no confirmation
 
- Set Laser Speed:
- -> <setSpeeds><speed id="0" auto="false">100</speed></setSpeeds>
- <- setSpeeds active
- <- target_speed=100000 of axis=0\r\n
- <- setSpeeds inactive
+void shrinkAndSaveCB(Fl_Widget*, void*)
+{
+    ISMesh *isMesh = gMeshList.at(0);
+    isMesh->shrink(0.15, 0.15, 0.0);
+//    isMesh->shrink(1.0, 1.0, 0.0);
+    isMesh->saveCopy("_fix");
+    ogl->redraw();
+}
 
- Setting temperatures (id5=lamps, id6=coil, set to 0.0 deg C to switch off):
- -> <setTemperatures>
- <tempController id="5">60.0</tempController>
- </setTemperatures>
- no confirmation
 
- Start the printing process (file is on the SD card)
- -> <startPrint name="print"/>
- <- <statusPrinting isPrinting="true" printName=" 0:prints/print.xml"/>
- then after a few seconds:
- <- <signal>
- <progress currentLayer="1" estimatedPercentage="0" expiredPrintTime="15" estimatedTimeToCompletion="15593" />
- </signal>
+Fl_Menu_Item mainMenuTable[] =
+{
+    { "File", 0, 0, 0, FL_SUBMENU },
+    {   "Quit", FL_COMMAND+'q', quitCB, 0, 0 },
+    {   0 },
+    { "Edit" },
+    { "Help" },
+    { 0 }
+};
 
- Pause the printing:
- -> <pausePrint/>
 
- Stop printing:
- -> <abortPrint>
- (messes up the printing filename, but does not stop the heaters, likely stops the print as a bug)
- (restarting does not do anything useful)
+void test(void*)
+{
+    ETOpenGLSurface srf(800, 600);
+}
 
- Start test pattern (can't be stopped AFAIK)
- -> <testPattern id="1"/>
 
- Print file format (xml using tabs):
- <?xml version='1.0' encoding='UTF-8'?>
- <!--Instructions for KitCDC-->
- <instruction>
- <print>
- <layer z="0.200">               # machine assumes that layer 0.0 is spread, then spreads 0.1, heats, spreads 0.2
- <j x="4.950" y="4.950"/>    # -4.95 to 4.95 = 10mm taking laser radius (0.05) into account
- <g x="-4.950" y="4.950"/>
- <g x="-4.950" y="-4.950"/>
- ...
- <g x="-4.900" y="-4.010"/>
- <j x="-4.900" y="-3.797"/>
- <g x="-3.797" y="-4.900"/>
- <j x="-3.585" y="-4.900"/>
- ...
- <j x="4.646" y="4.900"/>
- <g x="4.900" y="4.646"/>
- </layer>
- <layer z="0.300">
- <j x="4.950" y="4.950"/>
- <g x="-4.950" y="4.950"/>
- ...
- <g x="-4.646" y="4.900"/>   # layer 10.100 is the last layer
-	</layer>
-	<layer z="10.200">
- </layer>
- </print>
- </instruction>
+void dropSTL(const char *filename)
+{
+    clearSTL();
+    loadSTL(filename);
+    ogl->redraw();
+}
 
- x1
- x2
- y1
- y2
- time
- scan
- init
- print
- units
- space
- layer
- galvo
- motor
- laser
- speeds
- signal
- status
- boxSls
- sensor
- message
- goChain
- printer
- surface
- command
- feedSls
- goFromTo
- identify
- bind_pid
- bangbang
- bottomSls
- go_config
- setSpeeds
- bind_galvo
- bind_laser
- bind_motor
- feedbedSls
- abortPrint
- pausePrint
- startPrint
- galvo_axis
- motor_axis
- laser_axis
- applyLayer
- printbedSls
- instruction
- temperature
- resumePrint
- bind_sensor
- applyPowder
- testPattern
- temperatures
- systemConfig
- power_driver
- statusMessage
- requestStatus
- bind_bangbang
- statusPrinting
- displayMessage
- tempController
- printParameters
- requestProgress
- setTemperatures
- temperature_axis
- bind_power_driver
- print_style_config
- requestTemperatures
 
- */
+void loadFile(const char *filename)
+{
+    if (gPreviewModel) {
+        ETModel *mdl = gPreviewModel;
+        gPreviewModel = 0L;
+        delete mdl;
+    }
+    ETModel *model = ETModel::ModelForFileType(filename);
+    if (model) {
+        if (model->Load()) {
+            model->Prepare3DDrawing();
+            gPreviewModel = model;
+        }
+    }
+    ogl->redraw();
+}
 
+
+void drop_cb(const char *filenames)
+{
+//    dropSTL(filenames);
+    loadFile(filenames);
+}
+
+
+void draw_cb()
+{
+    if (gPreviewModel) {
+        gPreviewModel->GLDraw3D();
+    } else {
+        drawModelGouraud();
+    }
+}
 
 
 int main (int argc, char **argv)
@@ -233,21 +114,55 @@ int main (int argc, char **argv)
 //    Halfedge_handle h = P.make_tetrahedron();
 
     Fl::args(argc, argv);
-    Fl_Window *win = new Fl_Window(800, 500, "Elektriktrick");
-    ETOpenGLWidget *ogl = new ETOpenGLWidget(10, 10, 780, 470);
-    ogl->show();
-    ETSerialPort *ser = new ETSerialPort(740, 485, 50, 10);
-    ser->open("/dev/tty.usb1411", 19200);
+    Fl_Window *win = qMainWindow = new Fl_Window(800, 500, "Elektriktrick");
+
+    Fl_Menu_Bar *mainMenu = new Fl_Menu_Bar(0, 0, win->w(), 25);
+    mainMenu->menu(mainMenuTable);
+
+    Fl_Group *toolLine = new Fl_Group(0, win->h()-20, win->w(), 20);
+    toolLine->box(FL_DOWN_BOX);
+    {
+        ETSerialPort *ser = new ETSerialPort(win->w()-52, win->h()-18, 50, 16);
+        ser->open("/dev/tty.usb1411", 19200);
+    }
+    toolLine->end();
+
+    Fl_Pack *machineBar = new Fl_Pack(win->w()-32, mainMenu->h(), 32, win->h()-mainMenu->h()-toolLine->h());
+    {
+        Fl_Button *b = new Fl_Button(0, 0, 32, 32, "fix\n&&\nsave");
+        b->labelsize(8);
+        b->callback(shrinkAndSaveCB);
+        b->tooltip("Fix model for FDM print and save with '_fit' extension");
+    }
+    machineBar->end();
+
+    ogl = new ETOpenGLWidget(0, mainMenu->h(), win->w()-machineBar->w(), win->h()-mainMenu->h()-toolLine->h());
+    ogl->draw_callback(draw_cb);
+    ogl->drop_callback(drop_cb);
+    ogl->end();
+
     win->resizable(ogl);
     win->show();
+    ogl->show();
+
+#if 0
 
 //    loadStl("/Users/matt/Desktop/Machine Shop/Machine Pwdr/0.02_dragon_2.stl");
 //    loadStl("/Users/matt/Desktop/Machine Shop/Data 3d/ETCalibrate_v2_x02_y01.stl");
 //    loadStl("/Users/matt/Desktop/Machine Shop/Data 3d/yoda-figure.stl");
 //    loadStl("/Users/matt/Desktop/Machine Shop/Data 3d/trunicos40mm.stl");
 //    loadStl("/Users/matt/female.stl");
-    loadStl("/Users/matt/Desktop/Machine Shop/Project InMoov/WeVolver/Bicep_for_Robot_InMoov/SpacerV1.stl");
+    loadSTL("/Users/matt/Desktop/Machine Shop/Project InMoov/WeVolver/Bicep_for_Robot_InMoov/SpacerV1.stl");
 
+#else 
+
+//    ETModel *model = ETModel::ModelForFileType("/Users/matt/Desktop/Machine Shop/Project InMoov/WeVolver/Bicep_for_Robot_InMoov/SpacerV1.stl");
+    loadFile("/Users/matt/test.dxf");
+
+#endif
+
+
+//    Fl::add_timeout(3, test);
     Fl::run();
     return 0;
 }

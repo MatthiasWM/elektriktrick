@@ -38,6 +38,8 @@ public:
     double y() { return pV[1]; }
     double z() { return pV[2]; }
     void set(float, float, float);
+    void setMinimum(const ISVec3 &b);
+    void setMaximum(const ISVec3 &b);
     double pV[3];
 };
 
@@ -97,7 +99,7 @@ typedef std::vector<ISFace*> ISFaceList;
 class ISMesh
 {
 public:
-    ISMesh();
+    ISMesh(const char *filename);
     virtual ~ISMesh() { clear(); }
     virtual void clear();
     bool validate();
@@ -114,11 +116,15 @@ public:
     void calculateNormals() { calculateFaceNormals(); calculateVertexNormals(); }
     void fixHoles();
     void fixHole(ISEdge*);
+    void shrink(double dx, double dy, double dz);
+    void saveCopy(const char *fix);
+    void saveCopyAs(const char *filename);
     ISEdge *findEdge(ISVertex*, ISVertex*);
     ISEdge *addEdge(ISVertex*, ISVertex*, ISFace*);
     ISVertexList vertexList;
     ISEdgeList edgeList;
     ISFaceList faceList;
+    char *pFilename;
 };
 
 typedef std::vector<ISMesh*> ISMeshList;
@@ -137,7 +143,8 @@ public:
     ISEdgeList lidEdgeList;
 };
 
-void loadStl(const char *filename);
+void clearSTL();
+void loadSTL(const char *filename);
 void drawModelGouraud();
 void drawModelFlat(unsigned int color);
 

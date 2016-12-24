@@ -8,11 +8,30 @@
 
 #include "ETGMesh.h"
 
+#include <FL/fl_ask.h>
+#include <errno.h>
+
 
 #undef M_MONKEY
 #define M_DRAGON
 
 static int kNDrops = 10;
+
+void sendShort(FILE *f, unsigned short v) {
+    fputc( (v&0xff), f);
+    fputc( ((v>>8)&0xff), f);
+}
+
+void sendInt(FILE *f, unsigned int v) {
+    fputc( (v&0xff), f);
+    fputc( ((v>>8)&0xff), f);
+    fputc( ((v>>16)&0xff), f);
+    fputc( ((v>>24)&0xff), f);
+}
+
+void sendFloat(FILE *f, float v) {
+    fwrite(&v, 4, 1, f);
+}
 
 /*
 
@@ -341,6 +360,21 @@ void ISVec3::zero()
     pV[2] = 0.0;
 }
 
+void ISVec3::setMinimum(const ISVec3 &b)
+{
+    if (b.pV[0]<pV[0]) pV[0] = b.pV[0];
+    if (b.pV[1]<pV[1]) pV[1] = b.pV[1];
+    if (b.pV[2]<pV[2]) pV[2] = b.pV[2];
+}
+
+void ISVec3::setMaximum(const ISVec3 &b)
+{
+    if (b.pV[0]>pV[0]) pV[0] = b.pV[0];
+    if (b.pV[1]>pV[1]) pV[1] = b.pV[1];
+    if (b.pV[2]>pV[2]) pV[2] = b.pV[2];
+}
+
+
 // -----------------------------------------------------------------------------
 
 ISVertex::ISVertex()
@@ -494,8 +528,9 @@ int ISFace::pointsBelowZ(double zMin)
 
 // -----------------------------------------------------------------------------
 
-ISMesh::ISMesh()
+ISMesh::ISMesh(const char *filename)
 {
+  pFilename = strdup(filename);
 }
 
 void ISMesh::clear()
@@ -515,6 +550,9 @@ void ISMesh::clear()
         delete vertexList[i];
     }
     vertexList.clear();
+    
+    free(pFilename);
+    pFilename = strdup("");
 }
 
 bool ISMesh::validate()
@@ -598,12 +636,12 @@ void ISMesh::fixHoles()
 #elif defined M_DRAGON
     return;
 #endif
-    int i;
-    for (i=0; i<(int)edgeList.size(); i++) {
-        ISEdge *e = edgeList[i];
-        while ( e->nFaces()==1 ) // FIXME: make sure that this is not endless
-            fixHole(e);
-    }
+//    int i;
+//    for (i=0; i<(int)edgeList.size(); i++) {
+//        ISEdge *e = edgeList[i];
+//        while ( e->nFaces()==1 ) // FIXME: make sure that this is not endless
+//            fixHole(e);
+//    }
 }
 
 void ISMesh::fixHole(ISEdge *e)
@@ -824,10 +862,91 @@ void ISMesh::drawEdges() {
     glEnd();
 }
 
+void ISMesh::shrink(double dx, double dy, double dz)
+{
+    /* Goal: shrink the surface of an object without scaling it (like ppeling an orange)
+       Strategy: for every vertex, collect all associated face normals. Find the 
+             minimum and maximum for each component of the normal. Take the average
+             of min and max and move the vertex by -2 times the given direction.
+     */
+    // slow, but doesn't need additional storage
+    unsigned int nv = (unsigned int)vertexList.size();
+    unsigned int nf = (unsigned int)faceList.size();
+    for (unsigned int i=0; i<nv; i++) {
+        ISVertex *v = vertexList.at(i);
+        ISVec3 min, max;
+        for (unsigned int j=0; j<nf; j++) {
+            ISFace *f = faceList.at(j);
+            if (f->pVertex[0]==v || f->pVertex[1]==v || f->pVertex[2]==v) {
+                ISVec3 n = f->pNormal;
+                n.normalize();
+                min.setMinimum(n);
+                max.setMaximum(n);
+            }
+        }
+        v->pPosition.set(
+                         v->pPosition.x() - dx*(min.x()+max.x()),
+                         v->pPosition.y() - dy*(min.y()+max.y()),
+                         v->pPosition.z() - dz*(min.z()+max.z())
+        );
+    }
+    printf("DONE\n");
+}
+
+
+void ISMesh::saveCopyAs(const char *filename)
+{
+    printf("Filename is '%s'\n", filename);
+    FILE *f = fopen(filename, "wb");
+    if (!f) {
+        fl_message("Can't open file\n%s\nfor writing:\n%s", filename, strerror(errno));
+        return;
+    }
+    unsigned int i, n = (unsigned int)faceList.size();
+    for (i=0; i<80; i++) fputc(0, f);
+    sendInt(f, n);
+    for (i=0; i<n; i++) {
+        ISFace *face = faceList.at(i);
+        sendFloat(f, face->pNormal.x());
+        sendFloat(f, face->pNormal.y());
+        sendFloat(f, face->pNormal.z());
+        for (int j=0; j<3; j++) {
+            ISVertex *v = face->pVertex[j];
+            sendFloat(f, v->pPosition.x());
+            sendFloat(f, v->pPosition.y());
+            sendFloat(f, v->pPosition.z());
+        }
+        sendShort(f, 0);
+    }
+    fclose(f);
+    printf("Wrote %s\n", filename);
+}
+
+
+void ISMesh::saveCopy(const char *fix)
+{
+    char *buf = (char*)malloc(strlen(pFilename)+strlen(fix)+1);
+    char *ext = strrchr(pFilename, '.');
+    if (ext) {
+        int n = (int)(ext-pFilename);
+        memcpy(buf, pFilename, n);
+        strcpy(buf+n, fix);
+        strcat(buf, ext);
+    } else {
+        strcpy(buf, pFilename);
+        strcat(buf, fix);
+    }
+    saveCopyAs(buf);
+    free(buf);
+}
+
+
+
 // -----------------------------------------------------------------------------
 
 
 ISMeshSlice::ISMeshSlice()
+: ISMesh("")
 {
 }
 
@@ -1400,13 +1519,14 @@ MyGLView *glView = 0L;
 
 double minX = 0.0, maxX = 0.0, minY = 0.0, maxY = 0.0, minZ = 0.0, maxZ = 0.0;
 
+#ifdef SUPPORT_3DS
+
 static double min(double a, double b) { return a<b?a:b; }
 static double max(double a, double b) { return a>b?a:b; }
 
 /**
  Load a single node from a 3ds file.
  */
-#ifdef SUPPORT_3DS
 void load3ds(Lib3dsFile *f, Lib3dsMeshInstanceNode *node) {
     float (*orig_vertices)[3];
     int export_texcos;
@@ -1562,6 +1682,7 @@ void load3ds(Lib3dsFile *f, Lib3dsMeshInstanceNode *node) {
     isMesh->clearNormals();
     isMesh->calculateNormals();
 }
+
 #endif
 
 
@@ -1605,10 +1726,18 @@ int addPoint(ISMesh *isMesh, float x, float y, float z)
     return n;
 }
 
+void clearSTL()
+{
+  ISMesh *isMesh = gMeshList.at(0);
+  gMeshList.erase(gMeshList.begin());
+  delete isMesh;
+}
+
+
 /**
  Load a single node from a binary stl file.
  */
-void loadStl(const char *filename) {
+void loadSTL(const char *filename) {
     int i;
 
     FILE *f = fopen(filename, "rb");
@@ -1617,7 +1746,7 @@ void loadStl(const char *filename) {
         return;
     }
     fseek(f, 0x50, SEEK_SET);
-    ISMesh *isMesh = new ISMesh();
+    ISMesh *isMesh = new ISMesh(filename);
     gMeshList.push_back(isMesh);
 
     int nFaces = getInt(f);
@@ -1828,7 +1957,7 @@ int main_xx (int argc, char **argv)
 #ifdef M_MONKEY
     load3ds("/Users/matt/Desktop/Machine Shop/Machine Pwdr/lib3ds-20080909/monkey.3ds");
 #elif defined M_DRAGON
-    loadStl("/Users/matt/Desktop/Machine Shop/Machine Pwdr/0.02_dragon_2.stl");
+    loadSTL("/Users/matt/Desktop/Machine Shop/Machine Pwdr/0.02_dragon_2.stl");
 #endif
     //load3ds("/Users/matt/squirrel/NewSquirrel.3ds");
     //load3ds("/Users/matt/Desktop/Machine Shop/Machine Pwdr/0.02_dragon_2.3ds");

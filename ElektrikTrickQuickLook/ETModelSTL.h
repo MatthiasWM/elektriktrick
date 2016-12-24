@@ -16,8 +16,9 @@ class ETModelSTL : public ETModel
 public:
     ETModelSTL();
     virtual ~ETModelSTL();
-    virtual void Draw(void*, int, int);
-    virtual void PrepareDrawing();
+    virtual void Prepare2DDrawing();
+    virtual void Prepare3DDrawing();
+    
     virtual void FindBoundingBox();
     virtual int FixupCoordinates();
     virtual int SimpleProjection();
@@ -27,7 +28,15 @@ public:
     int DepthSort();
     static int CompareTriZ(const void *a, const void *b);
     int GenerateFaceNormals();
-    
+
+#if ET_USE_CG
+    virtual void CGDraw2D(void*, int, int);
+#endif
+#if ET_USE_GL
+    virtual void GLDraw3D();
+    virtual void GLDraw2D(int, int);
+#endif
+
     ETTriangle *tri;
     uint32_t nTri;
     uint32_t NTri;

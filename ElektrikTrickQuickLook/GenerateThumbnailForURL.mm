@@ -44,8 +44,8 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
                         
                         ET::DrawBackgroupdGradient(cgContext, canvasSize.width, canvasSize.height);
                         
-                        model->PrepareDrawing();
-                        model->Draw(cgContext, canvasSize.width, canvasSize.height);
+                        model->Prepare2DDrawing();
+                        model->CGDraw2D(cgContext, canvasSize.width, canvasSize.height);
                         
                         CGContextRestoreGState(cgContext);
                         QLThumbnailRequestFlushContext(thumbnail, cgContext);

@@ -59,17 +59,8 @@ ETModel *ETModelDXF::Create(uint8_t *buf, size_t size)
  0.0
 
 */
+    // This should only return a mdel if we found out that this file is truly a DXF file.
     return new ETModelDXF();
-    // gcode lines evetually start with "M#" or "G#", where # is some decimal integer
-    signed int i;
-    for (i=0; i<size-4; i++) {
-        if (i==0 || buf[i-1]=='\r' || buf[i-1]=='\n') {
-            if (buf[i]=='G' || buf[i]=='M') {
-                if (isdigit(buf[i+1])) return new ETModelDXF();
-            }
-        }
-    }
-    return 0L;
 }
 
 

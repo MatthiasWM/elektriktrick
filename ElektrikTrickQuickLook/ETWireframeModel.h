@@ -18,8 +18,9 @@ class ETWireframeModel : public ETModel
 public:
     ETWireframeModel();
     virtual ~ETWireframeModel();
-    virtual void Draw(void*, int, int);
-    virtual void PrepareDrawing();
+    virtual void Prepare2DDrawing();
+    virtual void Prepare3DDrawing();
+    
     virtual void FindBoundingBox();
     virtual int FixupCoordinates();
     virtual int SimpleProjection();
@@ -33,7 +34,15 @@ public:
     void NewSegment(ETVector &p0, ETVector &p1, float bulge);
     void NewSplineSegment(ETVector &p0, ETVector &p1);
     void NewLastSplineSegment(ETVector &p0, ETVector &p1);
-    
+
+#if ET_USE_CG
+    virtual void CGDraw2D(void*, int, int);
+#endif
+#if ET_USE_GL
+    virtual void GLDraw3D();
+    virtual void GLDraw2D(int, int);
+#endif
+
     ETEdge *edge;
     uint32_t nEdge;
     uint32_t NEdge;

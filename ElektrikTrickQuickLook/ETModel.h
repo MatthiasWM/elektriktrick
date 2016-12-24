@@ -27,8 +27,8 @@ public:
     ETModel();
     virtual ~ETModel();
     virtual int Load() = 0;
-    virtual void Draw(void*, int, int) = 0;
-    virtual void PrepareDrawing() = 0;
+    virtual void Prepare2DDrawing() = 0;
+    virtual void Prepare3DDrawing() = 0;
     virtual void FindBoundingBox() = 0;
     virtual int FixupCoordinates() = 0;
     virtual int SimpleProjection() = 0;
@@ -37,6 +37,14 @@ public:
     int Find(ETString &src, const char *key);
     char* FGetS(char *dst, int size);
     int FEof();
+    
+#if ET_USE_CG
+    virtual void CGDraw2D(void*, int, int) = 0;
+#endif
+#if ET_USE_GL
+    virtual void GLDraw3D() = 0;
+    virtual void GLDraw2D(int, int) = 0;
+#endif
     
 private:
     static bool FileIsBinarySTL(uint8_t *buf, size_t size);
@@ -50,6 +58,7 @@ public: //private:
     off_t pFilesize;
     ETVector pBBoxMin;
     ETVector pBBoxMax;
+    bool pBoundingBoxKnown;
 };
 
 

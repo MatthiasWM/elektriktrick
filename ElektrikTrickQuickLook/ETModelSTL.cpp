@@ -35,10 +35,13 @@ ETModelSTL::~ETModelSTL()
         free(sortedTri);
 }
 
+
+#if ET_USE_CG
+
 /**
  * Draw all triangles in the model starting at the furthest triangle all the way to the closest one.
  */
-void ETModelSTL::Draw(void* ctx, int width, int height)
+void ETModelSTL::CGDraw2D(void* ctx, int width, int height)
 {
     CGContextRef cgContext = (CGContextRef)ctx;
     int xoff = width/2;
@@ -62,8 +65,84 @@ void ETModelSTL::Draw(void* ctx, int width, int height)
     }
 }
 
+#endif
 
-void ETModelSTL::PrepareDrawing()
+
+#if ET_USE_GL
+
+#include <Fl/GL.h>
+
+/**
+ * Draw all triangles in the model in OpenGL.
+ */
+void ETModelSTL::GLDraw3D()
+{
+    // glPolygonOffset: https://www.opengl.org/archives/resources/faq/technical/polygonoffset.htm
+    uint32_t i;
+//    glDisable(GL_DEPTH_TEST);
+//    glDepthFunc(GL_ALWAYS);
+    glDisable(GL_LIGHTING);
+    for (i=0; i<nTri; ++i) {
+        ETTriangle *t = &tri[i];
+        glBegin(GL_LINE_LOOP);
+        glColor4f(0.3, 0.3, 0.3, 0.8);
+        ETVector *p;
+        p = &t->p0; glVertex3f(p->x, p->y, p->z);
+        p = &t->p1; glVertex3f(p->x, p->y, p->z);
+        p = &t->p2; glVertex3f(p->x, p->y, p->z);
+        glEnd();
+    }
+//    glEnable(GL_DEPTH_TEST);
+//    glDepthFunc(GL_LESS);
+    glEnable(GL_LIGHTING);
+    glBegin(GL_TRIANGLES);
+    for (i=0; i<nTri; ++i) {
+        ETTriangle *t = &tri[i];
+        glColor4f(1.0, 1.0, 1.0, 0.9);
+        ETVector *n = &t->n;
+        glNormal3f(n->x, n->y, n->z);
+        ETVector *p;
+        p = &t->p0; glVertex3f(p->x, p->y, p->z);
+        p = &t->p1; glVertex3f(p->x, p->y, p->z);
+        p = &t->p2; glVertex3f(p->x, p->y, p->z);
+    }
+    glEnd();
+}
+
+/**
+ * Draw all triangles in the model starting at the furthest triangle all the way to the closest one.
+ */
+void ETModelSTL::GLDraw2D(int width, int height)
+{
+    /*
+    CGContextRef cgContext = (CGContextRef)ctx;
+    int xoff = width/2;
+    int yoff = height/2;
+    int xscl = height*0.42; // yes, that is "height", assuming that height is smaller than width
+    int yscl = height*0.42;
+    uint32_t i;
+    for (i=0; i<nSortedTri; ++i) {
+        ETTriangle *t = sortedTri[i];
+        float lum = (sinf((t->n.x+1.2f)*0.5f*M_PI)*0.5f+0.5f) * (sinf((t->n.y+1.4f)*0.5f*M_PI)*0.5f+0.5f);
+        float lumStroke = lum * 0.75f;
+        CGContextSetRGBFillColor(cgContext, lum, lum, lum, 0.8);
+        CGContextSetRGBStrokeColor(cgContext, lumStroke, lumStroke, lumStroke, 0.9);
+        CGContextBeginPath(cgContext);
+        CGContextMoveToPoint(cgContext, t->p0.x*xscl+xoff, t->p0.y*yscl+yoff);
+        CGContextAddLineToPoint(cgContext, t->p1.x*xscl+xoff, t->p1.y*yscl+yoff);
+        CGContextAddLineToPoint(cgContext, t->p2.x*xscl+xoff, t->p2.y*yscl+yoff);
+        CGContextClosePath(cgContext);
+        CGContextDrawPath(cgContext, kCGPathFillStroke);
+        // TODO: if (QLPreviewRequestIsCancelled(preview)) break;
+    }
+     */
+}
+
+#endif
+
+
+
+void ETModelSTL::Prepare2DDrawing()
 {
     // prepare the polygon data for rendering
     FindBoundingBox();
@@ -71,6 +150,14 @@ void ETModelSTL::PrepareDrawing()
     SimpleProjection();
     GenerateFaceNormals();
     DepthSort();
+}
+
+
+void ETModelSTL::Prepare3DDrawing()
+{
+    // prepare the polygon data for rendering
+    FindBoundingBox();
+    GenerateFaceNormals();
 }
 
 
@@ -258,6 +345,8 @@ int ETModelSTL::FixupCoordinates()
  */
 void ETModelSTL::FindBoundingBox()
 {
+    if (pBoundingBoxKnown) return;
+
     uint32_t i;
     float minX=0, minY=0, minZ=0, maxX=0, maxY=0, maxZ=0;
     
@@ -281,6 +370,8 @@ void ETModelSTL::FindBoundingBox()
     }
     pBBoxMin.set(minX, minY, minZ);
     pBBoxMax.set(maxX, maxY, maxZ);
+
+    pBoundingBoxKnown = true;
 }
 
 

@@ -16,10 +16,18 @@
 #include "ETGMesh.h"
 
 
-
 ETOpenGLWidget::ETOpenGLWidget(int x, int y, int w, int h)
-: Fl_Gl_Window(x, y, w, h)
+:   pDrawCallback(0),
+    pDropCallback(0),
+    Fl_Gl_Window(x, y, w, h)
 {
+    Fl::use_high_res_GL(true);
+    mode(
+         FL_RGB8 |
+         FL_DOUBLE |
+         FL_DEPTH |
+         FL_MULTISAMPLE
+    );
 }
 
 
@@ -30,6 +38,13 @@ ETOpenGLWidget::~ETOpenGLWidget()
 
 int ETOpenGLWidget::handle(int event)
 {
+    // Native QuickLook for MacOS uses these key combinations:
+    // LMB: drag to rotate on a trackball
+    // LMB-Alt: drag model around left/right/up/down
+    // Scrollwheel: drag model around
+    // ScrollVert+Shift: move camara in Z (Horizontal is blocked)
+    // ScrollVert+Alt: zomm camera (lens angle), horizontal drags horizontally
+
     switch (event) {
         case FL_MOUSEWHEEL:
             if (Fl::event_state(FL_SHIFT|FL_CTRL|FL_META|FL_ALT)==FL_SHIFT) {
@@ -44,6 +59,15 @@ int ETOpenGLWidget::handle(int event)
                 pYRotation += Fl::event_dy();
                 redraw();
             }
+            break;
+        case FL_DND_ENTER:
+            return 1;
+        case FL_DND_DRAG:
+            return 1;
+        case FL_DND_RELEASE:
+            return 1;
+        case FL_PASTE:
+            if (pDropCallback) pDropCallback(Fl::event_text());
             break;
     }
     return Fl_Gl_Window::handle(event);
@@ -62,7 +86,7 @@ void ETOpenGLWidget::draw()
         static GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
         static GLfloat mat_shininess[] = { 50.0 };
         //static GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
-        static GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
+        static GLfloat light_position[] = { 1.0, -5.0, 3.0, 0.0 };
         static GLfloat light_ambient[] = { 0.3, 0.3, 0.3, 1.0};
 
         gl_font(FL_HELVETICA_BOLD, 16 );
@@ -81,22 +105,29 @@ void ETOpenGLWidget::draw()
         glEnable(GL_BLEND);
         //      glBlendFunc(GL_ONE, GL_ZERO);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//        glEnable(GL_LINE_SMOOTH); glEnable(GL_POLYGON_SMOOTH); glEnable(GL_POINT_SMOOTH);
+        glEnable( GL_MULTISAMPLE );
 
-        glViewport(0,0,w(),h());
+        glViewport(0,0,pixel_w(),pixel_h());
+        valid(1);
     }
+
+    glClearColor(0.4, 0.4, 0.4, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 //    double z1 = zSlider1->value();
 //    double z2 = zSlider2->value();
 
     glMatrixMode (GL_PROJECTION);
     glLoadIdentity();
+    glViewport(0,0,pixel_w(),pixel_h());
 //    if (gShowSlice) {
 //        glOrtho(-66.1,66.1,-66.1,66.1, -z1, -z1-z2); // mm
 //    } else {
 //        glOrtho(-66.1,66.1,-66.1,66.1,-66.1,66.1); // mm
 //    }
 
-    gluPerspective(80.0, ((double)w())/((double)h()), 1, 400);
+    gluPerspective(60.0, ((double)w())/((double)h()), 1, 400);
     glTranslated(0.0, 0.0, pZOffset);
     glRotated(-90.0, 1.0, 0.0, 0.0);
     glTranslated(-pXOffset, 0.0, pYOffset);
@@ -105,9 +136,6 @@ void ETOpenGLWidget::draw()
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-
-    glClearColor(0.4, 0.4, 0.4, 0.0);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glDisable(GL_LIGHTING);
     glDisable(GL_DEPTH_TEST);
@@ -132,6 +160,7 @@ void ETOpenGLWidget::draw()
     glVertex2d(0.0, 0.0); glVertex2d(0.0, 10.0);
     glEnd();
     glPopMatrix();
+
     glEnable(GL_LIGHTING);
     glEnable(GL_DEPTH_TEST);
 
@@ -170,8 +199,8 @@ void ETOpenGLWidget::draw()
         // show the 3d model
         glEnable(GL_LIGHTING);
         glEnable(GL_DEPTH_TEST);
+        if (pDrawCallback) pDrawCallback();
 //        drawModelGouraud();
-        drawModelFlat(FL_WHITE);
 //    }
     glPopMatrix();
 //

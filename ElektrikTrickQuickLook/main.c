@@ -149,11 +149,12 @@ HRESULT QuickLookGeneratorQueryInterface(void *thisInstance,REFIID iid,LPVOID *p
              * set the ppv parameter equal to the instance, and
              * return good status.
              */
-        ((QLGeneratorInterfaceStruct *)((QuickLookGeneratorPluginType *)thisInstance)->conduitInterface)->GenerateThumbnailForURL = GenerateThumbnailForURL;
-        ((QLGeneratorInterfaceStruct *)((QuickLookGeneratorPluginType *)thisInstance)->conduitInterface)->CancelThumbnailGeneration = CancelThumbnailGeneration;
-        ((QLGeneratorInterfaceStruct *)((QuickLookGeneratorPluginType *)thisInstance)->conduitInterface)->GeneratePreviewForURL = GeneratePreviewForURL;
-        ((QLGeneratorInterfaceStruct *)((QuickLookGeneratorPluginType *)thisInstance)->conduitInterface)->CancelPreviewGeneration = CancelPreviewGeneration;
-        ((QLGeneratorInterfaceStruct *)((QuickLookGeneratorPluginType*)thisInstance)->conduitInterface)->AddRef(thisInstance);
+        QLGeneratorInterfaceStruct *cif = ((QLGeneratorInterfaceStruct *)((QuickLookGeneratorPluginType *)thisInstance)->conduitInterface);
+        cif->GenerateThumbnailForURL = GenerateThumbnailForURL;
+        cif->CancelThumbnailGeneration = CancelThumbnailGeneration;
+        cif->GeneratePreviewForURL = GeneratePreviewForURL;
+        cif->CancelPreviewGeneration = CancelPreviewGeneration;
+        cif->AddRef(thisInstance);
         *ppv = thisInstance;
         CFRelease(interfaceID);
         return S_OK;

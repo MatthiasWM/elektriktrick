@@ -30,10 +30,12 @@ ETWireframeModel::~ETWireframeModel()
 }
 
 
+#if ET_USE_CG
+
 /**
  * Draw all edges in the model starting at the furthest edge all the way to the closest one.
  */
-void ETWireframeModel::Draw(void* ctx, int width, int height)
+void ETWireframeModel::CGDraw2D(void* ctx, int width, int height)
 {
     CGContextRef cgContext = (CGContextRef)ctx;
     int xoff = width/2;
@@ -60,8 +62,10 @@ void ETWireframeModel::Draw(void* ctx, int width, int height)
     }
 }
 
+#endif
 
-void ETWireframeModel::PrepareDrawing()
+
+void ETWireframeModel::Prepare2DDrawing()
 {
     // prepare the polygon data for rendering
     FindBoundingBox();
@@ -70,6 +74,79 @@ void ETWireframeModel::PrepareDrawing()
     DepthSort();
 }
 
+void ETWireframeModel::Prepare3DDrawing()
+{
+    // prepare the polygon data for rendering
+    FindBoundingBox();
+}
+
+#if ET_USE_GL
+
+#include <Fl/GL.h>
+
+/**
+ * Draw all triangles in the model in OpenGL.
+ */
+void ETWireframeModel::GLDraw3D()
+{
+    int width = 30, height = 20;
+    int xoff = width/2;
+    int yoff = height/2;
+    int xscl = height*0.42; // yes, that is "height", assuming that height is smaller than width
+    int yscl = height*0.42;
+    glDisable(GL_LIGHTING);
+    glColor4f(1.0, 1.0, 1.0, 1.0);
+    glBegin(GL_LINES);
+    uint32_t i;
+    for (i=0; i<nEdge; ++i) {
+        ETEdge *e = &edge[i];
+//        float lum = 0.7f - 0.4f * e->lum;
+//        float hue = 0.5f + 0.5f * e->hue;
+//        if (hue<0.0) hue = 0.0;
+//        if (hue>1.0) hue = 1.0;
+        // I want a color range from red at the bottom to yellow at the top
+        // and dark in the back to lighter in the front:
+        // FF0000 to FFFF00
+        glVertex2f(e->p0.x*xscl+xoff, e->p0.y*yscl+yoff);
+        glVertex2f(e->p1.x*xscl+xoff, e->p1.y*yscl+yoff);
+        // TODO: if (QLPreviewRequestIsCancelled(preview)) break;
+    }
+    glEnd();
+}
+
+/**
+ * Draw all edges in the model starting at the furthest edge all the way to the closest one.
+ */
+void ETWireframeModel::GLDraw2D(int width, int height)
+{
+    /*
+    CGContextRef cgContext = (CGContextRef)ctx;
+    int xoff = width/2;
+    int yoff = height/2;
+    int xscl = height*0.42; // yes, that is "height", assuming that height is smaller than width
+    int yscl = height*0.42;
+    uint32_t i;
+    for (i=0; i<nEdge; ++i) {
+        ETEdge *e = sortedEdge[i];
+        float lum = 0.7f - 0.4f * e->lum;
+        float hue = 0.5f + 0.5f * e->hue;
+        if (hue<0.0) hue = 0.0;
+        if (hue>1.0) hue = 1.0;
+        // I want a color range from red at the bottom to yellow at the top
+        // and dark in the back to lighter in the front:
+        // FF0000 to FFFF00
+        CGContextSetRGBStrokeColor(cgContext, lum*1.0, lum*hue, lum*0.0, 1.0);
+        CGContextBeginPath(cgContext);
+        CGContextMoveToPoint(cgContext, e->p0.x*xscl+xoff, e->p0.y*yscl+yoff);
+        CGContextAddLineToPoint(cgContext, e->p1.x*xscl+xoff, e->p1.y*yscl+yoff);
+        CGContextClosePath(cgContext);
+        CGContextDrawPath(cgContext, kCGPathStroke);
+        // TODO: if (QLPreviewRequestIsCancelled(preview)) break;
+    }
+     */
+}
+
+#endif
 
 /**
  * Rotate the model slightly around y and x to give an orthogonal view from the top right.
@@ -125,6 +202,8 @@ int ETWireframeModel::FixupCoordinates()
  */
 void ETWireframeModel::FindBoundingBox()
 {
+    if (pBoundingBoxKnown) return;
+
     uint32_t i;
     float minX=0, minY=0, minZ=0, maxX=0, maxY=0, maxZ=0;
     
@@ -168,6 +247,8 @@ void ETWireframeModel::FindBoundingBox()
         pBBoxMin.z -= d;
         pBBoxMax.z += d;
     }
+
+    pBoundingBoxKnown = true;
 }
 
 

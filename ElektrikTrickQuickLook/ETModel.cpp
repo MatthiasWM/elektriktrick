@@ -23,7 +23,7 @@
 
 
 /**
- * Determine the format of a file and return the matchin empty model.
+ * Determine the format of a file and return the matching empty model.
  *
  * \return NULL if the file type is not supported.
  */
@@ -116,7 +116,8 @@ bool ETModel::FileIsTextSTL(uint8_t *buf, size_t size)
 ETModel::ETModel() :
     pFilename(0L),
     pFile(0),
-    pFilesize(0)
+    pFilesize(0),
+    pBoundingBoxKnown(false)
 {
 }
 
@@ -258,7 +259,6 @@ void ETModel::SimpleProjection(ETVector &v)
     
     // let's keep it at that, so that we have an orthagonal projection
 }
-
 
 
 
