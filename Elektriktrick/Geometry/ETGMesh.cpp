@@ -17,6 +17,19 @@
 
 static int kNDrops = 10;
 
+
+void shrinkAndSaveCB(Fl_Widget*, void*)
+{
+    if (gMeshList.size()==0)
+        return;
+    ISMesh *isMesh = gMeshList.at(0);
+    isMesh->shrink(0.15, 0.15, 0.0);
+    // isMesh->shrink(1.0, 1.0, 0.0);
+    isMesh->saveCopy("_fix");
+    // gRenderWidget->redraw();
+}
+
+
 void sendShort(FILE *f, unsigned short v) {
     fputc( (v&0xff), f);
     fputc( ((v>>8)&0xff), f);

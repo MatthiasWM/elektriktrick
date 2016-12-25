@@ -114,28 +114,31 @@ void ETModelSTL::GLDraw3D()
  */
 void ETModelSTL::GLDraw2D(int width, int height)
 {
-    /*
-    CGContextRef cgContext = (CGContextRef)ctx;
     int xoff = width/2;
     int yoff = height/2;
     int xscl = height*0.42; // yes, that is "height", assuming that height is smaller than width
     int yscl = height*0.42;
+
     uint32_t i;
     for (i=0; i<nSortedTri; ++i) {
         ETTriangle *t = sortedTri[i];
         float lum = (sinf((t->n.x+1.2f)*0.5f*M_PI)*0.5f+0.5f) * (sinf((t->n.y+1.4f)*0.5f*M_PI)*0.5f+0.5f);
         float lumStroke = lum * 0.75f;
-        CGContextSetRGBFillColor(cgContext, lum, lum, lum, 0.8);
-        CGContextSetRGBStrokeColor(cgContext, lumStroke, lumStroke, lumStroke, 0.9);
-        CGContextBeginPath(cgContext);
-        CGContextMoveToPoint(cgContext, t->p0.x*xscl+xoff, t->p0.y*yscl+yoff);
-        CGContextAddLineToPoint(cgContext, t->p1.x*xscl+xoff, t->p1.y*yscl+yoff);
-        CGContextAddLineToPoint(cgContext, t->p2.x*xscl+xoff, t->p2.y*yscl+yoff);
-        CGContextClosePath(cgContext);
-        CGContextDrawPath(cgContext, kCGPathFillStroke);
-        // TODO: if (QLPreviewRequestIsCancelled(preview)) break;
+
+        glColor4f(lumStroke, lumStroke, lumStroke, 0.9);
+        glBegin(GL_LINE_LOOP);
+        glVertex2f(t->p0.x*xscl+xoff, t->p0.y*yscl+yoff);
+        glVertex2f(t->p1.x*xscl+xoff, t->p1.y*yscl+yoff);
+        glVertex2f(t->p2.x*xscl+xoff, t->p2.y*yscl+yoff);
+        glEnd();
+
+        glColor4f(lum, lum, lum, 0.8);
+        glBegin(GL_TRIANGLES);
+        glVertex2f(t->p0.x*xscl+xoff, t->p0.y*yscl+yoff);
+        glVertex2f(t->p1.x*xscl+xoff, t->p1.y*yscl+yoff);
+        glVertex2f(t->p2.x*xscl+xoff, t->p2.y*yscl+yoff);
+        glEnd();
     }
-     */
 }
 
 #endif

@@ -11,4 +11,6 @@
 
 #include <stdio.h>
 
+extern bool gDrawMode2D;
+
 #endif /* main_hpp */

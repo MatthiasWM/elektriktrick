@@ -19,6 +19,7 @@
 ETOpenGLWidget::ETOpenGLWidget(int x, int y, int w, int h)
 :   pDrawCallback(0),
     pDropCallback(0),
+    pDrawMode2D(false),
     Fl_Gl_Window(x, y, w, h)
 {
     Fl::use_high_res_GL(true);
@@ -111,6 +112,58 @@ void ETOpenGLWidget::draw()
         glViewport(0,0,pixel_w(),pixel_h());
         valid(1);
     }
+    if (pDrawMode2D)
+        draw2D();
+    else
+        draw3D();
+}
+
+
+void ETOpenGLWidget::draw2D()
+{
+    // TODO: draw background
+    // TODO: 0,0 is at the bottom left
+    // TODO: top,right is size in pixels
+    // TODO: no shading or anything
+
+    // set 1:1 projection
+    glMatrixMode (GL_PROJECTION);
+    glLoadIdentity();
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    // draw background gradient
+    glBegin(GL_POLYGON);
+    glColor3d(0.9, 0.9, 0.9);
+    glVertex2d(-1.0, -1.0);
+    glVertex2d( 1.0, -1.0);
+    glColor3d(0.6, 0.6, 0.9);
+    glVertex2d( 1.0,  1.0);
+    glVertex2d(-1.0,  1.0);
+    glEnd();
+
+    // set 1:1 pixel projection
+    glTranslated(-1.0, -1.0, 0.0);
+    glScaled(2.0/pixel_w(), 2.0/pixel_h(), 1.0);
+
+    // set drawing parameters
+    glDisable(GL_LIGHTING);
+    glDisable(GL_DEPTH_TEST);
+    glLineWidth(2.0);
+
+    // draw the object with 2D calls
+    if (pDrawCallback)
+        pDrawCallback();
+
+    // restore drawing parameters
+    glLineWidth(1.0);
+
+}
+
+
+void ETOpenGLWidget::draw3D()
+{
 
     glClearColor(0.4, 0.4, 0.4, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

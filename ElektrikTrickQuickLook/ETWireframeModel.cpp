@@ -56,7 +56,7 @@ void ETWireframeModel::CGDraw2D(void* ctx, int width, int height)
         CGContextBeginPath(cgContext);
         CGContextMoveToPoint(cgContext, e->p0.x*xscl+xoff, e->p0.y*yscl+yoff);
         CGContextAddLineToPoint(cgContext, e->p1.x*xscl+xoff, e->p1.y*yscl+yoff);
-        CGContextClosePath(cgContext);
+        // CGContextClosePath(cgContext);
         CGContextDrawPath(cgContext, kCGPathStroke);
         // TODO: if (QLPreviewRequestIsCancelled(preview)) break;
     }
@@ -79,6 +79,7 @@ void ETWireframeModel::Prepare3DDrawing()
     // prepare the polygon data for rendering
     FindBoundingBox();
 }
+
 
 #if ET_USE_GL
 
@@ -119,12 +120,12 @@ void ETWireframeModel::GLDraw3D()
  */
 void ETWireframeModel::GLDraw2D(int width, int height)
 {
-    /*
-    CGContextRef cgContext = (CGContextRef)ctx;
     int xoff = width/2;
     int yoff = height/2;
     int xscl = height*0.42; // yes, that is "height", assuming that height is smaller than width
     int yscl = height*0.42;
+
+    glBegin(GL_LINES);
     uint32_t i;
     for (i=0; i<nEdge; ++i) {
         ETEdge *e = sortedEdge[i];
@@ -132,18 +133,11 @@ void ETWireframeModel::GLDraw2D(int width, int height)
         float hue = 0.5f + 0.5f * e->hue;
         if (hue<0.0) hue = 0.0;
         if (hue>1.0) hue = 1.0;
-        // I want a color range from red at the bottom to yellow at the top
-        // and dark in the back to lighter in the front:
-        // FF0000 to FFFF00
-        CGContextSetRGBStrokeColor(cgContext, lum*1.0, lum*hue, lum*0.0, 1.0);
-        CGContextBeginPath(cgContext);
-        CGContextMoveToPoint(cgContext, e->p0.x*xscl+xoff, e->p0.y*yscl+yoff);
-        CGContextAddLineToPoint(cgContext, e->p1.x*xscl+xoff, e->p1.y*yscl+yoff);
-        CGContextClosePath(cgContext);
-        CGContextDrawPath(cgContext, kCGPathStroke);
-        // TODO: if (QLPreviewRequestIsCancelled(preview)) break;
+        glColor4f(lum*1.0, lum*hue, lum*0.0, 1.0);
+        glVertex2d(e->p0.x*xscl+xoff, e->p0.y*yscl+yoff);
+        glVertex2d(e->p1.x*xscl+xoff, e->p1.y*yscl+yoff);
     }
-     */
+    glEnd();
 }
 
 #endif

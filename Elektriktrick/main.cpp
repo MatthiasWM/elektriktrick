@@ -12,6 +12,7 @@
 #include "FL/Fl_Preferences.H"
 #include "FL/Fl_Window.H"
 #include "FL/Fl_Pack.H"
+#include "FL/Fl_Tile.H"
 #include "FL/Fl_Menu_Bar.H"
 #include "FL/Fl_Button.H"
 #include "FL/Fl_File_Browser.H"
@@ -28,6 +29,12 @@
 #include "ETModelSTL.h"
 
 
+
+const char *gMainTitle = "Elektriktrick";
+const char *gMainTitleAndFile = "Elektriktrick - %s";
+
+bool gDrawMode2D = true;
+
 const int gMainWindowDefaultX = 100;
 const int gMainWindowDefaultY = 120;
 const int gMainWindowDefaultW = 800;
@@ -42,14 +49,12 @@ int gFileBrowserW;
 
 Fl_Window *gMainWindow;
 Fl_File_Browser *gFileBrowser;
+ETOpenGLWidget *gRenderWidget;
 
 char gBasePath[FL_PATH_MAX] = "";
 
-
-
-ETOpenGLWidget *ogl;
-
 ETModel *gPreviewModel = 0L;
+
 
 
 void quitCB(Fl_Widget*, void*)
@@ -58,41 +63,15 @@ void quitCB(Fl_Widget*, void*)
 }
 
 
-void shrinkAndSaveCB(Fl_Widget*, void*)
-{
-    if (gMeshList.size()==0)
-        return;
-    ISMesh *isMesh = gMeshList.at(0);
-    isMesh->shrink(0.15, 0.15, 0.0);
-//    isMesh->shrink(1.0, 1.0, 0.0);
-    isMesh->saveCopy("_fix");
-    ogl->redraw();
-}
-
-
 Fl_Menu_Item mainMenuTable[] =
 {
     { "File", 0, 0, 0, FL_SUBMENU },
     {   "Quit", FL_COMMAND+'q', quitCB, 0, 0 },
     {   0 },
-    { "Edit" },
-    { "Help" },
+//    { "Edit" },
+//    { "Help" },
     { 0 }
 };
-
-
-void test(void*)
-{
-    ETOpenGLSurface srf(800, 600);
-}
-
-
-void dropSTL(const char *filename)
-{
-    clearSTL();
-    loadSTL(filename);
-    ogl->redraw();
-}
 
 
 void loadFile(const char *filename)
@@ -102,20 +81,35 @@ void loadFile(const char *filename)
         gPreviewModel = 0L;
         delete mdl;
     }
+
+    if (!filename) {
+        gMainWindow->copy_label(gMainTitle);
+        return;
+    }
+
     ETModel *model = ETModel::ModelForFileType(filename);
     if (model) {
         if (model->Load()) {
-            model->Prepare3DDrawing();
+            if (gDrawMode2D) {
+                model->Prepare2DDrawing();
+            } else {
+                model->Prepare3DDrawing();
+            }
             gPreviewModel = model;
         }
     }
-    ogl->redraw();
+    gRenderWidget->redraw();
+
+    char buf[FL_PATH_MAX];
+    snprintf(buf, FL_PATH_MAX, gMainTitleAndFile, fl_filename_name(filename));
+    gMainWindow->copy_label(buf);
+
+    // TODO: should we also set the current path to the path of this file?
 }
 
 
 void drop_cb(const char *filenames)
 {
-//    dropSTL(filenames);
     loadFile(filenames);
 }
 
@@ -123,7 +117,11 @@ void drop_cb(const char *filenames)
 void draw_cb()
 {
     if (gPreviewModel) {
-        gPreviewModel->GLDraw3D();
+        if (gDrawMode2D) {
+            gPreviewModel->GLDraw2D(gRenderWidget->pixel_w(), gRenderWidget->pixel_h());
+        } else {
+            gPreviewModel->GLDraw3D();
+        }
     } else {
         drawModelGouraud();
     }
@@ -132,6 +130,7 @@ void draw_cb()
 
 void file_browser_cb(Fl_Widget *w, void*)
 {
+    // FIXME: don't change directory simply because we move there with an arrow key
     const char *name = gFileBrowser->text(gFileBrowser->value());
     if (!name) return;
 
@@ -193,73 +192,54 @@ void WritePreferences()
  :             :                                       :
  +-----------------------------------------------------+
 
+ // TODO: QuickView has an "Open With" button in the top right corner. Should we add that too?
 
  */
 int main (int argc, char **argv)
 {
-    Fl::args(argc, argv);
     ReadPreferences();
+    Fl::args(argc, argv);
 
     gMainWindow = new Fl_Window(gMainWindowX, gMainWindowY,
                                 gMainWindowW, gMainWindowH,
-                                "Elektriktrick");
+                                gMainTitle);
 
     Fl_Menu_Bar *mainMenu = new Fl_Menu_Bar(0, 0, gMainWindow->w(), 25);
     mainMenu->menu(mainMenuTable);
 
-    Fl_Group *toolLine = new Fl_Group(0, gMainWindow->h()-20, gMainWindow->w(), 20);
-    toolLine->box(FL_DOWN_BOX);
-    {
-        ETSerialPort *ser = new ETSerialPort(gMainWindow->w()-52, gMainWindow->h()-18, 50, 16);
-        ser->open("/dev/tty.usb1411", 19200);
-    }
-    toolLine->end();
+    Fl_Tile *mainTile = new Fl_Tile(0, mainMenu->h(), gMainWindow->w(), gMainWindow->h()-mainMenu->h());
 
-    Fl_Pack *machineBar = new Fl_Pack(gMainWindow->w()-32, mainMenu->h(), 32, gMainWindow->h()-mainMenu->h()-toolLine->h());
-    {
-        Fl_Button *b = new Fl_Button(0, 0, 32, 32, "fix\n&&\nsave");
-        b->labelsize(8);
-        b->callback(shrinkAndSaveCB);
-        b->tooltip("Fix model for FDM print and save with '_fit' extension");
-    }
-    machineBar->end();
-
-    gFileBrowser = new Fl_File_Browser(0, mainMenu->h(), gFileBrowserW, gMainWindow->h()-mainMenu->h()-toolLine->h());
-
-    ogl = new ETOpenGLWidget(gFileBrowserW, mainMenu->h(), gMainWindow->w()-machineBar->w()-gFileBrowserW, gMainWindow->h()-mainMenu->h()-toolLine->h());
-    ogl->draw_callback(draw_cb);
-    ogl->drop_callback(drop_cb);
-    ogl->end();
-
-    gMainWindow->resizable(ogl);
-    gMainWindow->show();
-    gMainWindow->show();
-
-#if 0
-
-//    loadStl("/Users/matt/Desktop/Machine Shop/Machine Pwdr/0.02_dragon_2.stl");
-//    loadStl("/Users/matt/Desktop/Machine Shop/Data 3d/ETCalibrate_v2_x02_y01.stl");
-//    loadStl("/Users/matt/Desktop/Machine Shop/Data 3d/yoda-figure.stl");
-//    loadStl("/Users/matt/Desktop/Machine Shop/Data 3d/trunicos40mm.stl");
-//    loadStl("/Users/matt/female.stl");
-    loadSTL("/Users/matt/Desktop/Machine Shop/Project InMoov/WeVolver/Bicep_for_Robot_InMoov/SpacerV1.stl");
-
-#else 
-
-//    ETModel *model = ETModel::ModelForFileType("/Users/matt/Desktop/Machine Shop/Project InMoov/WeVolver/Bicep_for_Robot_InMoov/SpacerV1.stl");
-    loadFile("/Users/matt/test.dxf");
-
-#endif
-
+    gFileBrowser = new Fl_File_Browser(0, mainMenu->h(), gFileBrowserW, gMainWindow->h()-mainMenu->h());
     gFileBrowser->type(FL_HOLD_BROWSER);
     gFileBrowser->filetype(Fl_File_Browser::FILES);
     gFileBrowser->iconsize(20);
-    gFileBrowser->filter("[^.]*{.stl|.dxf|.gcode}");
-    gFileBrowser->load(gBasePath);
+    gFileBrowser->filter("[^.]*{.stl|.dxf|.gcode|.bfb}");
     gFileBrowser->callback(file_browser_cb);
 
+    gRenderWidget = new ETOpenGLWidget(gFileBrowserW, mainMenu->h(), gMainWindow->w()-gFileBrowserW, gMainWindow->h()-mainMenu->h());
+    gRenderWidget->draw_callback(draw_cb);
+    gRenderWidget->drop_callback(drop_cb);
+    gRenderWidget->drawMode2d(gDrawMode2D);
+    gRenderWidget->end();
 
-//    Fl::add_timeout(3, test);
+    mainTile->end();
+    // TODO: with a 'resizable' widget, we can limit the resizing of gMainWindow
+
+    gMainWindow->resizable(mainTile);
+    gMainWindow->show();
+    gMainWindow->show();
+
+    // The function below uses the advanced geometry system in ETGMesh.h/.cxx
+    // loadSTL("filename.stl");
+
+    // TODO: load the file given from the command line
+    // TODO: or load the file given via Open message
+    // TODO: change the path accordingly
+    // TODO: don't list directories that start with a '.'
+    // TODO: scroll event overflow into reder window
+    // TODO: direct path entry
+    gFileBrowser->load(gBasePath);
+
     Fl::run();
 
     WritePreferences();

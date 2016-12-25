@@ -9,6 +9,7 @@
 #include "ETQuickLookHelper.h"
 #import <Cocoa/Cocoa.h>
 
+
 void ET::DrawBackgroupdGradient(CGContextRef cgContext, int width, int height)
 {
     // generate background
