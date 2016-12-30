@@ -20,6 +20,7 @@
 
 #include "ETSerialPort.h"
 #include "ETOpenGLWidget.h"
+#include "ETFileBrowser.h"
 
 #include "ETOpenGLSurface.h"
 
@@ -48,7 +49,7 @@ int gMainWindowH;
 int gFileBrowserW;
 
 Fl_Window *gMainWindow;
-Fl_File_Browser *gFileBrowser;
+ETFileBrowser *gFileBrowser;
 ETOpenGLWidget *gRenderWidget;
 
 char gBasePath[FL_PATH_MAX] = "";
@@ -104,7 +105,7 @@ void loadFile(const char *filename)
     snprintf(buf, FL_PATH_MAX, gMainTitleAndFile, fl_filename_name(filename));
     gMainWindow->copy_label(buf);
 
-    // TODO: should we also set the current path to the path of this file?
+    // FIXME: we are keeping track of the path twice: in gFileBroswer and in gBasePath! Don't do that!
 }
 
 
@@ -128,24 +129,25 @@ void draw_cb()
 }
 
 
-void file_browser_cb(Fl_Widget *w, void*)
+void file_select_cb(const char *filename)
 {
-    // FIXME: don't change directory simply because we move there with an arrow key
-    const char *name = gFileBrowser->text(gFileBrowser->value());
-    if (!name) return;
+    loadFile(gFileBrowser->full_path());
+}
 
-    char buf[FL_PATH_MAX];
-    strcpy(buf, gBasePath);
-    strcat(buf, "/");
-    strcat(buf, gFileBrowser->text(gFileBrowser->value()));
 
-    if (fl_filename_isdir(buf)) {
-        chdir(gBasePath);
-        fl_filename_absolute(gBasePath, FL_PATH_MAX, name);
-        gFileBrowser->load(gBasePath);
-    } else {
-        loadFile(buf);
-    }
+void directory_select_cb(const char *directory)
+{
+    chdir(gBasePath);
+    fl_filename_absolute(gBasePath, FL_PATH_MAX, directory);
+    gFileBrowser->load(gBasePath);
+}
+
+
+void directory_up_cb(const char *directory)
+{
+    chdir(gBasePath);
+    fl_filename_absolute(gBasePath, FL_PATH_MAX, directory);
+    gFileBrowser->load(gBasePath);
 }
 
 
@@ -199,6 +201,9 @@ int main (int argc, char **argv)
 {
     ReadPreferences();
     Fl::args(argc, argv);
+    Fl::set_font(0, "Helvetice Neu"); // TODO: does not work as expected
+    fl_open_callback(drop_cb);
+    Fl_File_Icon::load_system_icons();
 
     gMainWindow = new Fl_Window(gMainWindowX, gMainWindowY,
                                 gMainWindowW, gMainWindowH,
@@ -209,12 +214,15 @@ int main (int argc, char **argv)
 
     Fl_Tile *mainTile = new Fl_Tile(0, mainMenu->h(), gMainWindow->w(), gMainWindow->h()-mainMenu->h());
 
-    gFileBrowser = new Fl_File_Browser(0, mainMenu->h(), gFileBrowserW, gMainWindow->h()-mainMenu->h());
+    gFileBrowser = new ETFileBrowser(0, mainMenu->h(), gFileBrowserW, gMainWindow->h()-mainMenu->h());
     gFileBrowser->type(FL_HOLD_BROWSER);
     gFileBrowser->filetype(Fl_File_Browser::FILES);
     gFileBrowser->iconsize(20);
     gFileBrowser->filter("[^.]*{.stl|.dxf|.gcode|.bfb}");
-    gFileBrowser->callback(file_browser_cb);
+    gFileBrowser->directory_filter("[^.]*");
+    gFileBrowser->file_select_callback(file_select_cb);
+    gFileBrowser->directory_select_callback(directory_select_cb);
+    gFileBrowser->directory_up_callback(directory_up_cb);
 
     gRenderWidget = new ETOpenGLWidget(gFileBrowserW, mainMenu->h(), gMainWindow->w()-gFileBrowserW, gMainWindow->h()-mainMenu->h());
     gRenderWidget->draw_callback(draw_cb);
@@ -227,7 +235,6 @@ int main (int argc, char **argv)
 
     gMainWindow->resizable(mainTile);
     gMainWindow->show();
-    gMainWindow->show();
 
     // The function below uses the advanced geometry system in ETGMesh.h/.cxx
     // loadSTL("filename.stl");
@@ -235,9 +242,9 @@ int main (int argc, char **argv)
     // TODO: load the file given from the command line
     // TODO: or load the file given via Open message
     // TODO: change the path accordingly
-    // TODO: don't list directories that start with a '.'
-    // TODO: scroll event overflow into reder window
     // TODO: direct path entry
+    // TODO: other OS X specific things: http://www.fltk.org/doc-1.3/group__group__macosx.html#ga0702a54934d10f5b72157137cf291296
+
     gFileBrowser->load(gBasePath);
 
     Fl::run();

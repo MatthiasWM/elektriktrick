@@ -90,6 +90,7 @@ void ETWireframeModel::Prepare3DDrawing()
  */
 void ETWireframeModel::GLDraw3D()
 {
+    // FIXME: this is plain wrong!
     int width = 30, height = 20;
     int xoff = width/2;
     int yoff = height/2;
@@ -101,16 +102,8 @@ void ETWireframeModel::GLDraw3D()
     uint32_t i;
     for (i=0; i<nEdge; ++i) {
         ETEdge *e = &edge[i];
-//        float lum = 0.7f - 0.4f * e->lum;
-//        float hue = 0.5f + 0.5f * e->hue;
-//        if (hue<0.0) hue = 0.0;
-//        if (hue>1.0) hue = 1.0;
-        // I want a color range from red at the bottom to yellow at the top
-        // and dark in the back to lighter in the front:
-        // FF0000 to FFFF00
         glVertex2f(e->p0.x*xscl+xoff, e->p0.y*yscl+yoff);
         glVertex2f(e->p1.x*xscl+xoff, e->p1.y*yscl+yoff);
-        // TODO: if (QLPreviewRequestIsCancelled(preview)) break;
     }
     glEnd();
 }

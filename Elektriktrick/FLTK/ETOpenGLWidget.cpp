@@ -121,11 +121,6 @@ void ETOpenGLWidget::draw()
 
 void ETOpenGLWidget::draw2D()
 {
-    // TODO: draw background
-    // TODO: 0,0 is at the bottom left
-    // TODO: top,right is size in pixels
-    // TODO: no shading or anything
-
     // set 1:1 projection
     glMatrixMode (GL_PROJECTION);
     glLoadIdentity();

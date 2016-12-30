@@ -61,7 +61,7 @@ void ETModelSTL::CGDraw2D(void* ctx, int width, int height)
         CGContextAddLineToPoint(cgContext, t->p2.x*xscl+xoff, t->p2.y*yscl+yoff);
         CGContextClosePath(cgContext);
         CGContextDrawPath(cgContext, kCGPathFillStroke);
-        // TODO: if (QLPreviewRequestIsCancelled(preview)) break;
+        // TODO: ?? if (QLPreviewRequestIsCancelled(preview)) break;
     }
 }
 

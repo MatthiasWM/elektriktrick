@@ -41,6 +41,7 @@
 		C97E92A11994EFE70078000B /* ETModelTextSTL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97E929F1994EFE70078000B /* ETModelTextSTL.cpp */; };
 		C97E92A21994EFE70078000B /* ETModelTextSTL.h in Headers */ = {isa = PBXBuildFile; fileRef = C97E92A01994EFE70078000B /* ETModelTextSTL.h */; };
 		C9A469D11BBB26C000784CBF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9A469CF1BBB26C000784CBF /* main.cpp */; };
+		C9B7C53E1E1085A5006D944C /* ETFileBrowser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9B7C53C1E1085A5006D944C /* ETFileBrowser.cpp */; };
 		C9CB02A31C7A1E2800D38A2F /* fltk_gl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CB029D1C7A1E2800D38A2F /* fltk_gl.framework */; };
 		C9CB02A41C7A1E2800D38A2F /* fltk_images.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CB029E1C7A1E2800D38A2F /* fltk_images.framework */; };
 		C9CB02A51C7A1E2800D38A2F /* fltk_jpeg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CB029F1C7A1E2800D38A2F /* fltk_jpeg.framework */; };
@@ -150,6 +151,8 @@
 		C97E92A01994EFE70078000B /* ETModelTextSTL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETModelTextSTL.h; sourceTree = "<group>"; };
 		C9A469CF1BBB26C000784CBF /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C9A469D01BBB26C000784CBF /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		C9B7C53C1E1085A5006D944C /* ETFileBrowser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ETFileBrowser.cpp; path = FLTK/ETFileBrowser.cpp; sourceTree = "<group>"; };
+		C9B7C53D1E1085A5006D944C /* ETFileBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ETFileBrowser.h; path = FLTK/ETFileBrowser.h; sourceTree = "<group>"; };
 		C9CB029D1C7A1E2800D38A2F /* fltk_gl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = fltk_gl.framework; path = Resources/fltk_gl.framework; sourceTree = "<group>"; };
 		C9CB029E1C7A1E2800D38A2F /* fltk_images.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = fltk_images.framework; path = Resources/fltk_images.framework; sourceTree = "<group>"; };
 		C9CB029F1C7A1E2800D38A2F /* fltk_jpeg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = fltk_jpeg.framework; path = Resources/fltk_jpeg.framework; sourceTree = "<group>"; };
@@ -236,6 +239,8 @@
 				C94843571BD839580051AE08 /* ETOpenGLWidget.h */,
 				C94843591BDC2FDE0051AE08 /* ETOpenGLSurface.cpp */,
 				C948435A1BDC2FDE0051AE08 /* ETOpenGLSurface.h */,
+				C9B7C53C1E1085A5006D944C /* ETFileBrowser.cpp */,
+				C9B7C53D1E1085A5006D944C /* ETFileBrowser.h */,
 			);
 			name = FLTK;
 			sourceTree = "<group>";
@@ -521,6 +526,7 @@
 				C948AF1C1E0D8C160059DAAF /* ETWireframeModel.cpp in Sources */,
 				C94843501BD8385A0051AE08 /* Flio_Serial_Port.cxx in Sources */,
 				C948AF1A1E0D8C160059DAAF /* ETModelTextSTL.cpp in Sources */,
+				C9B7C53E1E1085A5006D944C /* ETFileBrowser.cpp in Sources */,
 				C948AF181E0D8C160059DAAF /* ETModel.cpp in Sources */,
 				C94843441BD836790051AE08 /* ETGMesh.cpp in Sources */,
 				C948AF191E0D8C160059DAAF /* ETModelSTL.cpp in Sources */,
@@ -593,7 +599,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -626,7 +632,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -708,7 +714,6 @@
 				INFOPLIST_FILE = Elektriktrick/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Elektriktrick/CGAL/lib";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matthiasm.elektriktrick.app.Elektriktrick;
@@ -746,7 +751,6 @@
 				INFOPLIST_FILE = Elektriktrick/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Elektriktrick/CGAL/lib";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matthiasm.elektriktrick.app.Elektriktrick;
